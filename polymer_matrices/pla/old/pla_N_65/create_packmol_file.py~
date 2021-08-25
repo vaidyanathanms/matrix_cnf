@@ -1,0 +1,51 @@
+# To check guassian polymer matrix chains
+# Add above to PACKMOL along with modified cellulose chains or additional
+# polymers
+
+import os
+import sys
+import numpy
+import re
+import shutil
+import glob
+import math
+from aux_pack import * # function definitions
+#------------------------------------------------------------------
+
+# Input data
+matrix   = 'pla' #pla/pp
+mat_fyle = 'pla_inp.pdb' # matrix input file - ONLY PDB
+cnf_fyle = 'modifiedCNF_m1' # cellulose/mod cellulose input
+mod_cell = 1 #modified cellulose
+nmons    = 65
+nchains  = 50
+add_poly = 'None'
+packout  = 'pack_cellulose.inp'
+#------------------------------------------------------------------
+
+# Directory paths
+main_dir  = os.getcwd() # current dir
+cnf_dir   = '/home/v0e/allcodes/files_cnf/make_acetylated_cellulose'
+if not os.path.isdir(cnf_dir): # cellulose directory
+    print("FATAL ERROR: ", cnf_dir, " not found")
+    exit("Check cnf directory path")
+scr_dir   = '/lustre/or-scratch/cades-bsd/v0e' # scratch dir
+if not os.path.isdir(scr_dir):
+    print("FATAL ERROR: ", scr_dir, " not found")
+    exit("Check scratch directory path")
+scr_dir  = scr_dir + '/cellulose_nanofibers'
+#------------------------------------------------------------------
+
+# Main code
+check_inp_files(main_dir,mat_fyle) #polymer matrix
+matdir = check_gaussianity_and_write(mat_fyle,nmons,nchains)
+fpack = open(packout,'w')
+packmol_headers(fpack)
+find_cellulose_dimension(cnf_dir,main_dir,cnf_fyle)
+#pack_cellulose_chains()
+#pack_polymer_matrix()
+#if add_poly != 'None':
+#    pack_extra_polymers()
+#packmol_close()
+#make_fin_dirs_and_copy()
+

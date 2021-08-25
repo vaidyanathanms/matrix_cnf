@@ -1,0 +1,12 @@
+Loading parameters
+checking GPU cards...
+njob:  0
+No.running Jobs: 0 ...
+
+Initial system energy
+-19383.78515625 kJ/mol
+
+MD run: 200000 steps
+#"Progress (%)"	"Step"	"Time (ps)"	"Potential Energy (kJ/mole)"	"Temperature (K)"	"Speed (ns/day)"	"Time Remaining"
+50.0%	       100000	        5000	-19229.227	  391.321	        0	       --
+100.0%	       200000	        9999	-19223.420	  423.532	 7.18e+04	     0:00

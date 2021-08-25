@@ -1,0 +1,26 @@
+* TOPOLOGY AND PARAMETERS FOR A BIG-SPHERE (POL)
+*
+set nsphe_1 = 10
+set P1F1 = PA
+set P1F2 = PA
+set P1F3 = PA
+set P1F4 = PA
+set P1F5 = PA
+set P1F6 = PA
+set P1F7 = PA
+set P1F8 = PA
+set P1F9 = PA
+set P1F10 = PA
+set rad = 9
+set sprad = 10
+set rmin2 = 5.051
+set nm1r1 = 2
+set nm1r2 = 2
+set nm1r3 = 2
+set nm1r4 = 2
+set nm1r5 = 2
+set nm1r6 = 2
+set nm1r7 = 2
+set nm1r8 = 2
+set nm1r9 = 2
+set nm1r10 = 2

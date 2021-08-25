@@ -1,0 +1,1 @@
+{"systype":"solution","dimensions":["77.0780922","77.0780922","77.0780922","90.0","90.0","90.0"],"input":["namd","gromacs","lammps"],"forcefield":{"type":"c36m","files":["default"],"custom":[]},"hmr":false}

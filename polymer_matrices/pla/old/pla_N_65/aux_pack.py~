@@ -1,0 +1,196 @@
+# Auxiliary file for create_packmol_file
+import os
+import sys
+import numpy as np
+import re
+import shutil
+import glob
+import math
+import struct
+#---------------------------------------------------------------------
+def gencpy(dum_maindir,dum_destdir,fylname):
+    
+    srcfyl = dum_maindir + '/' + fylname
+
+    if not os.path.exists(srcfyl):
+        raise RuntimeError('ERROR: ', srcfyl, 'not found')
+
+    desfyl = dum_destdir + '/' + fylname
+    shutil.copy2(srcfyl,desfyl)
+#---------------------------------------------------------------------
+#Check pdb/psf/top files for the melt (or polymer)
+def check_inp_files(dum_inpdir, inp_name):
+    # check structure files 
+    if glob.glob(dum_inpdir+'/' + inp_name) == []:
+        raise RuntimeError(inp_name, "not found")
+#------------------------------------------------------------------
+
+def check_gaussianity_and_write(inpfyle,nmons,nchains):
+    frg = open('inprg.dat','w')
+    outdir = os.getcwd() + '/matrixpdb'
+    if not os.path.isdir(outdir):
+        os.mkdir(outdir)
+    with open(inpfyle) as fin:
+        rx = []; ry = []; rz = []
+        rg2ch = []; rg4ch = []; 
+        chcntr = 1; atcnt = 0
+        for line in fin:
+            if line.lstrip().startswith('#') or \
+               line.lstrip().startswith('@'):
+                continue
+            if 'TER' in line:
+                if mval != nmons:
+                    raise RuntimeError("Monomer mismatch",\
+                                       chcntr,mval,nmons)
+                rg2, rg4 = compute_rg(rx,ry,rz,atcnt)
+                rg2ch.append(rg2); rg4ch.append(rg4)
+                frg.write('%g\t%g\t%g\t%g\n' \
+                          %(chcntr,rg2,rg4,rg4/rg2**2))
+                rx = []; ry = []; rz = []
+                chcntr += 1; atcnt = 0
+                continue
+            else:
+                mval = int(line.split()[4])
+                rx.append(float(line.split()[5]))
+                ry.append(float(line.split()[6]))
+                rz.append(float(line.split()[7]))
+                atcnt += 1
+    write_gaussian_chains(rg2ch,rg4ch,outdir,inpfyle)
+    return outdir
+#------------------------------------------------------------------
+# Compute Rg
+def compute_rg(rx, ry, rz, atcnt):
+
+    rxa = np.array(rx); rya = np.array(ry); rza = np.array(rz)
+    rxcm = np.average(rxa); rycm = np.average(rya)
+    rzcm = np.average(rza)
+
+    rx2 = np.sum(np.square(rxa-rxcm)); rx4 = np.sum(np.power(rxa-rxcm,4)); 
+    ry2 = np.sum(np.square(rya-rycm)); ry4 = np.sum(np.power(rya-rycm,4)); 
+    rz2 = np.sum(np.square(rza-rzcm)); rz4 = np.sum(np.power(rza-rzcm,4)); 
+
+    rx2 /= atcnt; ry2 /= atcnt; rz2 /= atcnt
+    rx4 /= atcnt; ry4 /= atcnt; rz4 /= atcnt
+
+    return rx2 + ry2 + rz2, rx4 + ry4 + rz4
+#------------------------------------------------------------------
+# Write Gaussian Chains
+def write_gaussian_chains(rg2ch,rg4ch,dirname,fname):
+    with open(fname) as fin:
+        for ctr in range(len(rg2ch)):
+            if abs(1.0-(rg4ch[ctr]/(rg2ch[ctr]**2))) < 0.05:
+                fout = open(dirname+'/pla_'+str(ctr+1)+'.pdb','w')
+                line = fin.readline()
+                while not 'TER' in line:
+                    fout.write(line)
+                    line = fin.readline()
+                fout.write(line)
+                fout.close()
+                ctr += 1
+            else:
+                while not 'TER' in fin.readline():
+                    pass
+                fin.readline() # jump 'TER' line
+#------------------------------------------------------------------
+# Make packmol headers
+def packmol_headers(fout):
+    fout.write('# Pack cellulose and polymer matrix\n')
+    fout.write('# Inputs')
+    fout.write('Tolerance\t%g\n' %(2.0))
+    fout.write('filetype\tpdb')
+    fout.write('seed\t-1')
+#------------------------------------------------------------------
+# Find cellulose/modified cellulose dimensions
+def read_pdb_file(inpfyle):
+    fmt_at ="4sx6sx4s1s4s1s4s1s3x8s8s8s6s6s6x4s2s"
+    fmt_atq="4sx6sx4s1s4s1s4s1s3x8s8s8s6s6s6x4s2s2s"
+    fmt_ht ="6s5sx4s1s4s1s4s1s3x8s8s8s6s6s6x4s2s"
+    fmt_htq="6s5sx4s1s4s1s4s1s3x8s8s8s6s6s6x4s2s2s"
+    aidarr = []; anamearr = []; residarr = []
+    rxarr = []; ryarr = []; rzarr = []
+    segnamearr = [];massarr = []
+    with open(inpfyle) as fin:
+        fin.readline()
+        for line in fin:
+            if line[0:4] == 'ATOM' and len(line.strip()) == 78:
+                (rec,aid,aname,altloc,resname,chid,resid,rescode,\
+                 rx,ry,rz,occ,beta,segname,elem) \
+                    = struct.unpack(fmt_at,line.strip())
+            elif line[0:4] == 'ATOM' and len(line.strip()) == 80:
+                (rec,aid,aname,altloc,resname,chid,resid,rescode,\
+                 rx,ry,rz,occ,beta,segname,elem,qval) \
+                    = struct.unpack(fmt_atq,line.strip())
+            elif line[0:4] == 'HEATOM' and len(line.strip()) == 78:
+                (rec,aid,aname,altloc,resname,chid,resid,rescode,\
+                 rx,ry,rz,occ,beta,segname,elem) \
+                    = struct.unpack(fmt_ht,line.strip())
+            elif line[0:4] == 'HEATOM' and len(line.strip()) == 80:
+                (rec,aid,aname,altloc,resname,chid,resid,rescode,\
+                 rx,ry,rz,occ,beta,segname,elem,qval) \
+                    = struct.unpack(fmt_htq,line.strip())
+            elif line[0:3] == 'END' or line[0:3] == 'TER':
+                continue
+            else:
+                raise RuntimeError("Unknown line format", line)
+            
+            aidarr.append(int(aid));anamearr.append(aname)
+            residarr.append(int(resid))
+            rxarr.append(float(rx)); ryarr.append(float(ry))
+            rzarr.append(float(rz))
+            segnamearr.append(segname)
+            if elem.strip() == 'H':
+                mval = 1.008
+            elif elem.strip() == 'C':
+                mval = 12.0108
+            elif elem.strip() == 'O':
+                mval = 15.9994
+
+            massarr.append(mval)
+
+    return aidarr,residarr,rxarr,ryarr,rzarr,segnamearr,massarr
+#------------------------------------------------------------------
+def find_cellulose_dimension(cnfdir,currdir,cnffyle):   
+    gencpy(cnfdir,currdir,cnffyle+'.pdb')
+    gencpy(cnfdir,currdir,cnffyle+'.psf')
+    aidcnf,residcnf,rxcnf,rycnf,rzcnf,segnamecnf,masscnf \
+        = read_pdb_file(cnffyle+'.pdb')
+#    rxcm,rycm,rzcm = find_com_chains(residcnf,masscnf,rxcnf,rycnf,rzcnf)
+    return min(rxcnf),min(rycnf),min(rzcnf),max(rxcnf),max(rycnf),\
+        max(rzcnf)
+#------------------------------------------------------------------
+def find_r_com_chains(resarr,massarr,rxarr,ryarr,rzarr)
+    chid = 1;ctr = 1
+    rxcmarr = []; rycmarr = []; rzcmarr = []
+    rxcm = 0.0; rycm = 0.0; rzcm = 0.0
+    while chid <= max(resarr):
+        if resarr[ctr] == chid:
+            rxcm += massarr[ctr]*rxarr[ctr]
+            rycm += massarr[ctr]*ryarr[ctr]
+            rzcm += massarr[ctr]*rzarr[ctr]
+            ctr += 1
+        else:
+            chid += 1
+            rxcmarr.append(rxcm)
+            rycmarr.append(rycm)
+            rzcmarr.append(rzcm)
+            rxcm = 0.0; rycm = 0.0; rzcm = 0.0
+    return rxcmarr, rycmarr, rzcmarr
+#------------------------------------------------------------------
+# Add polymer matrix
+#def add_polymer_matrix():
+# Make final directories
+def make_fin_dirs_and_copy():
+    if not os.path.isdir(scr_dir):
+        os.mkdir(scr_dir)
+    poly_dir = scr_dir + '/' + matrix
+    if not os.path.isdir(poly_dir):
+        os.mkdir(poly_dir)
+    if mod_cell:
+        cnf_dir = poly_dir + '/mod_cell'
+        if not os.path.isdir(cnf_dir):
+            os.mkdir(cnf_dir)
+#------------------------------------------------------------------
+# if __name__
+if __name__ == '__main__':
+    main()
+#------------------------------------------------------------------

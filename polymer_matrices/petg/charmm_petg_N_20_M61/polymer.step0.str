@@ -1,0 +1,19 @@
+* information about system
+*
+
+set system = 
+set num_component = 1
+! chain
+set dilute = off
+set totmon_1 = 1
+set lcha_1 = 20
+set ncha_1 = 61
+! residue
+set rn1r1 = PETL
+set tt1r1 = no
+set bbn1r1 = 8
+set s1r1p1 = O1
+set s1r1p2 = C1
+set s1r1p3 = C2
+! patch
+set p1t1n1 = P00080

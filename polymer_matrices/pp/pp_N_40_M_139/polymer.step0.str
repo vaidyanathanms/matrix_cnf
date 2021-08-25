@@ -1,0 +1,28 @@
+* information about system
+*
+
+set system = 
+set num_component = 1
+! chain
+set dilute = off
+set totmon_1 = 2
+set lcha_1 = 40
+set ncha_1 = 139
+! residue
+set rn1r1 = PROR
+set tt1r1 = yes
+set bbn1r1 = 2
+set s1r1p1 = H11
+set s1r1p2 = C1
+set s1r1p3 = C2
+set rn1r2 = PROS
+set tt1r2 = yes
+set bbn1r2 = 2
+set s1r2p1 = H11
+set s1r2p2 = C1
+set s1r2p3 = C2
+! patch
+set p1t1n1 = P00094
+set p1t1n2 = P00089
+set p1t2n1 = P00102
+set p1t2n2 = P00106
