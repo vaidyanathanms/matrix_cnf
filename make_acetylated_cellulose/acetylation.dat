@@ -1,0 +1,107 @@
+Acetylation probability: 0.3
+Possible number of monomers acetylated: 110.0
+Weighted possible number of acetylated monomers: 33.0
+********Trial: 1*******************************
+# Chain ID: C0
+patch 6TAC C0:13
+patch 6TAC C0:11
+patch 6TAC C0:9
+patch 6TAC C0:7
+patch 6TAC C0:5
+patch 6TAC C0:3
+# Chain ID: C1
+patch 6TAC C1:19
+patch 6TAC C1:15
+patch 6TAC C1:5
+# Chain ID: C2
+patch 6TAC C2:18
+patch 6TAC C2:14
+patch 6TAC C2:12
+patch 6TAC C2:6
+patch 6TAC C2:4
+# Chain ID: C7
+patch 6TAC C7:16
+patch 6TAC C7:10
+patch 6TAC C7:8
+# Chain ID: C9
+patch 6TAC C9:17
+patch 6TAC C9:11
+patch 6TAC C9:5
+patch 6TAC C9:3
+# Chain ID: C10
+# Chain ID: C11
+patch 6TAC C11:18
+patch 6TAC C11:8
+# Chain ID: O0
+patch 6TAC O0:13
+patch 6TAC O0:5
+# Chain ID: O3
+patch 6TAC O3:20
+patch 6TAC O3:18
+patch 6TAC O3:12
+patch 6TAC O3:2
+# Chain ID: O5
+patch 6TAC O5:19
+patch 6TAC O5:17
+patch 6TAC O5:13
+patch 6TAC O5:11
+patch 6TAC O5:5
+patch 6TAC O5:3
+# Chain ID: O8
+patch 6TAC O8:18
+patch 6TAC O8:8
+patch 6TAC O8:6
+patch 6TAC O8:2
+Total number of acetylated monomers: 39
+Relative error: 0.18181818181818182
+**********************************************************
+********Trial: 2*******************************
+# Chain ID: C0
+patch 6TAC C0:19
+patch 6TAC C0:17
+patch 6TAC C0:15
+patch 6TAC C0:13
+patch 6TAC C0:9
+patch 6TAC C0:5
+# Chain ID: C1
+patch 6TAC C1:11
+# Chain ID: C2
+patch 6TAC C2:12
+patch 6TAC C2:8
+patch 6TAC C2:6
+patch 6TAC C2:2
+# Chain ID: C7
+patch 6TAC C7:16
+patch 6TAC C7:10
+# Chain ID: C9
+patch 6TAC C9:9
+patch 6TAC C9:7
+patch 6TAC C9:5
+# Chain ID: C10
+# Chain ID: C11
+patch 6TAC C11:10
+patch 6TAC C11:8
+patch 6TAC C11:6
+# Chain ID: O0
+patch 6TAC O0:17
+patch 6TAC O0:15
+patch 6TAC O0:11
+patch 6TAC O0:7
+patch 6TAC O0:3
+# Chain ID: O3
+patch 6TAC O3:20
+patch 6TAC O3:14
+patch 6TAC O3:8
+# Chain ID: O5
+patch 6TAC O5:19
+patch 6TAC O5:17
+patch 6TAC O5:11
+patch 6TAC O5:7
+patch 6TAC O5:5
+patch 6TAC O5:3
+# Chain ID: O8
+patch 6TAC O8:16
+Total number of acetylated monomers: 34
+Relative error: 0.030303030303030304
+**********************************************************
+Final configuration obtained
