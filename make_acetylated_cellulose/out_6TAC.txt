@@ -1,0 +1,3419 @@
+Info) VMD for LINUXAMD64, version 1.9.3 (December 1, 2016)
+Info) http://www.ks.uiuc.edu/Research/vmd/                         
+Info) Email questions and bug reports to vmd@ks.uiuc.edu           
+Info) Please include this reference in published work using VMD:   
+Info)    Humphrey, W., Dalke, A. and Schulten, K., `VMD - Visual   
+Info)    Molecular Dynamics', J. Molec. Graphics 1996, 14.1, 33-38.
+Info) -------------------------------------------------------------
+Info) Multithreading available, 36 CPUs detected.
+Info) Free system memory: 113GB (89%)
+Info) Dynamically loaded 2 plugins in directory:
+Info) /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/vmd/1.9.3/centos7.2_binary/lib/vmd/plugins/LINUXAMD64/molfile
+/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/vmd/1.9.3/centos7.2_binary/lib/vmd/scripts/tcl8.5 /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/vmd/1.9.3/centos7.2_binary/lib/vmd/scripts /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/vmd/1.9.3/centos7.2_binary/lib/lib /Projects/johns/tcl/8.5.6/lib_LINUXAMD64/lib /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/vmd/1.9.3/centos7.2_binary/lib/vmd/scripts/vmd /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/vmd/1.9.3/centos7.2_binary/lib/vmd/plugins/LINUXAMD64/tcl /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/vmd/1.9.3/centos7.2_binary/lib/vmd/plugins/noarch/tcl /home/v0e/LigninBuilder/LigninBuilderPlugin
+1.6.4
+1
+6
+singlemon_6TAC
+../elementary_fibrils
+psfgen) reading topology file /home/v0e/ff_all/charmff/toppar_c36_jul20/top_all36_carb.rtf
+
+psfgen)  $Id: top_allxx_sugar.inp,v 1.106 2014/08/19 19:07:43 alex Exp $
+psfgen) >>>>>>>>>>>> All-hydrogen topologies used in the <<<<<<<<<<<<<<<<
+psfgen) >>>>> development of the CHARMM carbohydrate  force field<<<<<<<<
+psfgen) >>>>>>>>>>>>>>>>>>>>>>>>> June 2009 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+psfgen) >>>>>>>> Direct comments to Alexander D. MacKerell Jr. <<<<<<<<<<
+psfgen) >>>>>>>>>> via the CHARMM web site: www.charmm.org <<<<<<<<<<<<<<
+psfgen) >>>>>>>>>>>>>>> parameter set discussion forum <<<<<<<<<<<<<<<<<<
+psfgen) 
+psfgen) Created by CHARMM version 32 1
+psfgen) ERROR!  Failed to parse autogenerate statement.  Line 135: AUTOGENERATE angles dihedrals patch
+
+psfgen) reading topology file /home/v0e/ff_all/charmff/toppar_c36_jul20/toppar_all36_carb_imlab.str
+
+psfgen) reading topology from stream file
+psfgen)  glycan chemical modification patches
+psfgen)  
+psfgen) Created by CHARMM version 41 1
+psfgen) cross-term entries present in topology definitions
+psfgen) skipping parameters in stream file
+psfgen)  glycan chemical modification patches
+psfgen) 
+psfgen) reading topology file /home/v0e/ff_all/charmff/toppar_c36_jul20/top_all35_ethers.rtf
+
+psfgen) >>>>>>>>>>>>>>>>>>> All-hydrogen topology <<<<<<<<<<<<<<<<<<<<<<<
+psfgen) >>>>>>>>>>>>>>>> CHARMM32 ether force field <<<<<<<<<<<<<<<<<<<<<
+psfgen) >>>>>>>>>>>>>>>>>>>>>> December 2006 <<<<<<<<<<<<<<<<<<<<<<<<<<<<
+psfgen) >>>>>>>> Direct comments to Alexander D. MacKerell Jr. <<<<<<<<<<
+psfgen) >>>>>>>>>>>> via the CHARMM forum: www.charmm.org <<<<<<<<<<<<<<<
+psfgen) 
+psfgen) Created by CHARMM version 34
+psfgen) ERROR!  Failed to parse autogenerate statement.  Line 41: AUTOGENERATE angle dihe patch
+
+C
+psfgen) clearing structure, preserving topology and aliases
+psfgen) building segment C0
+psfgen) Info: generating structure...segment complete.
+psfgen) applying patch 6TAC to 1 residues
+psfgen) reading coordinates from pdb file ../elementary_fibrils/csff-elementary-fibril-C0.pdb for segment C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:2	  C0
+psfgen) no residue 2 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:2	  C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:1	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:3	  C0
+psfgen) no residue 3 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:3	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:4	  C0
+psfgen) no residue 4 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:4	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:5	  C0
+psfgen) no residue 5 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:5	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:6	  C0
+psfgen) no residue 6 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:6	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:7	  C0
+psfgen) no residue 7 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:7	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:8	  C0
+psfgen) no residue 8 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:8	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:9	  C0
+psfgen) no residue 9 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:9	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:10	  C0
+psfgen) no residue 10 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:10	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:11	  C0
+psfgen) no residue 11 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:11	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:12	  C0
+psfgen) no residue 12 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:12	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:13	  C0
+psfgen) no residue 13 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:13	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:14	  C0
+psfgen) no residue 14 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:14	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:15	  C0
+psfgen) no residue 15 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:15	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:16	  C0
+psfgen) no residue 16 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:16	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:17	  C0
+psfgen) no residue 17 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:17	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:18	  C0
+psfgen) no residue 18 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:18	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:19	  C0
+psfgen) no residue 19 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:19	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:20	  C0
+psfgen) no residue 20 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:20	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:21	  C0
+psfgen) no residue 21 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:21	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:22	  C0
+psfgen) no residue 22 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:22	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:23	  C0
+psfgen) no residue 23 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:23	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:24	  C0
+psfgen) no residue 24 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:24	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:25	  C0
+psfgen) no residue 25 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:25	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:26	  C0
+psfgen) no residue 26 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:26	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:27	  C0
+psfgen) no residue 27 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:27	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:28	  C0
+psfgen) no residue 28 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:28	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:29	  C0
+psfgen) no residue 29 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:29	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:30	  C0
+psfgen) no residue 30 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:30	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:31	  C0
+psfgen) no residue 31 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:31	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:32	  C0
+psfgen) no residue 32 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:32	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:33	  C0
+psfgen) no residue 33 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:33	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:34	  C0
+psfgen) no residue 34 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:34	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:35	  C0
+psfgen) no residue 35 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:35	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:36	  C0
+psfgen) no residue 36 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:36	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:37	  C0
+psfgen) no residue 37 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:37	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:38	  C0
+psfgen) no residue 38 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:38	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:39	  C0
+psfgen) no residue 39 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:39	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:40	  C0
+psfgen) no residue 40 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:40	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:41	  C0
+psfgen) no residue 41 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:41	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:42	  C0
+psfgen) no residue 42 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:42	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:43	  C0
+psfgen) no residue 43 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:43	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:44	  C0
+psfgen) no residue 44 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:44	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:45	  C0
+psfgen) no residue 45 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:45	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:46	  C0
+psfgen) no residue 46 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:46	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:47	  C0
+psfgen) no residue 47 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:47	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:48	  C0
+psfgen) no residue 48 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:48	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:49	  C0
+psfgen) no residue 49 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:49	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:50	  C0
+psfgen) no residue 50 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:50	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:51	  C0
+psfgen) no residue 51 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:51	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:52	  C0
+psfgen) no residue 52 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:52	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:53	  C0
+psfgen) no residue 53 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:53	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:54	  C0
+psfgen) no residue 54 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:54	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:55	  C0
+psfgen) no residue 55 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:55	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:56	  C0
+psfgen) no residue 56 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:56	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:57	  C0
+psfgen) no residue 57 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:57	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:58	  C0
+psfgen) no residue 58 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:58	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:59	  C0
+psfgen) no residue 59 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:59	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:60	  C0
+psfgen) no residue 60 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:60	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:61	  C0
+psfgen) no residue 61 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:61	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:62	  C0
+psfgen) no residue 62 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:62	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:63	  C0
+psfgen) no residue 63 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:63	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:64	  C0
+psfgen) no residue 64 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:64	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:65	  C0
+psfgen) no residue 65 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:65	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:66	  C0
+psfgen) no residue 66 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:66	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:67	  C0
+psfgen) no residue 67 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:67	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:68	  C0
+psfgen) no residue 68 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:68	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:69	  C0
+psfgen) no residue 69 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:69	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:70	  C0
+psfgen) no residue 70 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:70	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:71	  C0
+psfgen) no residue 71 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:71	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:72	  C0
+psfgen) no residue 72 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:72	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:73	  C0
+psfgen) no residue 73 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:73	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:74	  C0
+psfgen) no residue 74 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:74	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:75	  C0
+psfgen) no residue 75 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:75	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:76	  C0
+psfgen) no residue 76 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:76	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:77	  C0
+psfgen) no residue 77 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:77	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:78	  C0
+psfgen) no residue 78 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:78	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:79	  C0
+psfgen) no residue 79 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:79	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom C4	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom H4	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom C1	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom H1	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom O1	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO1	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom C5	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom H5	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom O5	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom C2	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom H2	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom O2	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO2	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom C3	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom H3	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom O3	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO3	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom C6	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom H61	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom H62	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom O6	 BGLC:80	  C0
+psfgen) no residue 80 of segment C0
+psfgen) Warning: failed to set coordinate for atom HO6	 BGLC:80	  C0
+psfgen) Info: guessing coordinates for 7 atoms (3 non-hydrogen)
+psfgen) regenerating all angles
+psfgen) regenerating all dihedrals
+psfgen) Info: writing pdb file C0.pdb
+psfgen) Info: Atoms with guessed coordinates will have occupancy of 0.0.
+psfgen) Info: pdb file complete.
+psfgen) Info: writing psf file C0.psf
+psfgen) total of 29 atoms
+psfgen) total of 29 bonds
+psfgen) total of 51 angles
+psfgen) total of 74 dihedrals
+psfgen) total of 0 impropers
+psfgen) total of 0 explicit exclusions
+psfgen) Structure requires EXTended PSF format
+psfgen) total of 0 cross-terms
+psfgen) Info: psf file complete.
+psfgen) clearing structure, preserving topology and aliases
+psfgen) clearing structure, preserving topology and aliases
+psfgen) reading structure from psf file C0.psf
+psfgen) duplicate topology file /home/v0e/ff_all/charmff/toppar_c36_jul20/top_all36_carb.rtf
+psfgen) duplicate topology file /home/v0e/ff_all/charmff/toppar_c36_jul20/toppar_all36_carb_imlab.str
+psfgen) duplicate topology file /home/v0e/ff_all/charmff/toppar_c36_jul20/top_all35_ethers.rtf
+psfgen) psf file does not contain cross-terms
+psfgen) reading coordinates from pdb file C0.pdb
+psfgen) Info: guessing coordinates for 0 atoms (0 non-hydrogen)
+psfgen) Info: writing pdb file singlemon_6TAC.pdb
+psfgen) Info: pdb file complete.
+psfgen) Info: writing psf file singlemon_6TAC.psf
+psfgen) total of 29 atoms
+psfgen) total of 29 bonds
+psfgen) total of 51 angles
+psfgen) total of 74 dihedrals
+psfgen) total of 0 impropers
+psfgen) total of 0 explicit exclusions
+psfgen) Structure requires EXTended PSF format
+psfgen) total of 0 cross-terms
+psfgen) Info: psf file complete.
+C0:1 
+Info) VMD for LINUXAMD64, version 1.9.3 (December 1, 2016)
+Info) Exiting normally.
+vmd > 

@@ -1,0 +1,99 @@
+#############################################################
+## JOB DESCRIPTION                                         ##
+# To use FEP method to remove overlaps                     ##
+#############################################################
+
+#############################################################
+## ADJUSTABLE PARAMETERS                                   ##
+#############################################################
+set inputname singlemon_6AC5
+structure          $inputname.psf
+coordinates        $inputname.pdb
+
+set runnumber 0
+
+set outputname	   out
+set temperature    300
+firsttimestep 0
+
+
+#############################################################
+## SIMULATION PARAMETERS                                   ##
+#############################################################
+
+
+# NOTE: Do not set the initial velocity temperature if you 
+# have also specified a .vel restart file!
+# temperature         $temperature
+ 
+
+# Periodic Boundary conditions
+# NOTE: Do not set the periodic cell basis if you have also 
+# specified an .xsc restart file!
+
+
+wrapWater           on
+wrapAll             on
+
+# Force-Field Parameters
+exclude             scaled1-4
+1-4scaling          1.0
+cutoff              12.
+switching           on
+switchdist          10.
+pairlistdist        14
+margin               3
+
+# Interaction Parameters
+
+paraTypeCharmm       on
+parameters          par_all36_carb.prm 
+parameters          /home/v0e/ff_all/charmff/toppar_c36_jul20/toppar_all36_carb_imlab.str
+
+# Integrator Parameters
+rigidBonds all
+timestep            2.0
+nonbondedFreq       1
+fullElectFrequency  2  
+stepspercycle       20
+
+
+# Constant Temperature Control
+langevin            on    ;# do langevin dynamics
+langevinDamping     1     ;# damping coefficient (gamma) of 5/ps
+langevinTemp        $temperature
+langevinHydrogen    no    ;# don't couple langevin bath to hydrogens
+temperature $temperature
+
+# Output
+outputName          $outputname
+restartname         $outputname.restart
+dcdfile             $outputname.dcd
+xstFile             $outputname.xst
+
+restartfreq         1000
+dcdfreq             20
+xstFreq             1000
+outputEnergies      100
+
+alch on
+alchType ti
+alchLambda 0.02
+alchLambda2 0.02
+
+gridForce on
+gridForceFile $inputname.pdb
+gridForceCol B
+gridForceChargeCol O
+gridForcePotFile grid.dx
+gridForceScale 2 2 2
+
+dielectric 80
+
+# source addenda.namd
+
+#############################################################
+## EXECUTION SCRIPT                                        ##
+#############################################################
+
+minimize 5000

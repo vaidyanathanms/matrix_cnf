@@ -1,0 +1,46 @@
+Acetylation probability: 0.5
+Possible number of monomers acetylated: 55.0
+Weighted possible number of acetylated monomers: 28.0
+********Trial: 1*******************************
+# Chain ID: C0
+patch 6WFF C0:7
+patch 6WFF C0:5
+# Chain ID: C1
+patch 6WFF C1:9
+patch 6WFF C1:7
+patch 6WFF C1:3
+# Chain ID: C2
+patch 6WFF C2:8
+patch 6WFF C2:4
+# Chain ID: C7
+patch 6WFF C7:10
+patch 6WFF C7:8
+patch 6WFF C7:4
+patch 6WFF C7:2
+# Chain ID: C9
+patch 6WFF C9:9
+# Chain ID: C10
+patch 6WFF C10:2
+# Chain ID: C11
+patch 6WFF C11:6
+patch 6WFF C11:4
+patch 6WFF C11:2
+# Chain ID: O0
+patch 6WFF O0:7
+patch 6WFF O0:5
+# Chain ID: O3
+patch 6WFF O3:8
+patch 6WFF O3:6
+patch 6WFF O3:4
+patch 6WFF O3:2
+# Chain ID: O5
+patch 6WFF O5:3
+# Chain ID: O8
+patch 6WFF O8:10
+patch 6WFF O8:8
+patch 6WFF O8:6
+patch 6WFF O8:2
+Total number of acetylated monomers: 27
+Relative error: 0.03571428571428571
+**********************************************************
+Final configuration obtained
