@@ -19,3 +19,9 @@ bin-release/
 
 old/
 acetylation/
+polymer_matrices/petg
+polymer_matrices/p3hb
+polymer_matrices/pp
+polymer_matrices/pla
+cellulose
+polymer_matrices/pack_files/outdir/
