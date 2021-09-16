@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "create_packmol_file.py", line 96, in <module>
-    acet_fyle,acet_att,pack_mat,acet_new)
-  File "/nfs/home/v0e/allcodes/files_cnf/polymer_matrices/pack_files/aux_pack.py", line 321, in make_acet_cell
-    acet_pat  = ret_acet_pat(acet_val)
-  File "/nfs/home/v0e/allcodes/files_cnf/polymer_matrices/pack_files/aux_pack.py", line 357, in ret_acet_pat
-    raise RuntimeError('No patch for acetylation length: ', acet_val)
-RuntimeError: ('No patch for acetylation length: ', 5)
