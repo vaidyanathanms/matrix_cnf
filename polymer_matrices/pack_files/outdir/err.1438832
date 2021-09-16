@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "create_packmol_file.py", line 85, in <module>
+    pack_mat = create_output_dirs(pack_sup,acet_val,acet_per,add_poly)
+  File "/nfs/home/v0e/allcodes/files_cnf/polymer_matrices/pack_files/aux_pack.py", line 51, in create_output_dirs
+    os.mkdir(subdir)
+FileExistsError: [Errno 17] File exists: '/home/v0e/allcodes/files_cnf/polymer_matrices/cnf_packed_pla_N_40_M_81/acet_cnf_m5_0.3'

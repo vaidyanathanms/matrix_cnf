@@ -1,0 +1,46 @@
+# Pack cellulose and polymer matrix
+# Inputs
+
+tolerance  2
+filetype  pdb
+output  packed_pla.pdb
+seed  -1
+
+#Begin structure generation 
+
+structure  modifiedCNF_m1.pdb
+  number   1
+  center 
+ inside box -42.9318  -36.4288  -230.648  42.0358  24.8238  -80.7302
+end structure
+
+structure  /nfs/home/v0e/allcodes/files_cnf/polymer_matrices/pack_files/pla_matrixpdb/pla_11.pdb
+  number   10
+#  center 
+ inside box -42.9318  -36.4288  -230.648  42.0358  24.8238  -80.7302
+end structure
+
+structure  /nfs/home/v0e/allcodes/files_cnf/polymer_matrices/pack_files/pla_matrixpdb/pla_3.pdb
+  number   10
+#  center 
+ inside box -42.9318  -36.4288  -230.648  42.0358  24.8238  -80.7302
+end structure
+
+structure  /nfs/home/v0e/allcodes/files_cnf/polymer_matrices/pack_files/pla_matrixpdb/pla_4.pdb
+  number   10
+#  center 
+ inside box -42.9318  -36.4288  -230.648  42.0358  24.8238  -80.7302
+end structure
+
+structure  /nfs/home/v0e/allcodes/files_cnf/polymer_matrices/pack_files/pla_matrixpdb/pla_21.pdb
+  number   10
+#  center 
+ inside box -42.9318  -36.4288  -230.648  42.0358  24.8238  -80.7302
+end structure
+
+structure  /nfs/home/v0e/allcodes/files_cnf/polymer_matrices/pack_files/pla_matrixpdb/pla_2.pdb
+  number   10
+#  center 
+ inside box -42.9318  -36.4288  -230.648  42.0358  24.8238  -80.7302
+end structure
+
