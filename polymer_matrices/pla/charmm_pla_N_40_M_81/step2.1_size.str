@@ -1,8 +1,0 @@
-*Information about system
-*
-calc sizex = 76.276429607475
-calc sizey = 76.276429607475
-calc sizez = 76.276429607475
-set bxtype = cubic
-set zlayer = 0
-set min_zlayer = 300

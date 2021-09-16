@@ -1,5 +1,0 @@
-graph G {
-  layout=dot;
-  rankdir=LR;
-  node [style=filled];
-0 [shape=circle,fillcolor="pink",label="PA",width="0.5",fontsize="8",margin="0.05,0.055",height="0.5",fixedsize="1"];}
