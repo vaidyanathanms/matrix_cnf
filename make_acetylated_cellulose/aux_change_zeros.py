@@ -11,7 +11,7 @@ import subprocess
 import random
 #------------------------------------------------------------------
 
-def read_and_process_file(inpfyle,outfyle):
+def read_and_process_file(inpfyle,outfyle,rdist):
     fmt_at = b'4sx6sx4s1s4s1s4s1s3x8s8s8s6s6s6x4s2s'
     fmt_atq= b'4sx6sx4s1s4s1s4s1s3x8s8s8s6s6s6x4s2s2s'
     fmt_ht = b'6s5s4s1s4s1s4s1s3x8s8s8s6s6s6x4s2s'
@@ -81,15 +81,13 @@ def read_and_process_file(inpfyle,outfyle):
 
     process_and_write(recarr,aidarr,anamearr,resnamearr,residarr\
                       ,rxarr,ryarr,rzarr,occarr,betaarr,elemarr,\
-                      segnamearr,outfyle)
+                      segnamearr,outfyle,rdist)
 #------------------------------------------------------------------
 # Find output write type
 # ref: https://stackoverflow.com/questions/17796017/how-do-i-output-a-pdb-file-using-python-script
 def process_and_write(recarr,aidarr,anamearr,resnamearr,residarr,
                       rxarr,ryarr,rzarr,occarr,betaarr,elemarr,\
-                      segnamearr,outfyle):
-
-    rdist  = 0.5 # move maximum by this distance
+                      segnamearr,outfyle,rdist):
 
     fout = open(outfyle,'w')
     fout.write('%s\n' %('REMARK Processed output file VMS'))
@@ -134,12 +132,9 @@ def process_and_write(recarr,aidarr,anamearr,resnamearr,residarr,
 #------------------------------------------------------------------
 # change zeros to r + rdist*ran
 def change_zeros(rxold,ryold,rzold,rmax):
-    rval  = random.random()
-    theta = 2*math.pi*rval
-    phi   = math.pi*rval
-    rxnew = rxold + random.random()*rmax*math.sin(phi)*math.cos(theta)
-    rynew = ryold + random.random()*rmax*math.sin(phi)*math.sin(theta)
-    rznew = rzold + random.random()*rmax*math.cos(phi)
+    rxnew = rxold + random.random()*rmax
+    rynew = ryold + random.random()*rmax
+    rznew = rzold + random.random()*rmax
     return rxnew,rynew,rznew
 #------------------------------------------------------------------
 # if __name__
