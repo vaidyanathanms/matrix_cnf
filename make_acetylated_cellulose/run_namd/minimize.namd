@@ -1,20 +1,20 @@
 ;# user defined variable names -- Note: also need to change the cell basis vectors
-set name          singlemon_6AC5
-set output        mini
+set name          modified_m7
+set output        out_$name
 set temperature   300
 
 ;#structure files
 structure          $name.psf
-coordinates        $name.pdb
+coordinates        processed_$name.pdb
 
 temperature         $temperature ;# only if velocities need to regenerated 
 
 ;#force fields
 paraTypeCharmm       on
-parameters          par_all36_carb.prm 
+parameters          /home/v0e/ff_all/charmff/toppar_c36_jul20/par_all36_carb.prm 
 #parameters          par_imlab.prm 
 parameters          /home/v0e/ff_all/charmff/toppar_c36_jul20/toppar_all36_carb_imlab.str
-parameters          par_all35_ethers.prm
+#parameters          par_all35_ethers.prm
 exclude             scaled1-4
 1-4scaling          1.0
 cutoff              11.0
@@ -55,7 +55,7 @@ langevinPistonTemp    $temperature
 
 # Output
 outputName          $output
-binaryoutput       no
+#binaryoutput       no
 restartfreq        10000     ;# every 20ps
 dcdfreq             500      ;# 500steps = every 1ps
 xstFreq             500
@@ -64,6 +64,6 @@ outputPressure     2500
 
 #############################################################
 
-minimize 50000
+minimize 20000
 
 #run 500000 ;# 1 ns
