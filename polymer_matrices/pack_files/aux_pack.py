@@ -263,7 +263,7 @@ def pack_polymer_matrix(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,zmax,fout,ma
         fout.write('  number   %d\n' %(nsets))  
 #        fout.write('  center \n') #Don't center matrix chains
         fout.write(' inside box %g  %g  %g  %g  %g  %g\n'
-                   %(xmin-0.5*dr,ymin-0.5*dr,zmin-dr,xmax+0.5*dr,ymax+0.5*dr,zmax+dr))
+                   %(xmin-0.5*dr,ymin-0.5*dr,zmin-0.5*dr,xmax+0.5*dr,ymax+0.5*dr,zmax+0.5*dr))
         fout.write('end structure\n')
         fout.write('\n')
 

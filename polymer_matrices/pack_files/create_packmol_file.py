@@ -33,7 +33,7 @@ add_poly = 'None'
 
 # Input data - Packmol
 inppack  = 'pack_cellulose.inp' # PACKMOL input file
-fin_box  = 1.2 # final box size relative to max dimension of cnf/matrix
+fin_box  = 1.1 # final box size relative to max dimension of cnf/matrix
 run_pack = 1 # 1-run packmol
 packsh   = 'run_packmol_pyinp.sh'
 #------------------------------------------------------------------
