@@ -206,8 +206,8 @@ def read_pdb_file(inpfyle):
     return aidarr,residarr,rxarr,ryarr,rzarr,segnamearr,massarr
 #------------------------------------------------------------------
 def find_cnf_dim(acetdir,acetfyle2,packdir):   
-    gencpy(acetdir,packdir,acetfyle2+'.pdb')
-    gencpy(acetdir,packdir,acetfyle2+'.psf')
+    gencpy(packdir,acetdir,acetfyle2+'.pdb')
+    gencpy(packdir,acetdir,acetfyle2+'.psf')
     acetfyle = acetdir + '/' + acetfyle2 + '.pdb'
     aidcnf,residcnf,rxcnf,rycnf,rzcnf,segnamecnf,masscnf \
         = read_pdb_file(acetfyle)
@@ -263,7 +263,7 @@ def pack_polymer_matrix(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,zmax,fout,ma
         fout.write('  number   %d\n' %(nsets))  
 #        fout.write('  center \n') #Don't center matrix chains
         fout.write(' inside box %g  %g  %g  %g  %g  %g\n'
-                   %(xmin-dr,ymin-dr,zmin-dr,xmax+dr,ymax+dr,zmax+dr))
+                   %(xmin-0.5*dr,ymin-0.5*dr,zmin-dr,xmax+0.5*dr,ymax+0.5*dr,zmax+dr))
         fout.write('end structure\n')
         fout.write('\n')
 
