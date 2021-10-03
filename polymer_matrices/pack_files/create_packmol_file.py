@@ -14,10 +14,10 @@ from aux_pack import * # function definitions
 #------------------------------------------------------------------
 
 # Input data - Polymer matrix
-matrix   = 'petg' #pla/pp
+matrix   = 'pla' #pla/pp/petg/p3hb
 mat_pdb  = 'step3_input.pdb' # matrix input pdb file - ONLY PDB
-nmons    = 20 # number of matrix monomers
-nchains  = 61 # number of matrix chains
+nmons    = 40 # number of matrix monomers
+nchains  = 81 # number of matrix chains
 gaus_tol = 0.05 # tolerance for checking gaussianity
 
 # Input data - Cellulose/Acetylated Cellulose/Additives

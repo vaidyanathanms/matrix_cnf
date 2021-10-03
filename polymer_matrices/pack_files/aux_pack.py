@@ -240,7 +240,7 @@ def pack_cellulose_chains(fout,packdir,inpfyle,ncnf,xmin,ymin,zmin,xmax,ymax,zma
     fout.write('  number   %d\n' %(ncnf))  
     fout.write('  center \n')
     fout.write(' inside box %g  %g  %g  %g  %g  %g\n'
-               %(xmin-dr,ymin-dr,zmin-dr,xmax+dr,ymax+dr,zmax+dr))
+               %(xmin-0.25*dr,ymin-0.25*dr,zmin-dr,xmax+0.25*dr,ymax+0.25*dr,zmax+dr))
     fout.write('end structure\n')
     fout.write('\n')
 #------------------------------------------------------------------
