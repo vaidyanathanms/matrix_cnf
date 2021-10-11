@@ -1,46 +1,51 @@
-Acetylation probability: 0.5
-Possible number of monomers acetylated: 55.0
-Weighted possible number of acetylated monomers: 28.0
+Acetylation probability: 0.3
+Acetylation patch used: 6AC11
+Possible number of monomers acetylated: 110.0
+Weighted possible number of acetylated monomers: 33.0
 ********Trial: 1*******************************
 # Chain ID: C0
-patch 6WFF C0:7
-patch 6WFF C0:5
+patch 6AC11 C0:19
+patch 6AC11 C0:7
 # Chain ID: C1
-patch 6WFF C1:9
-patch 6WFF C1:7
-patch 6WFF C1:3
+patch 6AC11 C1:7
+patch 6AC11 C1:5
 # Chain ID: C2
-patch 6WFF C2:8
-patch 6WFF C2:4
+patch 6AC11 C2:14
+patch 6AC11 C2:12
+patch 6AC11 C2:2
 # Chain ID: C7
-patch 6WFF C7:10
-patch 6WFF C7:8
-patch 6WFF C7:4
-patch 6WFF C7:2
+patch 6AC11 C7:20
+patch 6AC11 C7:18
+patch 6AC11 C7:16
+patch 6AC11 C7:6
+patch 6AC11 C7:4
 # Chain ID: C9
-patch 6WFF C9:9
+patch 6AC11 C9:19
+patch 6AC11 C9:3
 # Chain ID: C10
-patch 6WFF C10:2
+patch 6AC11 C10:18
+patch 6AC11 C10:14
+patch 6AC11 C10:12
+patch 6AC11 C10:8
+patch 6AC11 C10:2
 # Chain ID: C11
-patch 6WFF C11:6
-patch 6WFF C11:4
-patch 6WFF C11:2
+patch 6AC11 C11:20
+patch 6AC11 C11:16
+patch 6AC11 C11:14
+patch 6AC11 C11:2
 # Chain ID: O0
-patch 6WFF O0:7
-patch 6WFF O0:5
+patch 6AC11 O0:7
+patch 6AC11 O0:5
 # Chain ID: O3
-patch 6WFF O3:8
-patch 6WFF O3:6
-patch 6WFF O3:4
-patch 6WFF O3:2
+patch 6AC11 O3:20
+patch 6AC11 O3:12
+patch 6AC11 O3:4
 # Chain ID: O5
-patch 6WFF O5:3
+patch 6AC11 O5:7
+patch 6AC11 O5:3
 # Chain ID: O8
-patch 6WFF O8:10
-patch 6WFF O8:8
-patch 6WFF O8:6
-patch 6WFF O8:2
-Total number of acetylated monomers: 27
-Relative error: 0.03571428571428571
+patch 6AC11 O8:2
+Total number of acetylated monomers: 31
+Relative error: 0.06060606060606061
 **********************************************************
 Final configuration obtained

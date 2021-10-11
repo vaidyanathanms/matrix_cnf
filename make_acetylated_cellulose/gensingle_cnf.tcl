@@ -12,7 +12,7 @@ set deg_poly 1 ; # DONT CHANGE THIS
 set carb_pos 6 ; #carbon position for substitution
 
 # Define variables
-set outname singlemon_6AC5
+set outname singlemon_6AC7
 set dirname ../elementary_fibrils
 
 # Load topology
@@ -31,7 +31,7 @@ foreach n  { 0 } {
 	    residue $i BGLC 
 	}
     }
-    patch 6AC5 $segment:1
+    patch 6AC7 $segment:1
     
     coordpdb ../elementary_fibrils/csff-elementary-fibril-$segment.pdb $segment
     guesscoord

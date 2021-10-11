@@ -5,7 +5,7 @@
 
 # Uses acetyle patch from /toppar_all36_carb_imlab.str and BGLC from
 # top_all36_carb.rtf 
-# Acetyl patches: TAC6 (m1), 6AC3 (m3), 6AC7 (m7), 6A11 (m11)
+# Acetyl patches: TAC6 (m1), 6AC11 (m3), 6AC11 (m7), 6A11 (m11)
 # This method was easier than creating one acetylated carbon using
 # ligand builder and matching the carbons.
 
@@ -29,7 +29,7 @@ set targ_relerr 0.1 ; # value between 0 and 1
 set max_att 100 ; # maximum attempt for acetylation
 
 # Define variables
-set outname /home/v0e/allcodes/files_cnf/make_acetylated_cellulose/modified_m3
+set outname /home/v0e/allcodes/files_cnf/make_acetylated_cellulose/modified_m11
 set dirname ../elementary_fibrils
 
 # Load topology
@@ -41,9 +41,9 @@ set t1 [clock milliseconds]
 expr { srand(${t1}) }
 
 # Open structure file for cross checking
-set fp [open "/home/v0e/allcodes/files_cnf/polymer_matrices/cnf_packed_pla_N_40_M_81/acet_cnf_m3_0.3/acetylation_0.3_m3.dat" w]
+set fp [open "acetylation.dat" w]
 puts $fp "Acetylation probability: $acet_prob"
-puts $fp "Acetylation patch used: 6AC3"
+puts $fp "Acetylation patch used: 6AC11"
 
 #----------------Non-acetyated chains----------------------------------
 # Build core center chains (no acetylation)
@@ -128,16 +128,16 @@ while { ($rel_err > $targ_relerr) || ($trialnum > $max_att) } {
 	    if {$n == 0 | $n == 9 | $n == 1} {
 		if {$i%2 == 1} { 
 		    if {rand() < $acet_prob} {
-			patch 6AC3 $segment:$i 
-			puts $fp "patch 6AC3 $segment:$i"
+			patch 6AC11 $segment:$i 
+			puts $fp "patch 6AC11 $segment:$i"
 			set acet_cnt [ expr $acet_cnt + 1 ]
 		    } 
 		}
 	    } elseif {$n == 2 | $n == 7 | $n == 11 | $n == 10} {
 		if {$i%2 == 0} { 
 		    if {rand() < $acet_prob} {
-			patch 6TAC $segment:$i 
-			puts $fp "patch 6AC3 $segment:$i"
+			patch 6AC11 $segment:$i 
+			puts $fp "patch 6AC11 $segment:$i"
 			set acet_cnt [ expr $acet_cnt + 1 ]
 		    } 
 		}
@@ -171,16 +171,16 @@ while { ($rel_err > $targ_relerr) || ($trialnum > $max_att) } {
 	    if {$n == 0 | $n == 5} {
 		if {$i%2 == 1} { 
 		    if {rand() < $acet_prob} {
-			patch 6AC3 $segment:$i 
-			puts $fp "patch 6AC3 $segment:$i"
+			patch 6AC11 $segment:$i 
+			puts $fp "patch 6AC11 $segment:$i"
 			set acet_cnt [ expr $acet_cnt + 1 ]
 		    } 
 		}
 	    } elseif {$n == 3 | $n == 8} {
 		if {$i%2 == 0} { 
 		    if {rand() < $acet_prob} {
-			patch 6AC3 $segment:$i 
-			puts $fp "patch 6AC3 $segment:$i"
+			patch 6AC11 $segment:$i 
+			puts $fp "patch 6AC11 $segment:$i"
 			set acet_cnt [ expr $acet_cnt + 1 ]
 		    } 
 		}
