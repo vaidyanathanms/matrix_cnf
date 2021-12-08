@@ -13,6 +13,14 @@ import subprocess
 from aux_pack import * # function definitions
 #------------------------------------------------------------------
 
+# Input directory paths
+main_dir = os.getcwd() # current dir
+nativ_cnf= '/home/v0e/allcodes/files_cnf/elementary_fibrils' #native cellulose dir
+acet_dir = '/home/v0e/allcodes/files_cnf/make_acetylated_cellulose' #acet_cnf dir
+pack_exe = '/home/v0e/packmol/packmol' # packmol executable
+poly_mat = '/home/v0e/allcodes/files_cnf/polymer_matrices' #input poly matrices
+scr_dir  = '/lustre/or-scratch/cades-bsd/v0e' # scratch dir
+
 # Input data - Polymer matrix
 matrix   = 'pla' #pla/pp/petg/p3hb
 mat_pdb  = 'step3_input.pdb' # matrix input pdb file - ONLY PDB
@@ -21,7 +29,7 @@ nchains  = 81 # number of matrix chains
 gaus_tol = 0.05 # tolerance for checking gaussianity
 
 # Input data - Cellulose/Acetylated Cellulose/Additives
-acet_val = 3 # m1 - 1, m3 - 3, m7 - 7, m11 - 11
+acet_val = 1 # m1 - 1, m3 - 3, m7 - 7, m11 - 11
 acet_per = 0.3 # fraction of acetylated cellulose
 acet_new = 1 # 0 - use old, 1-delete and regenerate
 ncnf     = 1 # number of cellulose bundles (18 chains)
@@ -34,23 +42,16 @@ add_poly = 'None'
 # Input data - Packmol
 inppack  = 'pack_cellulose.inp' # PACKMOL input file
 fin_box  = 1.1 # final box size relative to max dimension of cnf/matrix
-run_pack = 1 # 1-run packmol
+run_pack = 0 # 1-run packmol
 packsh   = 'run_packmol_pyinp.sh'
 #------------------------------------------------------------------
 
-# Directory paths
-main_dir = os.getcwd() # current dir
-nativ_cnf= '/home/v0e/allcodes/files_cnf/elementary_fibrils' #native cellulose dir
-acet_dir = '/home/v0e/allcodes/files_cnf/make_acetylated_cellulose' #acet_cnf dir
-pack_exe = '/home/v0e/packmol/packmol' # packmol executable
-poly_mat = '/home/v0e/allcodes/files_cnf/polymer_matrices' #inp poly mat super dir
+# Check for directory paths and input consistency
 pack_sup = poly_mat + '/cnf_packed_' + matrix + '_N_' + str(nmons)\
            + '_M_' + str(nchains)  # final packed output super dir
 poly_dir = poly_mat + '/' + matrix + '/charmm_' + matrix + '_N_' + str(nmons)\
              + '_M_' + str(nchains) # input polymer matrix dir
 gmx_mat  = poly_dir + '/gromacs'
-scr_dir  = '/lustre/or-scratch/cades-bsd/v0e' # scratch dir
-
 
 check_dir(nativ_cnf)
 check_dir(acet_dir)
@@ -114,12 +115,20 @@ pack_polymer_matrix(matdir,matrix,nchains,xmin,ymin,zmin,xmax,ymax,zmax,fpack,fi
 #if add_poly != 'None':
 #    pack_extra_polymers()
 
-# Close and run PACKMOL
-fpack.close()
+fpack.close() # close PACKMOL input file
 
+# Run PACKMOL
 if run_pack:
-    fpack.close()
     run_packmol(packfyle,pack_exe,pack_mat,packsh,main_dir)
+
+# Combine psf/top files for the system
+#combine_psf_top_files()
+
+# Clean up psf/pdb files
+#clean_and_sort_files()
+
+# Generate shell input files
+#generate_sh_files()
 
 os.chdir(main_dir)
 # Create final directories in scratch
