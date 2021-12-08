@@ -61,7 +61,9 @@ def check_gaussianity_and_write(gmxdir,inpfyle2,nmons,nchains,\
         raise RuntimeError(packalldir + ' not found')
 
     frg = open(packalldir + '/inprgstats_' + matname + '.dat','w')
-    frg.write('%s\t%s\t%s\t%s\n' %('ChainID','Rg^2','Rg^4','Rg^4/Rg^2'))
+    frg.write('%s\t%s\t%s\t%s\t%s\t%s\n' 
+              %('ChainID','Nres (Nmon)', 'Natoms', \
+                'Rg^2','Rg^4','Rg^4/Rg^2'))
     outdir = packalldir + '/' +  'gaussianchains'
     if not os.path.isdir(outdir):
         os.mkdir(outdir)
@@ -73,7 +75,7 @@ def check_gaussianity_and_write(gmxdir,inpfyle2,nmons,nchains,\
 
     with open(inpfyle) as fin:
         rx = []; ry = []; rz = []
-        rg2ch = []; rg4ch = []; 
+        rg2ch = []; rg4ch = []; atarr = []
         chcntr = 1; atcnt = 0
         for line in fin:
             if line.lstrip().startswith('#') or \
@@ -81,12 +83,13 @@ def check_gaussianity_and_write(gmxdir,inpfyle2,nmons,nchains,\
                 continue
             elif 'TER' in line:
                 if mval != nmons:
-                    raise RuntimeError("Monomer mismatch",\
+                    raise RuntimeError("# of monomers (residues) mismatch",\
                                        chcntr,mval,nmons)
                 rg2, rg4 = compute_rg(rx,ry,rz,atcnt)
                 rg2ch.append(rg2); rg4ch.append(rg4)
-                frg.write('%g\t%g\t%g\t%g\n' \
-                          %(chcntr,rg2,rg4,rg4/rg2**2))
+                atarr.append(atcnt)
+                frg.write('%g\t%g\t%g\t%g\t%g\t%g\n' \
+                          %(chcntr,mval,atcnt,rg2,rg4,rg4/rg2**2))
                 rx = []; ry = []; rz = []
                 chcntr += 1; atcnt = 0
             else:
@@ -95,7 +98,7 @@ def check_gaussianity_and_write(gmxdir,inpfyle2,nmons,nchains,\
                 ry.append(float(line.split()[6]))
                 rz.append(float(line.split()[7]))
                 atcnt += 1
-    write_gaussian_chains(rg2ch,rg4ch,outdir,inpfyle,matname,tol)
+    write_gaussian_chains(rg2ch,rg4ch,atarr,outdir,inpfyle,matname,tol)
     print('Finished guassianity writes...')
     rg2max = max(rg2ch)
     return outdir,math.sqrt(rg2max)
@@ -117,22 +120,22 @@ def compute_rg(rx, ry, rz, atcnt):
     return rx2 + ry2 + rz2, rx4 + ry4 + rz4
 #------------------------------------------------------------------
 # Write Gaussian Chains
-def write_gaussian_chains(rg2ch,rg4ch,dirname,fname,matname,tolval):
+def write_gaussian_chains(rg2ch,rg4ch,atarr,dirname,fname,matname,\
+                          tolval):
     with open(fname) as fin:
         for ctr in range(len(rg2ch)):
             if abs(1.0-(rg4ch[ctr]/(rg2ch[ctr]**2))) < tolval:
-                fout = open(dirname+'/'+matname+'_'+str(ctr+1)+'.pdb','w')
                 line = fin.readline()
-                while not 'TER' in line:
+                with open(dirname+'/'+matname+'_'+str(ctr+1)+'.pdb','w') as fout:
+                    fout.write('REMARK 999 chainID: %d; Rg4/(Rg2)^2: %g\n' \
+                               %(ctr+1,rg4ch[ctr]/(rg2ch[ctr]**2)))
                     fout.write(line)
-                    line = fin.readline()
-                fout.write(line)
-                fout.close()
-                ctr += 1
+                    while not 'TER' in line:
+                        line = fin.readline()
+                        fout.write(line)
             else:
                 while not 'TER' in fin.readline():
                     pass
-                fin.readline() # jump 'TER' line
 #------------------------------------------------------------------
 # Make packmol headers
 def packmol_headers(fout,matname,outdir,acetper,acetval,addpoly):
@@ -194,17 +197,22 @@ def read_pdb_file(inpfyle):
             ryarr.append(float(ry.decode('utf-8')))
             rzarr.append(float(rz.decode('utf-8')))
             segnamearr.append(segname.decode('utf-8'))
+            
             if elem.decode('utf-8').strip() == 'H':
                 mval = 1.008
             elif elem.decode('utf-8').strip() == 'C':
                 mval = 12.0108
             elif elem.decode('utf-8').strip() == 'O':
                 mval = 15.9994
-
+            elif elem.decode('utf-8').strip() == 'S':
+                mval = 32.065
+            elif elem.decode('utf-8').strip() == 'N':
+                mval = 14.0067
             massarr.append(mval)
 
     return aidarr,residarr,rxarr,ryarr,rzarr,segnamearr,massarr
 #------------------------------------------------------------------
+# Return cnf max and min dimensions
 def find_cnf_dim(acetdir,acetfyle2,packdir):   
     gencpy(packdir,acetdir,acetfyle2+'.pdb')
     gencpy(packdir,acetdir,acetfyle2+'.psf')
@@ -215,6 +223,7 @@ def find_cnf_dim(acetdir,acetfyle2,packdir):
     return min(rxcnf),min(rycnf),min(rzcnf),max(rxcnf),max(rycnf),\
         max(rzcnf)
 #------------------------------------------------------------------
+# return com of chains
 def find_r_com_chains(resarr,massarr,rxarr,ryarr,rzarr):
     chid = 1;ctr = 1
     rxcmarr = []; rycmarr = []; rzcmarr = []
@@ -276,7 +285,6 @@ def pack_polymer_matrix(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,zmax,fout,ma
         fout.write('end structure\n')
         fout.write('\n')
 #------------------------------------------------------------------
-
 # Run packmol
 def run_packmol(packfyle,pack_exe,destdir,packsh,currdir):
 
@@ -307,7 +315,6 @@ def run_packmol(packfyle,pack_exe,destdir,packsh,currdir):
 
     subprocess.call(["sbatch", rev_fname])
 #------------------------------------------------------------------
-
 # Make final directories
 def make_fin_dirs_and_copy(scr_dir,matrix,mod_cell,run_pack,packfyle):
     if not os.path.isdir(scr_dir):
@@ -324,7 +331,6 @@ def make_fin_dirs_and_copy(scr_dir,matrix,mod_cell,run_pack,packfyle):
             raise RuntimeError(packfyle + " not found\n")
         gencpy(os.getcwd(),poly_dir,packfyle)
 #------------------------------------------------------------------
-
 # Make acetylated cellulose
 def make_acet_cell(acet_dir,acet_val,cell_dp,acet_per,acet_tol,\
                    acet_fyle,acet_att,pack_mat,acet_new,nativ_cnf):
@@ -365,7 +371,6 @@ def make_acet_cell(acet_dir,acet_val,cell_dp,acet_per,acet_tol,\
     if len(lst_fyle) == 0:
         raise RuntimeError('No acetylated chains produced\n')
 #------------------------------------------------------------------
-
 # Return name of acetylation patch
 def ret_acet_pat(acet_val):
     if acet_val == 1:
@@ -379,7 +384,6 @@ def ret_acet_pat(acet_val):
     else:
         raise RuntimeError('No patch for acetylation length: ', acet_val)
 #------------------------------------------------------------------
-
 # if __name__
 if __name__ == '__main__':
     main()

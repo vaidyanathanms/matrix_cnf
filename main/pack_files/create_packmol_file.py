@@ -18,7 +18,7 @@ main_dir = os.getcwd() # current dir
 nativ_cnf= '/home/v0e/allcodes/files_cnf/elementary_fibrils' #native cellulose dir
 acet_dir = '/home/v0e/allcodes/files_cnf/make_acetylated_cellulose' #acet_cnf dir
 pack_exe = '/home/v0e/packmol/packmol' # packmol executable
-poly_mat = '/home/v0e/allcodes/files_cnf/polymer_matrices' #input poly matrices
+poly_mat = '/home/v0e/allcodes/files_cnf/polymer_matrices' #i/o dir poly matrices
 scr_dir  = '/lustre/or-scratch/cades-bsd/v0e' # scratch dir
 
 # Input data - Polymer matrix
@@ -30,7 +30,7 @@ gaus_tol = 0.05 # tolerance for checking gaussianity
 
 # Input data - Cellulose/Acetylated Cellulose/Additives
 acet_val = 1 # m1 - 1, m3 - 3, m7 - 7, m11 - 11
-acet_per = 0.3 # fraction of acetylated cellulose
+acet_per = 0.5 # fraction of acetylated cellulose
 acet_new = 1 # 0 - use old, 1-delete and regenerate
 ncnf     = 1 # number of cellulose bundles (18 chains)
 cell_dp  = 20 # degree of polymerization of cellulose chains
@@ -42,7 +42,7 @@ add_poly = 'None'
 # Input data - Packmol
 inppack  = 'pack_cellulose.inp' # PACKMOL input file
 fin_box  = 1.1 # final box size relative to max dimension of cnf/matrix
-run_pack = 0 # 1-run packmol
+run_pack = 1 # 1-run packmol
 packsh   = 'run_packmol_pyinp.sh'
 #------------------------------------------------------------------
 
