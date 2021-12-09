@@ -29,7 +29,7 @@ set targ_relerr 0.1 ; # value between 0 and 1
 set max_att 100 ; # maximum attempt for acetylation
 
 # Define variables
-set outname /home/v0e/allcodes/files_cnf/output_acetylated_cellulose/modified_m11
+set outname /home/v0e/allcodes/files_cnf/modified_m11
 set dirname ../elementary_fibrils
 
 # Load topology
