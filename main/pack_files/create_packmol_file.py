@@ -14,12 +14,12 @@ from aux_pack import * # function definitions
 #------------------------------------------------------------------
 
 # Input/Output directory paths
-main_dir = os.getcwd() # current dir
-nativ_cnf= '/home/v0e/allcodes/files_cnf/elementary_fibrils' #inp cellulose dir
-pack_exe = '/home/v0e/packmol/packmol' # packmol executable
-poly_mat = '/home/v0e/allcodes/files_cnf/polymer_matrices' #i/o dir poly matrices
-acet_dir = '/home/v0e/allcodes/files_cnf/acetyl_cellulose' #out acet_cell dir
-scr_dir  = '/lustre/or-scratch/cades-bsd/v0e' # scratch dir (MD run dir)
+main_dir  = os.getcwd() # current dir
+acet_dir  = '../acetylation_files' # input dir for acetylation
+nativ_cnf = '/home/v0e/allcodes/files_cnf/elementary_fibrils' #cellulose inps
+pack_exe  = '/home/v0e/packmol/packmol' # packmol executable
+poly_mat  = '/home/v0e/allcodes/files_cnf/polymer_matrices' #i/o dir poly matrices
+scr_dir   = '/lustre/or-scratch/cades-bsd/v0e' # scratch dir (MD run dir)
 
 # Input data - Polymer matrix
 matrix   = 'pla' #pla/pp/petg/p3hb
@@ -68,8 +68,7 @@ scr_dir   = scr_dir + '/cellulose_nanofibers'
 if acet_per != 0:
     acet_fyle = acetpref + str(acet_val)
     mod_cell  = 1
-    if not os.path.isdir(acet_dir): #create output acetylated cell dir
-        os.mkdir(acet_dir)
+    acet_outdir = '../../acetyl_cellulose' #out acet_cell dir
 else:
     acet_fyle = native_cell_dp + str(cell_dp)
     mod_cell = 0

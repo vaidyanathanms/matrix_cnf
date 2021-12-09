@@ -337,7 +337,7 @@ def make_acet_cell(acet_dir,acet_val,cell_dp,acet_per,acet_tol,\
 
     if acet_new:
         if not os.path.exists(acet_dir + '/genmodify_cnf_pyinp.tcl'):
-            print('genmodify_cnf_pyinp.tcl not found\n')
+            print('ERR: genmodify_cnf_pyinp.tcl not found\n')
             raise RuntimeError('File to generate modified cellulose not found\n')
 
 
