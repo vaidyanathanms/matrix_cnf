@@ -382,8 +382,41 @@ def ret_acet_pat(acet_val):
     elif acet_val == 11:
         return '6AC11'
     else:
-        raise RuntimeError('No patch for acetylation length: ', acet_val)
+        raise RuntimeError('No patch for acetylation length: '+acet_val)
 #------------------------------------------------------------------
+# make gmx top file for acetylated cellulose
+def make_top_file_for_acetcell(maindir, celltopdir, outdir):
+    
+#------------------------------------------------------------------
+# Split gmx top file into prm and itp files
+def split_top_file_to_prmitp(celltop_file):
+
+#------------------------------------------------------------------
+# Copy forcefield/top files of matrix to packmol directory
+def copy_mat_toppar_files(gmx_mat, pack_dir):
+    curr_dir =  os.getcwd()
+    if not os.path.isdir(gmx_mat+'/toppar'):
+        raise RuntimeError('toppar directory not found in ' + gmx_mat)
+    if not os.path.isdir(pack_dir + '/toppar'):
+        os.mkdir(pack_dir + '/toppar')
+
+    os.chdir(pack_dir + '/toppar')
+    mat_toppar = glob.glob('*')
+    for fyl in mat_toppar:
+        gencpy(gmx_mat+'/toppar', pack_dir+'/toppar', mat_toppar)
+
+    if not os.path.exists(gmx_mat + '/topol.top'):
+        print('WARNING: topol.top missing in ' + gmx_mat)
+    else:
+        gencpy(gmx_mat,pack_dir,'topol.top')
+        mat_toppar.insert(0,'topol.top')
+
+    os.chdir(curr_dir)
+    return mat_toppar
+#------------------------------------------------------------------
+# Combine polymer matrix and acetylation files
+def combine_top_files(itp_file,prm_file,mat_top_files):
+
 # if __name__
 if __name__ == '__main__':
     main()

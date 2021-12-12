@@ -19,6 +19,7 @@ matrix   = 'pla' #pla/pp/petg/p3hb
 # Input/Output directory paths
 main_dir  = os.getcwd() # current dir
 acet_dir  = '../acetylation_files' # input dir for acetylation
+cell_top  = '../cell_toppar' # top/par dir for cellulose/acetylated cell
 nativ_cnf = '/home/v0e/allcodes/files_cnf/elementary_fibrils' #cellulose inps
 pack_exe  = '/home/v0e/packmol/packmol' # packmol executable
 poly_mat  = '/home/v0e/allcodes/files_cnf/polymer_matrices' #i/o dir poly matrices
@@ -55,6 +56,7 @@ pack_sup = poly_mat + '/cnf_packed_' + matrix + '_N_' + str(nmons)\
 gmx_mat  = chrm_dir + '/gromacs'
 
 check_dir(nativ_cnf)
+check_dir(cell_top)
 check_dir(poly_mat)
 check_dir(chrm_dir)
 check_dir(gmx_mat)
@@ -122,14 +124,14 @@ fpack.close() # close PACKMOL input file
 if run_pack:
     run_packmol(packfyle,pack_exe,pack_mat,packsh,main_dir)
 
-# Generate and splot top file for modified cellulose if needed
+# Generate and split top file for modified cellulose if needed
 if acet_per != 0:
-    make_top_file_for_acetcell(pack_dir)
+    make_top_file_for_acetcell(main_dir,cell_top,pack_dir)
     itp_file, prm_file = split_top_file_to_itp_prm(top_file)
 
 # Copy itp/top/prm file for polymer matrix
 # Check for toppar inside gromacs directory output by CHARMM-GUI
-mat_top_files = copy_top_files_mat(gmx_mat,pack_dir)
+mat_toppar = copy_mat_itptop_files_mat(gmx_mat,pack_dir)
 
 # Combine polymer matrix and acet cell files into one top file
 out_topo_file = combine_top_files(itp_file,prm_file,mat_top_files)
