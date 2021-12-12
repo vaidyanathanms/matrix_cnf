@@ -260,15 +260,15 @@ def pack_polymer_matrix(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,zmax,fout,ma
 
     matlist = glob.glob(matdir + '/' + matname + '*.pdb')
     if matlist == []:
-        raise RuntimeError('No Gaussian inputs found. Consider chainging gaus_tol')
+        raise RuntimeError('No Gaussian inputs found. Consider changing gaus_tol')
     
     lenlist = len(matlist)
-    nsets   = int(nch/lenlist)
+    nsets   = int(nch/lenlist) if int(nch/lenlist) > 1 else 1
     nextra  = nch%lenlist
     dr = (mag-1)*dmax
 
-    for chain in matlist:
-        fout.write('structure  %s\n' %(chain))
+    for chain in range(min(lenlist,nch)):
+        fout.write('structure  %s\n' %(matlist[chain]))
         fout.write('  number   %d\n' %(nsets))  
 #        fout.write('  center \n') #Don't center matrix chains
         fout.write(' inside box %g  %g  %g  %g  %g  %g\n'
