@@ -13,19 +13,22 @@ import subprocess
 from aux_pack import * # function definitions
 #------------------------------------------------------------------
 
+# Polymer matrix
+matrix   = 'pla' #pla/pp/petg/p3hb
+
 # Input/Output directory paths
 main_dir  = os.getcwd() # current dir
 acet_dir  = '../acetylation_files' # input dir for acetylation
 nativ_cnf = '/home/v0e/allcodes/files_cnf/elementary_fibrils' #cellulose inps
 pack_exe  = '/home/v0e/packmol/packmol' # packmol executable
 poly_mat  = '/home/v0e/allcodes/files_cnf/polymer_matrices' #i/o dir poly matrices
+chrm_dir  = poly_mat + '/charmm_' + matrix #CHARMM inp dir for poly matrices
 scr_dir   = '/lustre/or-scratch/cades-bsd/v0e' # scratch dir (MD run dir)
 
 # Input data - Polymer matrix
-matrix   = 'pla' #pla/pp/petg/p3hb
 mat_pdb  = 'step3_input.pdb' # matrix input pdb file - ONLY PDB
-nmons    = 40 # number of matrix monomers
-nchains  = 81 # number of matrix chains
+nmons    = 40 # number of matrix monomers in output
+nchains  = 81 # number of matrix chains in output
 gaus_tol = 0.05 # tolerance for checking gaussianity
 
 # Input data - Cellulose/Acetylated Cellulose/Additives
@@ -49,13 +52,11 @@ packsh   = 'run_packmol_pyinp.sh'
 # Check for directory paths and input consistency
 pack_sup = poly_mat + '/cnf_packed_' + matrix + '_N_' + str(nmons)\
            + '_M_' + str(nchains)  # final packed output super dir
-poly_dir = poly_mat + '/' + matrix + '/charmm_' + matrix + '_N_' + str(nmons)\
-             + '_M_' + str(nchains) # input polymer matrix dir
-gmx_mat  = poly_dir + '/gromacs'
+gmx_mat  = chrm_dir + '/gromacs'
 
 check_dir(nativ_cnf)
 check_dir(poly_mat)
-check_dir(poly_dir)
+check_dir(chrm_dir)
 check_dir(gmx_mat)
 check_dir(scr_dir)
 
@@ -121,14 +122,23 @@ fpack.close() # close PACKMOL input file
 if run_pack:
     run_packmol(packfyle,pack_exe,pack_mat,packsh,main_dir)
 
-# Combine psf/top files for the system
-#combine_psf_top_files()
+# Generate and splot top file for modified cellulose if needed
+if acet_per != 0:
+    make_top_file_for_acetcell(pack_dir)
+    itp_file, prm_file = split_top_file_to_itp_prm(top_file)
 
-# Clean up psf/pdb files
-#clean_and_sort_files()
+# Copy itp/top/prm file for polymer matrix
+# Check for toppar inside gromacs directory output by CHARMM-GUI
+mat_top_files = copy_top_files_mat(gmx_mat,pack_dir)
+
+# Combine polymer matrix and acet cell files into one top file
+out_topo_file = combine_top_files(itp_file,prm_file,mat_top_files)
+
+# Clean up psf/pdb files of native cellulose
+clean_and_sort_files()
 
 # Generate shell input files
-#generate_sh_files()
+generate_sh_files()
 
 os.chdir(main_dir)
 # Create final directories in scratch
