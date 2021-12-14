@@ -17,14 +17,14 @@ from aux_pack import * # function definitions
 matrix   = 'pla' #pla/pp/petg/p3hb
 
 # Input/Output directory paths
-main_dir  = os.getcwd() # current dir
-acet_dir  = '../acetylation_files' # input dir for acetylation
-cell_top  = '../cell_toppar' # top/par dir for cellulose/acetylated cell
-nativ_cnf = '/home/v0e/allcodes/files_cnf/elementary_fibrils' #cellulose inps
-pack_exe  = '/home/v0e/packmol/packmol' # packmol executable
-poly_mat  = '/home/v0e/allcodes/files_cnf/polymer_matrices' #i/o dir poly matrices
-chrm_dir  = poly_mat + '/charmm_' + matrix #CHARMM inp dir for poly matrices
-scr_dir   = '/lustre/or-scratch/cades-bsd/v0e' # scratch dir (MD run dir)
+main_dir   = os.getcwd() # current dir
+acet_dir   = '/home/v0e/allcodes/files_cnf/main/acetylation_files' # input dir for acetylation
+cell_topdir= '/home/v0e/allcodes/files_cnf/main/cell_toppar' # top/par dir for cellulose/acetylated cell
+natv_cnfdir= '/home/v0e/allcodes/files_cnf/elementary_fibrils' #cellulose inps
+poly_mat   = '/home/v0e/allcodes/files_cnf/polymer_matrices' #i/o dir poly matrices
+pack_exe   = '/home/v0e/packmol/packmol' # packmol executable
+chrm_dir   = poly_mat + '/charmm_' + matrix #CHARMM inp dir for poly matrices
+scr_dir    = '/lustre/or-scratch/cades-bsd/v0e' # scratch dir (MD run dir)
 
 # Input data - Polymer matrix
 mat_pdb  = 'step3_input.pdb' # matrix input pdb file - ONLY PDB
@@ -55,8 +55,8 @@ pack_sup = poly_mat + '/cnf_packed_' + matrix + '_N_' + str(nmons)\
            + '_M_' + str(nchains)  # final packed output super dir
 gmx_mat  = chrm_dir + '/gromacs'
 
-check_dir(nativ_cnf)
-check_dir(cell_top)
+check_dir(natv_cnfdir)
+check_dir(cell_topdir)
 check_dir(poly_mat)
 check_dir(chrm_dir)
 check_dir(gmx_mat)
@@ -80,7 +80,6 @@ else:
 # Main code
 
 print('Begin creating packmol files...')
-
 print('Begin checking input files and create output directories...')
 
 # Check for polymer matrix files 
@@ -98,7 +97,7 @@ matdir,rgmax = check_gaussianity_and_write(gmx_mat,mat_pdb,nmons,\
 if acet_per != 0:
     print('Making acetylated chains ..')
     make_acet_cell(acet_dir,acet_val,cell_dp,acet_per,acet_tol,\
-                   acet_fyle,acet_att,pack_mat,acet_new,nativ_cnf)
+                   acet_fyle,acet_att,pack_mat,acet_new,natv_cnfdir)
     os.chdir(main_dir)
 
 print('Determining optimal dimensions of the box...')
@@ -124,17 +123,23 @@ fpack.close() # close PACKMOL input file
 if run_pack:
     run_packmol(packfyle,pack_exe,pack_mat,packsh,main_dir)
 
-# Generate and split top file for modified cellulose if needed
-if acet_per != 0:
-    make_top_file_for_acetcell(main_dir,cell_top,pack_dir)
-    itp_file, prm_file = split_top_file_to_itp_prm(top_file)
+# Generate and split top file for cell/acetylated cellu
+make_top_file_for_acetcell(main_dir,pack_dir,cell_topdir,acet_fyle)
+prm_file,itp_file,mol_info = split_top_file_to_prmitp(acet_file,pack_dir,main_dir)
+prmfyle_arr = []; itpfyle_arr = []
+prmfyle_arr.append(prm_file); itpfyle_arr(itp_file)
 
 # Copy itp/top/prm file for polymer matrix
 # Check for toppar inside gromacs directory output by CHARMM-GUI
-mat_toppar = copy_mat_itptop_files_mat(gmx_mat,pack_dir)
+copy_mat_itptop_files_mat(gmx_mat,pack_dir,prmfyle_arr,\
+                          itypfyle_arr,mol_info)
+
+# Add ; to all the polymer matrix forcefield files (prm)
+add_comment_to_ff_files(prmfyle_arr[1:-1])
 
 # Combine polymer matrix and acet cell files into one top file
-out_topo_file = combine_top_files(itp_file,prm_file,mat_top_files)
+out_topo_file = combine_top_files(pack_dir,prmfyle_arr,\
+                                  itpfyle_arr,molinfo_arr)
 
 # Clean up psf/pdb files of native cellulose
 clean_and_sort_files()

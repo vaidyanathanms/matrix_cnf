@@ -384,16 +384,63 @@ def ret_acet_pat(acet_val):
     else:
         raise RuntimeError('No patch for acetylation length: '+acet_val)
 #------------------------------------------------------------------
-# make gmx top file for acetylated cellulose
-def make_top_file_for_acetcell(maindir, celltopdir, outdir):
-    
+# Make gmx top file for acetylated cellulose
+def make_top_file_for_acetcell(maindir,destdir,topdir,topout):
+    # Replace tcl files with relevant inputs
+    if not os.path.exists(maindir + '/gen_celltop_pyinp.tcl'):
+        raise RuntimeError('gen_celltop_pyinp.tcl not found in '\
+                           +maindir)
+    fr  = open(maindir + '/gen_celltop_pyinp.tcl','r')
+    fw  = open(destdir + '/gen_celltop.tcl','w')
+    fid = fr.read().replace("py_topdir",topdir).\
+          fr.read().replace("py_outname",topout)
+    fw.write(fid)
+    fw.close()
+    fr.close()
+    # Generate topology file
+    subprocess.call(['vmd','-dispdev','text','-e','gen_celltop.tcl'])
+    if not os.path.exists(destdir + '/' + topout + '.top'):
+        raise RuntimeError(topout + '.top not found in ' + destdir)
 #------------------------------------------------------------------
 # Split gmx top file into prm and itp files
-def split_top_file_to_prmitp(celltop_file):
-
+def split_top_file_to_prmitp(top_file,destdir,maindir):
+    os.chdir(destdir)
+    mol_info = []
+    if not os.path.isdir(pack_dir + '/all_topfiles'):
+        os.mkdir(pack_dir + '/all_topfiles')
+    prm_file = pack_dir + '/all_topfiles/' + top_file + '.top'
+    itp_file = pack_dir + '/all_topfiles/' + top_file + '.itp'
+    # Write until [ moleculetype ] to *.prm file and
+    # Write from [moleculetype ] until [ System ] to *.itp
+    # Then skip from [ System ] to [ molecules ]
+    # Finally add system info to arrays
+    with open(top_file+'.top','r') as ftop, \
+         open top_file(prm_file,'w') as fprm,\
+         open top_file(itp_file,'w') as fitp: :
+        line = ftop.readline()
+        while not '[ moleculetype ]' in line:
+            fprm.write(line)
+            line = ftop.readline()
+        while not '[ System ]' in line():
+            fitp.write(line)
+            line = ftop.readline()
+        while not '[ molecules ]' in line():
+            pass
+        for line in ftop:
+            if not line.lstrip().startswith(';'):
+                mol_info.append(line)
+    return prm_file, itp_file, molinfo
 #------------------------------------------------------------------
+# Write headers to alltop.top
+def write_header(f_all):
+    f_all.write(';; Combined topology file - VMS')
+    f_all.write(';; Generated using create_packmol_file.py')
+    f_all.write(';; Use with GROMACS grompp \n')
+#------------------------------------------------------------------
+
 # Copy forcefield/top files of matrix to packmol directory
-def copy_mat_toppar_files(gmx_mat, pack_dir):
+def copy_mat_toppar_files(gmx_mat,pack_dir,prmfyle_arr,\
+                          itpfyle_arr,mol_info):
     curr_dir =  os.getcwd()
     if not os.path.isdir(gmx_mat+'/toppar'):
         raise RuntimeError('toppar directory not found in ' + gmx_mat)
@@ -405,17 +452,70 @@ def copy_mat_toppar_files(gmx_mat, pack_dir):
     for fyl in mat_toppar:
         gencpy(gmx_mat+'/toppar', pack_dir+'/toppar', mat_toppar)
 
+    # Find prm and itp files from the folder
+    for fyle in mat_toppar:
+        with open(fyle,'r') as fin:
+            for line in fin:
+                if '[ moleculetype ]' in line:
+                    itpfyle_arr.append(fyle)
+                    break
+                elif '[ atomtypes ] ' in line or \
+                     '[ bondtypes ] ' in line:
+                    prmfyle_arr.append(fyle)
+                    break
+
+    # Open topol file to obtain molecule name and size
     if not os.path.exists(gmx_mat + '/topol.top'):
         print('WARNING: topol.top missing in ' + gmx_mat)
     else:
+        with open(gmx_mat + '/topol.top','r') as ftop:
+            line = ftop.readline()
+            while not '[ molecules ]' in line():
+                pass
+            for line in ftop:
+                if not line.lstrip().startswith(';'):
+                    mol_info.append(line)
         gencpy(gmx_mat,pack_dir,'topol.top')
-        mat_toppar.insert(0,'topol.top')
-
     os.chdir(curr_dir)
-    return mat_toppar
+#------------------------------------------------------------------
+
+# Change forcefield files to add ;
+def add_comment_to_ff_files[prmfyles]:
+    for i in range(len(itp_files)):
+
+
 #------------------------------------------------------------------
 # Combine polymer matrix and acetylation files
-def combine_top_files(itp_file,prm_file,mat_top_files):
+def combine_top_files(outdir,prm_files,itp_files,molinfo):
+    all_top  = outdir + '/alltop.top'
+    f_all = open(all_top,'w')
+    write_header_alltop(f_all)
+
+    # Write Interaction parameter files
+    f_all.write(';; Include interaction files\n')
+    for i in range(len(prm_files)):
+        f_all.write('#include "%s"' %(prm_files[i]))
+    f_all.write('\n')
+
+    # Write Topology parameter files
+    f_all.write(';; Include topology files\n')
+    for i in range(len(itp_files)):
+        f_all.write('#include "%s"' %(itp_files[i]))
+    
+    # Write System data
+    f_all.write('/n')
+    f_all.write('[ System ]')
+    f_all.write('; Name')
+    f_all.write(' Combined ')
+
+    # Write molecules data
+    f_all.write('/n')
+    f_all.write('[ molecules ]')
+    f_all.write('; %s\t%s' %('Compound', '#mols'))
+
+    for i in range(len(molinfo)):
+        f_all.write('#include "%s"' %(molinfo[i]))
+#------------------------------------------------------------------
 
 # if __name__
 if __name__ == '__main__':
