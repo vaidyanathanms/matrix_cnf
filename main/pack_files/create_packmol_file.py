@@ -86,33 +86,33 @@ print('Begin checking input files and create output directories...')
 check_inp_files(gmx_mat,mat_pdb) 
 
 # Create output directories
-pack_mat = create_output_dirs(pack_sup,acet_val,acet_per,add_poly)
+pack_dir = create_output_dirs(pack_sup,acet_val,acet_per,add_poly)
 
 print('Checking matrix input files for gaussian chains...')
 # Check for Gaussian input chains
 matdir,rgmax = check_gaussianity_and_write(gmx_mat,mat_pdb,nmons,\
-                                           nchains,matrix,gaus_tol,pack_mat)
+                                           nchains,matrix,gaus_tol,pack_dir)
 
 # Acetylate chains if needed
 if acet_per != 0:
     print('Making acetylated chains ..')
     make_acet_cell(acet_dir,acet_val,cell_dp,acet_per,acet_tol,\
-                   acet_fyle,acet_att,pack_mat,acet_new,natv_cnfdir)
+                   acet_fyle,acet_att,pack_dir,acet_new,natv_cnfdir)
     os.chdir(main_dir)
 
 print('Determining optimal dimensions of the box...')
 # Check for cnf dimensions and compare with rg of polymer matrix
-xmin,ymin,zmin,xmax,ymax,zmax = find_cnf_dim(acet_dir,acet_fyle,pack_mat)
+xmin,ymin,zmin,xmax,ymax,zmax = find_cnf_dim(acet_dir,acet_fyle,pack_dir)
 dmax = max(xmax-xmin,ymax-ymin,zmax-zmin,rgmax)
 
 # Start writing PACKMOL files
-packfyle = pack_mat + '/' + inppack
+packfyle = pack_dir + '/' + inppack
 fpack   = open(packfyle,'w')
-packout = packmol_headers(fpack,matrix,pack_mat,acet_per,acet_val,add_poly)
+packout = packmol_headers(fpack,matrix,pack_dir,acet_per,acet_val,add_poly)
 
 # Pack CNF/matrix/additional polymers
 print('Writing packmol scripts for packing cellulose and matrix chains...')
-pack_cellulose_chains(fpack,pack_mat,acet_fyle,ncnf,xmin,ymin,zmin,xmax,ymax,zmax,fin_box,dmax)
+pack_cellulose_chains(fpack,pack_dir,acet_fyle,ncnf,xmin,ymin,zmin,xmax,ymax,zmax,fin_box,dmax)
 pack_polymer_matrix(matdir,matrix,nchains,xmin,ymin,zmin,xmax,ymax,zmax,fpack,fin_box,dmax)
 #if add_poly != 'None':
 #    pack_extra_polymers()
@@ -121,7 +121,7 @@ fpack.close() # close PACKMOL input file
 
 # Run PACKMOL
 if run_pack:
-    run_packmol(packfyle,pack_exe,pack_mat,packsh,main_dir)
+    run_packmol(packfyle,pack_exe,pack_dir,packsh,main_dir)
 
 # Generate and split top file for cell/acetylated cellu
 make_top_file_for_acetcell(main_dir,pack_dir,cell_topdir,acet_fyle)
