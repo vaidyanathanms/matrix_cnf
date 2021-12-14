@@ -408,15 +408,15 @@ def split_top_file_to_prmitp(top_file,destdir,maindir):
     mol_info = []
     if not os.path.isdir(pack_dir + '/all_topfiles'):
         os.mkdir(pack_dir + '/all_topfiles')
-    prm_file = pack_dir + '/all_topfiles/' + top_file + '.top'
+    prm_file = pack_dir + '/all_topfiles/' + top_file + '.prm'
     itp_file = pack_dir + '/all_topfiles/' + top_file + '.itp'
     # Write until [ moleculetype ] to *.prm file and
     # Write from [moleculetype ] until [ System ] to *.itp
     # Then skip from [ System ] to [ molecules ]
     # Finally add system info to arrays
     with open(top_file+'.top','r') as ftop, \
-         open top_file(prm_file,'w') as fprm,\
-         open top_file(itp_file,'w') as fitp: :
+         open(prm_file,'w') as fprm,\
+         open(itp_file,'w') as fitp:
         line = ftop.readline()
         while not '[ moleculetype ]' in line:
             fprm.write(line)
@@ -481,17 +481,16 @@ def copy_mat_toppar_files(gmx_mat,pack_dir,prmfyle_arr,\
 #------------------------------------------------------------------
 # Change forcefield files to add ;
 def add_comment_to_ff_files(prmfyles):
-for i in range(len(prmfyles)):
-    with fileinput.input(prmfyles[i],inplace=True) as fin:
-        for line in fin:
-            if 'defaults' in line:
-                newline = '; ' + line
-                print line.replace(fileinput.filelineno(),newline)
-                for j in range(2):
-                    line = fin.readline()
-                    newline = '; ' + line
-                    print line.replace(fileinput.filelineno(),newline)
-                break
+    for i in range(len(prmfyles)):
+        with fileinput.FileInput(prmfyles[i],inplace=True,\
+                                 backup='.bak') as fin:
+            for line in fin:
+                if 'defaults' in line:
+                    print('; '+ line,end='')
+                    for j in range(2):
+                        line = fin.readline()
+                        print('; '+ line,end='')
+                    break
 #------------------------------------------------------------------
 # Combine polymer matrix and acetylation files
 def combine_top_files(outdir,prm_files,itp_files,molinfo,nch):
@@ -524,15 +523,15 @@ def combine_top_files(outdir,prm_files,itp_files,molinfo,nch):
     # Write cellulose part
     i = 0
     while not ';matrix' in molinfo[i] and i < len(molinfo):
-        f_all.write('%s' %(molinfo[i])); i++
+        f_all.write('%s' %(molinfo[i])); i+=1
             
     # Write matrix part
-    while i < len(molinfo)):
+    while i < len(molinfo):
         if ';matrix' in molinfo[i]:
-            f_all.write('%s' %(molinfo[i])); i++
+            f_all.write('%s' %(molinfo[i])); i+=1
         else:
             moltype = molinfo[i].lstrip().split()[0]
-            f_all.write('%s\t%d' %(molinfo[i],nch)); i++
+            f_all.write('%s\t%d' %(molinfo[i],nch)); i+=1
 
     f_all.close
     return all_top
