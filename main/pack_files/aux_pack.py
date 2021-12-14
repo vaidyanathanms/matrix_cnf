@@ -8,7 +8,9 @@ import glob
 import math
 import struct
 import subprocess
+import fileinput
 #-------------------------------------------------------------------
+# Generic copying script
 def gencpy(dum_maindir,dum_destdir,fylname):
     
     srcfyl = dum_maindir + '/' + fylname
@@ -25,7 +27,6 @@ def check_dir(dirname):
         print("FATAL ERROR: ", dirname, " not found\n")
         raise RuntimeError("Check directory path: " + dirname)
 #-------------------------------------------------------------------
-
 #Check pdb/psf/top files for the melt (or polymer)
 def check_inp_files(dum_inpdir, inp_name):
     # check structure files 
@@ -287,7 +288,6 @@ def pack_polymer_matrix(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,zmax,fout,ma
 #------------------------------------------------------------------
 # Run packmol
 def run_packmol(packfyle,pack_exe,destdir,packsh,currdir):
-
     if not os.path.exists(pack_exe):
         raise RuntimeError("Packmol executable not found\n")
 
@@ -316,7 +316,8 @@ def run_packmol(packfyle,pack_exe,destdir,packsh,currdir):
     subprocess.call(["sbatch", rev_fname])
 #------------------------------------------------------------------
 # Make final directories
-def make_fin_dirs_and_copy(scr_dir,matrix,mod_cell,run_pack,packfyle):
+def make_fin_dirs_and_copy(scr_dir,matrix,mod_cell,run_pack,\
+                           packfyle):
     if not os.path.isdir(scr_dir):
         os.mkdir(scr_dir)
     poly_dir = scr_dir + '/' + matrix
@@ -334,7 +335,6 @@ def make_fin_dirs_and_copy(scr_dir,matrix,mod_cell,run_pack,packfyle):
 # Make acetylated cellulose
 def make_acet_cell(acet_dir,acet_val,cell_dp,acet_per,acet_tol,\
                    acet_fyle,acet_att,pack_mat,acet_new,nativ_cnf):
-
     if acet_new:
         if not os.path.exists(acet_dir + '/genmodify_cnf_pyinp.tcl'):
             print('ERR: genmodify_cnf_pyinp.tcl not found\n')
@@ -426,6 +426,7 @@ def split_top_file_to_prmitp(top_file,destdir,maindir):
             line = ftop.readline()
         while not '[ molecules ]' in line():
             pass
+        mol_info.append(';cellulose_main')
         for line in ftop:
             if not line.lstrip().startswith(';'):
                 mol_info.append(line)
@@ -437,7 +438,6 @@ def write_header(f_all):
     f_all.write(';; Generated using create_packmol_file.py')
     f_all.write(';; Use with GROMACS grompp \n')
 #------------------------------------------------------------------
-
 # Copy forcefield/top files of matrix to packmol directory
 def copy_mat_toppar_files(gmx_mat,pack_dir,prmfyle_arr,\
                           itpfyle_arr,mol_info):
@@ -469,24 +469,32 @@ def copy_mat_toppar_files(gmx_mat,pack_dir,prmfyle_arr,\
         print('WARNING: topol.top missing in ' + gmx_mat)
     else:
         with open(gmx_mat + '/topol.top','r') as ftop:
-            line = ftop.readline()
-            while not '[ molecules ]' in line():
+            while not '[ molecules ]' in ftop.readline():
                 pass
+            line = ftop.readline()
+            mol_info.append(';matrix')
             for line in ftop:
                 if not line.lstrip().startswith(';'):
                     mol_info.append(line)
         gencpy(gmx_mat,pack_dir,'topol.top')
     os.chdir(curr_dir)
 #------------------------------------------------------------------
-
 # Change forcefield files to add ;
-def add_comment_to_ff_files[prmfyles]:
-    for i in range(len(itp_files)):
-
-
+def add_comment_to_ff_files(prmfyles):
+for i in range(len(prmfyles)):
+    with fileinput.input(prmfyles[i],inplace=True) as fin:
+        for line in fin:
+            if 'defaults' in line:
+                newline = '; ' + line
+                print line.replace(fileinput.filelineno(),newline)
+                for j in range(2):
+                    line = fin.readline()
+                    newline = '; ' + line
+                    print line.replace(fileinput.filelineno(),newline)
+                break
 #------------------------------------------------------------------
 # Combine polymer matrix and acetylation files
-def combine_top_files(outdir,prm_files,itp_files,molinfo):
+def combine_top_files(outdir,prm_files,itp_files,molinfo,nch):
     all_top  = outdir + '/alltop.top'
     f_all = open(all_top,'w')
     write_header_alltop(f_all)
@@ -513,10 +521,22 @@ def combine_top_files(outdir,prm_files,itp_files,molinfo):
     f_all.write('[ molecules ]')
     f_all.write('; %s\t%s' %('Compound', '#mols'))
 
-    for i in range(len(molinfo)):
-        f_all.write('#include "%s"' %(molinfo[i]))
-#------------------------------------------------------------------
+    # Write cellulose part
+    i = 0
+    while not ';matrix' in molinfo[i] and i < len(molinfo):
+        f_all.write('%s' %(molinfo[i])); i++
+            
+    # Write matrix part
+    while i < len(molinfo)):
+        if ';matrix' in molinfo[i]:
+            f_all.write('%s' %(molinfo[i])); i++
+        else:
+            moltype = molinfo[i].lstrip().split()[0]
+            f_all.write('%s\t%d' %(molinfo[i],nch)); i++
 
+    f_all.close
+    return all_top
+#------------------------------------------------------------------
 # if __name__
 if __name__ == '__main__':
     main()

@@ -139,13 +139,14 @@ add_comment_to_ff_files(prmfyle_arr[1:-1])
 
 # Combine polymer matrix and acet cell files into one top file
 out_topo_file = combine_top_files(pack_dir,prmfyle_arr,\
-                                  itpfyle_arr,molinfo_arr)
+                                  itpfyle_arr,molinfo_arr,\
+                                  nchains)
 
 # Clean up psf/pdb files of native cellulose
-clean_and_sort_files()
+#clean_and_sort_files()
 
 # Generate shell input files
-generate_sh_files()
+#generate_sh_files()
 
 os.chdir(main_dir)
 # Create final directories in scratch
