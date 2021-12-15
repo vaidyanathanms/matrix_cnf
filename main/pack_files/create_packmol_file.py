@@ -47,6 +47,7 @@ add_poly = 'None'
 inppack  = 'pack_cellulose.inp' # PACKMOL input file
 fin_box  = 1.1 # final box size relative to max dimension of cnf/matrix
 run_pack = 0 # 1-run packmol
+cleandir = 1 # clean directories
 packsh   = 'run_packmol_pyinp.sh'
 #------------------------------------------------------------------
 
@@ -150,15 +151,13 @@ out_topo_file = combine_top_files(pack_dir,prmfyle_arr,\
                                   nchains)
 
 # Clean up psf/pdb files of native cellulose
-#clean_and_sort_files()
-
-# Generate shell input files
-#generate_sh_files()
-
+clean_and_sort_files(pack_dir,acetpref)
 os.chdir(main_dir)
 # Create final directories in scratch
 # print('Creating input directories of MD simulations...')
 # make_fin_dirs_and_copy(scr_dir,matrix,mod_cell,run_pack,packout)
+# Generate shell input files
+# generate_sh_files()
     
 print('Done :) ..')
 

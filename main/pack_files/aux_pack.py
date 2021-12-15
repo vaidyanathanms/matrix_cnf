@@ -572,6 +572,27 @@ def combine_top_files(outdir,prm_files,itp_files,molinfo,nch):
     f_all.close()
     return all_top
 #------------------------------------------------------------------
+# Clean and sort files
+def clean_and_sort_files(outdir,acetpref):
+    maindir = os.getcwd()
+    move_ftype('pdb',outdir,acetpref,maindir)
+    move_ftype('psf',outdir,acetpref,maindir)
+    move_ftype('tcl',outdir,acetpref,maindir)
+    move_ftype('dat',outdir,acetpref,maindir)
+#------------------------------------------------------------------
+# To move file of a particular type
+def move_ftype(ftype,outdir,acetpref,currdir):
+    os.chdir(outdir)
+    dname = outdir + '/' + ftype + '_files'
+    if not os.path.isdir(dname):
+        os.mkdir(dname)
+    for fyle in glob.glob('*' + ftype):
+        print(fyle)
+        if 'packed' in fyle or acetpref in fyle:
+            continue
+        else:
+            shutil.move(fyle,dname+'/' + fyle)
+#------------------------------------------------------------------
 # if __name__
 if __name__ == '__main__':
     main()
