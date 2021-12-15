@@ -46,7 +46,7 @@ add_poly = 'None'
 # Input data - Packmol
 inppack  = 'pack_cellulose.inp' # PACKMOL input file
 fin_box  = 1.1 # final box size relative to max dimension of cnf/matrix
-run_pack = 1 # 1-run packmol
+run_pack = 0 # 1-run packmol
 packsh   = 'run_packmol_pyinp.sh'
 #------------------------------------------------------------------
 
@@ -121,25 +121,32 @@ fpack.close() # close PACKMOL input file
 
 # Run PACKMOL
 if run_pack:
+    print('Submitting PACKMOL scripts..')
     run_packmol(packfyle,pack_exe,pack_dir,packsh,main_dir)
 
-# Generate and split top file for cell/acetylated cellu
-make_top_file_for_acetcell(main_dir,pack_dir,cell_topdir,acet_fyle)
-prm_file,itp_file,mol_info = split_top_file_to_prmitp(acet_file,pack_dir,main_dir)
+# top/prm/itp file arrays
 prmfyle_arr = []; itpfyle_arr = []
-prmfyle_arr.append(prm_file); itpfyle_arr(itp_file)
+
+# Generate and split top file for cell/acetylated cellu
+print('Generating GMX top files for celluloses..')
+make_top_file_for_acetcell(main_dir,pack_dir,cell_topdir,acet_fyle)
+prm_file,itp_file,mol_infoarr = split_top_file_to_prmitp(acet_fyle,pack_dir,main_dir)
+prmfyle_arr.append(prm_file); itpfyle_arr.append(itp_file)
 
 # Copy itp/top/prm file for polymer matrix
 # Check for toppar inside gromacs directory output by CHARMM-GUI
-copy_mat_itptop_files_mat(gmx_mat,pack_dir,prmfyle_arr,\
-                          itypfyle_arr,mol_info)
+print('Copying toppar files from CHARMM-GUI for polymer matrices.')
+copy_mat_toppar_files(gmx_mat,pack_dir,prmfyle_arr,\
+                      itpfyle_arr,mol_infoarr)
 
 # Add ; to all the polymer matrix forcefield files (prm)
-add_comment_to_ff_files(prmfyle_arr[1:-1])
+print('Editing forcefield files of polymer matrices..')
+add_comment_to_ff_files(prmfyle_arr)
 
 # Combine polymer matrix and acet cell files into one top file
+print('Combining prm/itp files of cellulose and polymers into one single top file for GMX calculations..')
 out_topo_file = combine_top_files(pack_dir,prmfyle_arr,\
-                                  itpfyle_arr,molinfo_arr,\
+                                  itpfyle_arr,mol_infoarr,\
                                   nchains)
 
 # Clean up psf/pdb files of native cellulose
