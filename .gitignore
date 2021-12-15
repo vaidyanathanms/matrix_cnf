@@ -25,4 +25,8 @@ polymer_matrices/pp
 polymer_matrices/pla
 cellulose
 tcl_files
+toppar
+polymer_matrices/charmm_p3hb
+polymer_matrices/charmm_pp
+polymer_matrices/charmm_petg
 polymer_matrices/pack_files/outdir/
