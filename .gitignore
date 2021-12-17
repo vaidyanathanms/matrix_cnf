@@ -30,3 +30,5 @@ polymer_matrices/charmm_p3hb
 polymer_matrices/charmm_pp
 polymer_matrices/charmm_petg
 polymer_matrices/pack_files/outdir/
+polymer_matrices/cnf_*
+main/pack_files/*~
