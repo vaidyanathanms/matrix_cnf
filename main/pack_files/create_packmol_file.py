@@ -11,6 +11,7 @@ import glob
 import math
 import subprocess
 import dir_names
+import mdp
 from aux_pack import * # function definitions
 #------------------------------------------------------------------
 
@@ -52,8 +53,14 @@ cleandir = 1 # clean directories
 packsh   = 'run_packmol_pyinp.sh'
 
 # Input data - GROMACS
-mdp_files = ['nvt_pyinp.mdp','minim.mdp','npt_berendsen_pyinp.mdp',\
-             'npt_main_pyinp.mdp']
+set_mdp   = 1 # Copy mdp files
+mdp_files = ['minim_pyinp.mdp','nvt_pyinp.mdp','nvt_high_pyinp.mdp'\
+             ,'npt_berendsen_pyinp.mdp','npt_main_pyinp.mdp']
+Thigh  = 600 # High temperature for equilibration
+Ttarg  = 300 # Target temperature for simulations
+refP   = 1   # Reference pressure
+pp_run = 'run_preprocess_pyinp.sh'
+md_run = 'run_md_pyinp.sh'
 #------------------------------------------------------------------
 
 # Check for directory paths and input consistency
@@ -115,7 +122,8 @@ dmax = max(xmax-xmin,ymax-ymin,zmax-zmin,rgmax)
 # Start writing PACKMOL files
 packfyle = pack_dir + '/' + inppack
 fpack   = open(packfyle,'w')
-packout = packmol_headers(fpack,matrix,pack_dir,acet_per,acet_val,add_poly)
+packed_cnfpdb = packmol_headers(fpack,matrix,pack_dir,\
+                                acet_per,acet_val,add_poly)
 
 # Pack CNF/matrix/additional polymers
 print('Writing packmol scripts for packing cellulose and matrix chains...')
@@ -161,10 +169,29 @@ out_topo_file = combine_top_files(pack_dir,prmfyle_arr,\
 clean_and_sort_files(pack_dir,acetpref)
 
 # Create final directories in scratch
-print('Copying  directories of MD simulations...')
-#cpy_mdp_files(mdp_dir,pack_dir)
-# Generate shell input files
-# generate_sh_files()
+if set_mdp:
+    check_dir(mdp_dir)
+    print('Copying  directories of MD simulations...')
+    # Set thermostat/top variables
+    Tetau_nvt,Tetau_highnvt,Tetau_berend,Tetau_parrah,\
+        Prtau_berend,Prtau_parrah,ref_pres,\
+        melt_topname=mdp.couple_coeff('melts','None')
+
+    # Find tc_groups
+    # Copy and edit mdp files (all temperatures are same)
+    mdp.check_cpy_mdp_files(mdp_dir,pack_dir,mdp_files,'melts'\
+                            ,Tetau_nvt,Tetau_highnvt,Tetau_berend\
+                            ,Tetau_parrah,Prtau_berend,Prtau_parrah\
+                            ,Ttarg,Thigh,refP,'System','Single',\
+                            main_dir,'None')
+
+
+    # Generate shell input files
+    mdp.edit_sh_files('pp',matrix,packed_cnfpdb,out_topo_file,\
+                      pp_run,Ttarg,mdp_dir,pack_dir)#preprocess
+    mdp.edit_sh_files('md',matrix,packed_cnfpdb,out_topo_file,\
+                      md_run,Ttarg,mdp_dir,pack_dir)#md run
+
 os.chdir(main_dir)
     
 print('Done :) ..')
