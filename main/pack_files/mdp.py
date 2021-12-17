@@ -256,9 +256,10 @@ def edit_sh_files(jtype,inp_type,polycfg,topfyle,sh_fyle,tempval,\
 
     dval = 0.3
     
-    # job/box name
+    # edit job/box/top/input name
     jname = jtype+'_'+inp_type+ '_T' + str(tempval)
     box_conffyle = "initconf.gro"
+    topfyle = ret_file_str(topfyle)
 
     # edit sh_fyle
     py_fname = sh_fyle
@@ -273,6 +274,11 @@ def edit_sh_files(jtype,inp_type,polycfg,topfyle,sh_fyle,tempval,\
           replace("py_dval",str(dval))
     fw.write(fid)
     fr.close(); fw.close()
+#------------------------------------------------------------------
+# returns the last element file string after stripping "/"
+def ret_file_str(inpstr):
+    spl_str = inpstr.split("/")
+    return spl_str[len(spl_str)-1]
 #------------------------------------------------------------------
 # if __name__
 if __name__ == '__main__':
