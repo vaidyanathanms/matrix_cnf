@@ -587,12 +587,13 @@ def move_ftype(ftype,outdir,acetpref,currdir):
     if not os.path.isdir(dname):
         os.mkdir(dname)
     for fyle in glob.glob('*' + ftype):
-        print(fyle)
         if 'packed' in fyle or acetpref in fyle:
             continue
         else:
             shutil.move(fyle,dname+'/' + fyle)
 #------------------------------------------------------------------
+# Copy mdp and sh files into pack directory.
+#def cpy_mdp_files(mdp_dir,pack_dir)
 # if __name__
 if __name__ == '__main__':
     main()

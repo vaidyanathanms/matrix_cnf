@@ -10,21 +10,22 @@ import shutil
 import glob
 import math
 import subprocess
+import dir_names
 from aux_pack import * # function definitions
 #------------------------------------------------------------------
 
 # Polymer matrix
 matrix   = 'pla' #pla/pp/petg/p3hb
 
-# Input/Output directory paths
-main_dir   = os.getcwd() # current dir
-acet_dir   = '/home/v0e/allcodes/files_cnf/main/acetylation_files' # input dir for acetylation
-cell_topdir= '/home/v0e/allcodes/files_cnf/main/cell_toppar' # top/par dir for cellulose/acetylated cell
-natv_cnfdir= '/home/v0e/allcodes/files_cnf/elementary_fibrils' #cellulose inps
-poly_mat   = '/home/v0e/allcodes/files_cnf/polymer_matrices' #i/o dir poly matrices
-pack_exe   = '/home/v0e/packmol/packmol' # packmol executable
-chrm_dir   = poly_mat + '/charmm_' + matrix #CHARMM inp dir for poly matrices
-scr_dir    = '/lustre/or-scratch/cades-bsd/v0e' # scratch dir (MD run dir)
+# Import directory paths
+main_dir    = os.getcwd() # current dir
+acet_dir    = dir_names.acet_dir
+cell_topdir = dir_names.cell_topdir
+natv_cnfdir = dir_names.natv_cnfdir
+poly_mat    = dir_names.poly_mat
+pack_exe    = dir_names.pack_exe
+mdp_dir     = dir_names.mdp_dir
+scr_dir     = dir_names.scr_dir
 
 # Input data - Polymer matrix
 mat_pdb  = 'step3_input.pdb' # matrix input pdb file - ONLY PDB
@@ -46,12 +47,17 @@ add_poly = 'None'
 # Input data - Packmol
 inppack  = 'pack_cellulose.inp' # PACKMOL input file
 fin_box  = 1.1 # final box size relative to max dimension of cnf/matrix
-run_pack = 0 # 1-run packmol
+run_pack = 1 # 1-run packmol
 cleandir = 1 # clean directories
 packsh   = 'run_packmol_pyinp.sh'
+
+# Input data - GROMACS
+mdp_files = ['nvt_pyinp.mdp','minim.mdp','npt_berendsen_pyinp.mdp',\
+             'npt_main_pyinp.mdp']
 #------------------------------------------------------------------
 
 # Check for directory paths and input consistency
+chrm_dir = poly_mat + '/charmm_' + matrix #CHARMM inp dir for poly matrices
 pack_sup = poly_mat + '/cnf_packed_' + matrix + '_N_' + str(nmons)\
            + '_M_' + str(nchains)  # final packed output super dir
 gmx_mat  = chrm_dir + '/gromacs'
@@ -145,19 +151,21 @@ print('Editing forcefield files of polymer matrices..')
 add_comment_to_ff_files(prmfyle_arr)
 
 # Combine polymer matrix and acet cell files into one top file
-print('Combining prm/itp files of cellulose and polymers into one single top file for GMX calculations..')
+print('Combining prm/itp files of cellulose and polymers'\
+      + ' into one single top file for GMX calculations..')
 out_topo_file = combine_top_files(pack_dir,prmfyle_arr,\
                                   itpfyle_arr,mol_infoarr,\
                                   nchains)
 
 # Clean up psf/pdb files of native cellulose
 clean_and_sort_files(pack_dir,acetpref)
-os.chdir(main_dir)
+
 # Create final directories in scratch
-# print('Creating input directories of MD simulations...')
-# make_fin_dirs_and_copy(scr_dir,matrix,mod_cell,run_pack,packout)
+print('Copying  directories of MD simulations...')
+#cpy_mdp_files(mdp_dir,pack_dir)
 # Generate shell input files
 # generate_sh_files()
+os.chdir(main_dir)
     
 print('Done :) ..')
 
