@@ -33,7 +33,6 @@ def check_inp_files(dum_inpdir, inp_name):
     if glob.glob(dum_inpdir+'/' + inp_name) == []:
         raise RuntimeError(inp_name + " not found in " + dum_inpdir)
 #-------------------------------------------------------------------
-
 # Create all output directories
 def create_output_dirs(superdir,acetval,acetper,addpoly):
 
@@ -55,17 +54,17 @@ def create_output_dirs(superdir,acetval,acetper,addpoly):
 #-------------------------------------------------------------------
 # Check for gaussian chains and write
 def check_gaussianity_and_write(gmxdir,inpfyle2,nmons,nchains,\
-                                matname,tol,packalldir):
+                                polyname,tol,packalldir):
     
 
     if not os.path.isdir(packalldir):
         raise RuntimeError(packalldir + ' not found')
 
-    frg = open(packalldir + '/inprgstats_' + matname + '.dat','w')
+    frg = open(packalldir + '/inprgstats_' + polyname + '.dat','w')
     frg.write('%s\t%s\t%s\t%s\t%s\t%s\n' 
               %('ChainID','Nres (Nmon)', 'Natoms', \
                 'Rg^2','Rg^4','Rg^4/Rg^2'))
-    outdir = packalldir + '/' +  'gaussianchains'
+    outdir = packalldir + '/' + polyname + '_gaussianchains'
     if not os.path.isdir(outdir):
         os.mkdir(outdir)
     else:
@@ -99,7 +98,7 @@ def check_gaussianity_and_write(gmxdir,inpfyle2,nmons,nchains,\
                 ry.append(float(line.split()[6]))
                 rz.append(float(line.split()[7]))
                 atcnt += 1
-    write_gaussian_chains(rg2ch,rg4ch,atarr,outdir,inpfyle,matname,tol)
+    write_gaussian_chains(rg2ch,rg4ch,atarr,outdir,inpfyle,polyname,tol)
     print('Finished guassianity writes...')
     rg2max = max(rg2ch)
     return outdir,math.sqrt(rg2max)
@@ -121,13 +120,13 @@ def compute_rg(rx, ry, rz, atcnt):
     return rx2 + ry2 + rz2, rx4 + ry4 + rz4
 #------------------------------------------------------------------
 # Write Gaussian Chains
-def write_gaussian_chains(rg2ch,rg4ch,atarr,dirname,fname,matname,\
+def write_gaussian_chains(rg2ch,rg4ch,atarr,dirname,fname,polyname,\
                           tolval):
     with open(fname) as fin:
         for ctr in range(len(rg2ch)):
             if abs(1.0-(rg4ch[ctr]/(rg2ch[ctr]**2))) < tolval:
                 line = fin.readline()
-                with open(dirname+'/'+matname+'_'+str(ctr+1)+'.pdb','w') as fout:
+                with open(dirname+'/'+polyname+'_'+str(ctr+1)+'.pdb','w') as fout:
                     fout.write('REMARK 999 chainID: %d; Rg4/(Rg2)^2: %g\n' \
                                %(ctr+1,rg4ch[ctr]/(rg2ch[ctr]**2)))
                     fout.write(line)
@@ -254,7 +253,7 @@ def pack_cellulose_chains(fout,packdir,inpfyle,ncnf,xmin,ymin,zmin,xmax,ymax,zma
     fout.write('end structure\n')
     fout.write('\n')
 #------------------------------------------------------------------
-# Add polymer matrix
+# Add main polymer matrix
 def pack_polymer_matrix(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,zmax,fout,mag,dmax):
     if not os.path.isdir(matdir):
         raise RuntimeError(matdir + " not found")
@@ -263,6 +262,36 @@ def pack_polymer_matrix(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,zmax,fout,ma
     if matlist == []:
         raise RuntimeError('No Gaussian inputs found. Consider changing gaus_tol')
     
+    lenlist = len(matlist)
+    nsets   = int(nch/lenlist) if int(nch/lenlist) > 1 else 1
+    nextra  = nch%lenlist
+    dr = (mag-1)*dmax
+
+    for chain in range(min(lenlist,nch)):
+        fout.write('structure  %s\n' %(matlist[chain]))
+        fout.write('  number   %d\n' %(nsets))  
+#        fout.write('  center \n') #Don't center matrix chains
+        fout.write(' inside box %g  %g  %g  %g  %g  %g\n'
+                   %(xmin-0.5*dr,ymin-0.5*dr,zmin-0.5*dr,xmax+0.5*dr,ymax+0.5*dr,zmax+0.5*dr))
+        fout.write('end structure\n')
+        fout.write('\n')
+
+    if nextra != 0:
+        fout.write('structure  %s\n' %(matlist[0]))
+        fout.write('  number   %d\n' %(nextra))  
+#        fout.write('  center \n') #Don't center matrix chains
+        fout.write(' inside box %g  %g  %g  %g  %g  %g\n'
+                   %(xmin-dr,ymin-dr,zmin-dr,xmax+dr,ymax+dr,zmax+dr))
+        fout.write('end structure\n')
+        fout.write('\n')
+#------------------------------------------------------------------
+# Pack additional polymer chains (blends/triblock)
+def pack_extra_poly(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,\
+                    zmax,fout,mag,dmax):
+
+    if not os.path.isdir(matdir):
+        raise RuntimeError(matdir + " not found")
+
     lenlist = len(matlist)
     nsets   = int(nch/lenlist) if int(nch/lenlist) > 1 else 1
     nextra  = nch%lenlist

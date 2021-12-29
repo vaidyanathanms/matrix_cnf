@@ -18,23 +18,13 @@ from aux_pack import * # function definitions
 # Polymer matrix
 matrix   = 'pla' #pla/pp/petg/p3hb
 
-# Import directory paths
-main_dir    = os.getcwd() # current dir
-acet_dir    = dir_names.acet_dir
-cell_topdir = dir_names.cell_topdir
-natv_cnfdir = dir_names.natv_cnfdir
-poly_mat    = dir_names.poly_mat
-pack_exe    = dir_names.pack_exe
-mdp_dir     = dir_names.mdp_dir
-scr_dir     = dir_names.scr_dir
-
 # Input data - Polymer matrix
 mat_pdb  = 'step3_input.pdb' # matrix input pdb file - ONLY PDB
 nmons    = 40 # number of matrix monomers in output
 nchains  = 81 # number of matrix chains in output
 gaus_tol = 0.05 # tolerance for checking gaussianity
 
-# Input data - Cellulose/Acetylated Cellulose/Additives
+# Input data - Cellulose/Acetylated Cellulose
 acet_val = 1 # m1 - 1, m3 - 3, m7 - 7, m11 - 11
 acet_per = 0.5 # fraction of acetylated cellulose
 acet_new = 1 # 0 - use old, 1-delete and regenerate
@@ -43,7 +33,12 @@ cell_dp  = 20 # degree of polymerization of cellulose chains
 acet_tol = 0.1 # tolerance for acetylation
 acetpref = 'modified_m' # prefix for acetylated files
 acet_att = 100 # maximum attempts to create acetylated cellulose
-add_poly = 'None'
+
+# Input data - Additives - blends/triblock copolymers
+add_poly = 'None' # blend/triblock
+ex_ptype = ['paa','pvp'] #p1,p2 for blend, p1_p2_p3 for triblock
+ex_nch   = [9, 9] # number of chains of each type
+ex_nmon  = [18, 11] # degree of polymerization of each type
 
 # Input data - Packmol
 inppack  = 'pack_cellulose.inp' # PACKMOL input file
@@ -62,6 +57,16 @@ refP   = 1   # Reference pressure
 pp_run = 'run_preprocess_pyinp.sh'
 md_run = 'run_md_pyinp.sh'
 #------------------------------------------------------------------
+
+# Import directory paths
+main_dir    = os.getcwd() # current dir
+acet_dir    = dir_names.acet_dir
+cell_topdir = dir_names.cell_topdir
+natv_cnfdir = dir_names.natv_cnfdir
+poly_mat    = dir_names.poly_mat
+pack_exe    = dir_names.pack_exe
+mdp_dir     = dir_names.mdp_dir
+scr_dir     = dir_names.scr_dir
 
 # Check for directory paths and input consistency
 chrm_dir = poly_mat + '/charmm_' + matrix #CHARMM inp dir for poly matrices
@@ -104,8 +109,8 @@ pack_dir = create_output_dirs(pack_sup,acet_val,acet_per,add_poly)
 
 print('Checking matrix input files for gaussian chains...')
 # Check for Gaussian input chains
-matdir,rgmax = check_gaussianity_and_write(gmx_mat,mat_pdb,nmons,\
-                                           nchains,matrix,gaus_tol,pack_dir)
+polygausdir,rgmax = check_gaussianity_and_write(gmx_mat,mat_pdb,nmons,\
+                                                nchains,matrix,gaus_tol,pack_dir)
 
 # Acetylate chains if needed
 if acet_per != 0:
@@ -128,9 +133,12 @@ packed_cnfpdb = packmol_headers(fpack,matrix,pack_dir,\
 # Pack CNF/matrix/additional polymers
 print('Writing packmol scripts for packing cellulose and matrix chains...')
 pack_cellulose_chains(fpack,pack_dir,acet_fyle,ncnf,xmin,ymin,zmin,xmax,ymax,zmax,fin_box,dmax)
-pack_polymer_matrix(matdir,matrix,nchains,xmin,ymin,zmin,xmax,ymax,zmax,fpack,fin_box,dmax)
-#if add_poly != 'None':
-#    pack_extra_polymers()
+pack_polymer_matrix(polygausdir,matrix,nchains,xmin,ymin,zmin,xmax,ymax,zmax,fpack,fin_box,dmax)
+if add_poly.lower() != 'None'.lower():
+    exgausdir,exrgmax = check_gaussianity_and_write(gmx_mat,mat_pdb,nmons,\
+                                                    nchains,matrix,gaus_tol,\
+                                                    pack_dir)
+    pack_extra_poly(exgausdir,matrix,ex_nch,xmin,ymin,zmin,xmax,ymax,zmax,fpack,fin_box,dmax)
 
 fpack.close() # close PACKMOL input file
 
