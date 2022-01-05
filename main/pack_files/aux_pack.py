@@ -42,9 +42,10 @@ def create_output_dirs(superdir,acetval,acetper,addpoly):
     if acetper != 0 and addpoly == 'None':
         outsub = 'acet_cnf_m'+str(acetval)+'_'+str(acetper)
     elif acetper != 0 and addpoly != 'None':
-        outsub =  addpoly+'_cnf_m'+ str(acetval)+'_'+str(acetper)
+        outsub = 'acet_cnf_m'+ str(acetval)+'_'+str(acetper)\
+                 + '_with_' + addpoly
     elif acetper == 0 and addpoly != 'None':
-        outsub = addpoly
+        outsub = 'with_' + addpoly
 
     subdir = superdir + '/' + outsub
     if not os.path.isdir(subdir):
@@ -285,6 +286,26 @@ def pack_polymer_matrix(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,zmax,fout,ma
         fout.write('end structure\n')
         fout.write('\n')
 #------------------------------------------------------------------
+# Consistency checks for additional polymers
+def expoly_check(ex_ptype,ex_nch,ex_nmon,addpoly,exgmxdir):
+    if addpoly.lower() == 'blends':
+        if len(ex_ptype) != 2:
+            raise RuntimeError('Blends should have exactly two poly types')
+    elif addpoly.lower() == 'homo':
+        if len(ex_ptype) != 1:
+            raise RuntimeError('Homopolymers can have only one poly type')
+    elif addpoly.lower() == 'copoly':
+        if len(ex_ptype) != 0:
+            raise RuntimeError('Copoly should have at least one poly type')
+    else:
+        raise RuntimeError('Unknown add_poly option: '+ addpoly)
+
+    if len(ex_ptype) != len(ex_nch) or len(ex_ptype) != len(ex_nmon):
+        raise RuntimeError('Size mismatch between polymer types ' +
+                           'and number of chains/monomers')
+
+    check_dir(exgmxdir)
+#------------------------------------------------------------------
 # Pack additional polymer chains (blends/triblock)
 def pack_extra_poly(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,\
                     zmax,fout,mag,dmax):
@@ -475,77 +496,89 @@ def write_header_topfile(f_all):
     f_all.write(';; -------------------------------------\n\n')
 #------------------------------------------------------------------
 # Copy forcefield/top files of matrix to packmol directory
-def copy_mat_toppar_files(gmx_mat,pack_dir,prmfyle_arr,\
-                          itpfyle_arr,mol_info):
+#polygmxdir - original CHARMM-GUI directory
+#pack_dir   - combined output directory
+def copy_pol_toppar_files(polgmxdir,pack_dir,prmfyle_arr,\
+                          itpfyle_arr,mol_info,moltyp):
 
     maindir = os.getcwd()
     # First copy files into pack_dir
-    if not os.path.isdir(gmx_mat+'/toppar'):
+    if not os.path.isdir(polgmxdir+'/toppar'):
         raise RuntimeError('toppar directory not found in '\
-                           + gmx_mat)
+                           + polgmxdir)
     if not os.path.isdir(pack_dir + '/all_toppar'):
         os.mkdir(pack_dir + '/all_toppar')
 
-    os.chdir(gmx_mat + '/toppar')
+    os.chdir(polgmxdir + '/toppar')
     mat_toppar = glob.glob('*')
     if mat_toppar == []:
-        raise RuntimeError('No topology files found in ' + gmx_mat\
-                        + '/toppar')
+        raise RuntimeError('No topology files found in '\
+                           + polgmxdir + '/toppar')
 
+    # Change file name so that files are not overwritten
     for fyl in mat_toppar:
-        gencpy(gmx_mat+'/toppar', pack_dir+'/all_toppar', fyl)
+        srcfyle = polygmx + '/toppar/' + fyl
+        desfyle = pack_dir + '/all_toppar/' + moltyp + fyl
+        shutil.copy2(srcfyl,desfyl)
 
     # Now all files are in pack_dir + '/all_toppar'
     # Find prm and itp files from this folder
-    # File names are same, but directory is pack_dir+'/all_toppar'
+    # File names are changed with the moltype prefix
     # This way original files are intact
-    # Simply change to pack_dir + '/all_toppar', but DO NOT update ma    # t_toppar here or else it will read from the new directory which    # is not what we want
+    # Read toppar files from pack_dir + '/all_toppar'
 
     os.chdir(pack_dir + '/all_toppar')
     itp = -1; prm = -1
     for fyle in mat_toppar:
-        with open(fyle,'r') as fin:
+        fname = moltyp + fyl
+        if not os.name.exists(fname):
+            raise RuntimeError(fname+' not found in ',os.getcwd())
+        with open(fname,'r') as fin: # check filetype is itp or prm
             for line in fin:
                 if '[ moleculetype ]' in line:
                     itpfyle_arr.append(pack_dir +\
-                                       '/all_toppar/' + fyle)
+                                       '/all_toppar/' + fname)
                     itp = 1
                     break
                 elif '[ atomtypes ]' in line or \
                      '[ bondtypes ]' in line:
                     prmfyle_arr.append(pack_dir + \
-                                       '/all_toppar/' + fyle)
+                                       '/all_toppar/' + fname)
                     prm = 1
                     break
 
     # Sanity check to see whether itp/prm files are found
+    # Checking fname or fyle above is equivalent because
+    # if fyle is found in polygmxdir/toppar, 
+    # then fname should be present in pack_dir/all_toppar
+
     if itp == -1:
         raise RuntimeError('Topology files not found in '\
-                           + gmx_mat + '/toppar')
+                           + polgmxdir + '/toppar')
     if prm == -1:
         raise RuntimeError('Interaction files not found in '\
-                           + gmx_mat + '/toppar')
+                           + polgmxdir + '/toppar')
 
     # Open topol file to obtain molecule name and size
     # No need to copy this to pack_dir
-    if not os.path.exists(gmx_mat + '/topol.top'):
-        print('WARNING: topol.top missing in ' + gmx_mat)
+    if not os.path.exists(polgmxdir + '/topol.top'):
+        raise RuntimeError('topol.top missing in ' + polgmxdir)
     else:
-        with open(gmx_mat + '/topol.top','r') as ftop:
+        with open(polgmxdir + '/topol.top','r') as ftop:
             while not '[ molecules ]' in ftop.readline():
                 pass
             line = ftop.readline()
-            mol_info.append(';matrix')
+            mol_info.append(';'+moltyp)
             for line in ftop:
                 if not line.lstrip().startswith(';'):
                     mol_info.append(line)
-        gencpy(gmx_mat,pack_dir,'topol.top')
+        gencpy(polgmxdir,pack_dir,'topol.top')
     os.chdir(maindir)
 #------------------------------------------------------------------
 # Change forcefield files to add ;
 def add_comment_to_ff_files(prmfyles):
     # Do not edit the first file
-    for i in range(1,len(prmfyles)):
+    for i in range(1,len(prmfyles)): # don't edit first file
         with fileinput.FileInput(prmfyles[i],inplace=True,\
                                  backup='.bak') as fin:
             for line in fin:
@@ -558,7 +591,8 @@ def add_comment_to_ff_files(prmfyles):
                     print(line,end='')
 #------------------------------------------------------------------
 # Combine polymer matrix and acetylation files
-def combine_top_files(outdir,prm_files,itp_files,molinfo,nch):
+def combine_top_files(outdir,prm_files,itp_files,molinfo,nch,\
+                      addpoly,exnch):
     all_top  = outdir + '/alltop.top'
     f_all = open(all_top,'w')
     write_header_topfile(f_all)
@@ -591,12 +625,22 @@ def combine_top_files(outdir,prm_files,itp_files,molinfo,nch):
         f_all.write('%s' %(molinfo[i])); i+=1
             
     # Write matrix part
-    while i < len(molinfo):
+    while not add_poly in molinfo[i] and i < len(molinfo):
         if ';matrix' in molinfo[i]:
             f_all.write('%s\n' %(molinfo[i])); i+=1
         else:
             moltype = molinfo[i].lstrip().split()[0]
             f_all.write('%s\t%d' %(moltype,nch)); i+=1
+
+    # Write additional polymers
+    j = 0
+    if add_poly.lower() != 'None'.lower():
+        if add_poly in molinfo[i]:
+            f_all.write('%s\n' %(molinfo[i])); i+=1
+        else:
+            moltype = molinfo[i].lstrip().split()[0]
+            f_all.write('%s\t%d' %(moltype,exnch[j]));
+            i+=1; j+=1
 
     f_all.close()
     return all_top

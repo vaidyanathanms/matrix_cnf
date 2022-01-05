@@ -13,7 +13,7 @@ import subprocess
 import dir_names
 import mdp
 from aux_pack import * # function definitions
-#------------------------------------------------------------------
+#------------BEGIN INPUTS------------------------------------------
 
 # Polymer matrix
 matrix   = 'pla' #pla/pp/petg/p3hb
@@ -35,10 +35,11 @@ acetpref = 'modified_m' # prefix for acetylated files
 acet_att = 100 # maximum attempts to create acetylated cellulose
 
 # Input data - Additives - blends/triblock copolymers
-add_poly = 'None' # blend/triblock
-ex_ptype = ['paa','pvp'] #p1,p2 for blend, p1_p2_p3 for triblock
-ex_nch   = [9, 9] # number of chains of each type
-ex_nmon  = [18, 11] # degree of polymerization of each type
+add_poly  = 'None' # blend/homo/copoly
+ex_ptype  = ['paa','pvp'] #p1,p2->blend;p1-p2-p3->copoly;p1->homo
+ex_nch    = [9, 9] # number of chains of each type
+ex_nmon   = [18, 11] # degree of polymerization of each type
+ex_matpdb = ['step3_input.pdb','step3_input.pdb'] #PDB of each type
 
 # Input data - Packmol
 inppack  = 'pack_cellulose.inp' # PACKMOL input file
@@ -56,7 +57,7 @@ Ttarg  = 300 # Target temperature for simulations
 refP   = 1   # Reference pressure
 pp_run = 'run_preprocess_pyinp.sh'
 md_run = 'run_md_pyinp.sh'
-#------------------------------------------------------------------
+#-------------------END INPUTS--------------------------------------
 
 # Import directory paths
 main_dir    = os.getcwd() # current dir
@@ -96,21 +97,18 @@ else:
     mod_cell = 0
 #------------------------------------------------------------------
 
-# Main code
-
+# Begin main code
 print('Begin creating packmol files...')
 print('Begin checking input files and create output directories...')
-
 # Check for polymer matrix files 
 check_inp_files(gmx_mat,mat_pdb) 
-
 # Create output directories
 pack_dir = create_output_dirs(pack_sup,acet_val,acet_per,add_poly)
-
 print('Checking matrix input files for gaussian chains...')
 # Check for Gaussian input chains
 polygausdir,rgmax = check_gaussianity_and_write(gmx_mat,mat_pdb,nmons,\
                                                 nchains,matrix,gaus_tol,pack_dir)
+#------------------------------------------------------------------
 
 # Acetylate chains if needed
 if acet_per != 0:
@@ -118,49 +116,75 @@ if acet_per != 0:
     make_acet_cell(acet_dir,acet_val,cell_dp,acet_per,acet_tol,\
                    acet_fyle,acet_att,pack_dir,acet_new,natv_cnfdir)
     os.chdir(main_dir)
+#------------------------------------------------------------------
 
-print('Determining optimal dimensions of the box...')
 # Check for cnf dimensions and compare with rg of polymer matrix
+print('Determining optimal dimensions of the box...')
 xmin,ymin,zmin,xmax,ymax,zmax = find_cnf_dim(acet_dir,acet_fyle,pack_dir)
 dmax = max(xmax-xmin,ymax-ymin,zmax-zmin,rgmax)
+#------------------------------------------------------------------
 
 # Start writing PACKMOL files
+print('Writing packmol scripts for packing cellulose and matrix chains...')
 packfyle = pack_dir + '/' + inppack
 fpack   = open(packfyle,'w')
 packed_cnfpdb = packmol_headers(fpack,matrix,pack_dir,\
                                 acet_per,acet_val,add_poly)
-
-# Pack CNF/matrix/additional polymers
-print('Writing packmol scripts for packing cellulose and matrix chains...')
-pack_cellulose_chains(fpack,pack_dir,acet_fyle,ncnf,xmin,ymin,zmin,xmax,ymax,zmax,fin_box,dmax)
-pack_polymer_matrix(polygausdir,matrix,nchains,xmin,ymin,zmin,xmax,ymax,zmax,fpack,fin_box,dmax)
+# Pack CNF chains
+pack_cellulose_chains(fpack,pack_dir,acet_fyle,ncnf,xmin,ymin,zmin,\
+                      xmax,ymax,zmax,fin_box,dmax)
+# Pack polymer matrix
+pack_polymer_matrix(polygausdir,matrix,nchains,xmin,ymin,zmin,xmax,\
+                    ymax,zmax,fpack,fin_box,dmax)
+# Pack additional polymers
 if add_poly.lower() != 'None'.lower():
-    exgausdir,exrgmax = check_gaussianity_and_write(gmx_mat,mat_pdb,nmons,\
-                                                    nchains,matrix,gaus_tol,\
+    print('Writing packmol scripts for adding additional polymers..')
+    for pol in len(ex_ptype):
+        exchrmdir = poly_mat + '/charmm_' + ex_ptype[pol]
+        exgmxdir  = exchrmdir + '/gromacs'
+        expoly_check(ex_ptype,ex_nch,ex_nmon,add_poly,exgmxdir)
+        exgausdir,exrgm=check_gaussianity_and_write(exgmxdir,\
+                                                    exmat_pdb[pol]\
+                                                    ,ex_nmons[pol],\
+                                                    ex_nchains[pol]\
+                                                    ,ex_ptype[pol],\
+                                                    gaus_tol,\
                                                     pack_dir)
-    pack_extra_poly(exgausdir,matrix,ex_nch,xmin,ymin,zmin,xmax,ymax,zmax,fpack,fin_box,dmax)
-
+        pack_extra_poly(exgausdir,ex_ptype[val],ex_nch[val],xmin,\
+                        ymin,zmin,xmax,ymax,zmax,fpack,fin_box,dmax)
 fpack.close() # close PACKMOL input file
+#------------------------------------------------------------------
 
 # Run PACKMOL
 if run_pack:
     print('Submitting PACKMOL scripts..')
     run_packmol(packfyle,pack_exe,pack_dir,packsh,main_dir)
+#------------------------------------------------------------------
 
-# top/prm/itp file arrays
+# Begin combining top/prm/itp file arrays
+print('Generating GMX top files for celluloses..')
 prmfyle_arr = []; itpfyle_arr = []
 
-# Generate and split top file for cell/acetylated cellu
-print('Generating GMX top files for celluloses..')
+# Step1: Generate and split top file for cell/acetylated cellulose
 make_top_file_for_acetcell(main_dir,pack_dir,cell_topdir,acet_fyle)
 prm_file,itp_file,mol_infoarr = split_top_file_to_prmitp(acet_fyle,pack_dir,main_dir)
 prmfyle_arr.append(prm_file); itpfyle_arr.append(itp_file)
 
-# Copy itp/top/prm file for polymer matrix
-# Check for toppar inside gromacs directory output by CHARMM-GUI
+# Step2: Copy itp/top/prm file for polymer matrix
+# Check for toppar dir inside gromacs directory output by CHARMM-GUI
 print('Copying toppar files from CHARMM-GUI for polymer matrices.')
-copy_mat_toppar_files(gmx_mat,pack_dir,prmfyle_arr,\
-                      itpfyle_arr,mol_infoarr)
+copy_pol_toppar_files(gmx_mat,pack_dir,prmfyle_arr,\
+                      itpfyle_arr,mol_infoarr,'matrix')
+
+# Step3: Copy itp/top/prm file for additional polymers
+# Check for toppar dir inside gromacs directory output by CHARMM-GUI
+if add_poly.lower() != 'None'.lower():
+    for pol in len(ex_ptype):
+        exchrmdir = poly_mat + '/charmm_' + ex_ptype[pol]
+        exgmxdir  = exchrmdir + '/gromacs'
+        copy_pol_toppar_files(exgmxdir,pack_dir,prmfyle_arr,\
+                              itpfyle_arr,mol_infoarr,\
+                              add_poly+str(pol+1))
 
 # Add ; to all the polymer matrix forcefield files (prm)
 print('Editing forcefield files of polymer matrices..')
@@ -171,12 +195,9 @@ print('Combining prm/itp files of cellulose and polymers'\
       + ' into one single top file for GMX calculations..')
 out_topo_file = combine_top_files(pack_dir,prmfyle_arr,\
                                   itpfyle_arr,mol_infoarr,\
-                                  nchains)
-
-# Clean up psf/pdb files of native cellulose
-clean_and_sort_files(pack_dir,acetpref)
-
-# Create final directories in scratch
+                                  nchains,add_poly,ex_nch)
+#------------------------------------------------------------------
+# Generate files for MD simulations
 if set_mdp:
     check_dir(mdp_dir)
     print('Copying  directories of MD simulations...')
@@ -199,9 +220,12 @@ if set_mdp:
                       pp_run,Ttarg,mdp_dir,pack_dir)#preprocess
     mdp.edit_sh_files('md',matrix,packed_cnfpdb,out_topo_file,\
                       md_run,Ttarg,mdp_dir,pack_dir)#md run
-
+#------------------------------------------------------------------
+# Clean-up directories
+print("Cleaning up ...")
+clean_and_sort_files(pack_dir,acetpref)
+#------------------------------------------------------------------
 os.chdir(main_dir)
-    
 print('Done :) ..')
 
 
