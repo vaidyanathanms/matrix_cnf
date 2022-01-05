@@ -35,7 +35,6 @@ def check_inp_files(dum_inpdir, inp_name):
 #-------------------------------------------------------------------
 # Create all output directories
 def create_output_dirs(superdir,acetval,acetper,addpoly):
-
     if not os.path.isdir(superdir):
         os.mkdir(superdir)
 
@@ -48,10 +47,21 @@ def create_output_dirs(superdir,acetval,acetper,addpoly):
         outsub = 'with_' + addpoly
 
     subdir = superdir + '/' + outsub
-    if not os.path.isdir(subdir):
+    if os.path.isdir(subdir):
+        clear_all_files(subdir)    
+    if not os.path.isdir(subdir):  
         os.mkdir(subdir)
-
     return subdir
+#-------------------------------------------------------------------
+# Clear all files from the directory
+def clear_all_files(subdir):
+    print("Output directory already exists.")
+    inp = input("Clean and rewrite directory (y/n)? ")
+    while not inp.lower() == 'y' or inp.lower() == 'n':
+        print("Please input y or n: ")
+        inp = input("Clean and rewrite directory (y/n)? ")
+    if inp.lower() == 'y':
+        shutil.rmtree(subdir)
 #-------------------------------------------------------------------
 # Check for gaussian chains and write
 def check_gaussianity_and_write(gmxdir,inpfyle2,nmons,nchains,\
@@ -516,10 +526,10 @@ def copy_pol_toppar_files(polgmxdir,pack_dir,prmfyle_arr,\
                            + polgmxdir + '/toppar')
 
     # Change file name so that files are not overwritten
-    for fyl in mat_toppar:
-        srcfyle = polygmx + '/toppar/' + fyl
-        desfyle = pack_dir + '/all_toppar/' + moltyp + fyl
-        shutil.copy2(srcfyl,desfyl)
+    for fyle in mat_toppar:
+        srcfyle = polgmxdir + '/toppar/' + fyle
+        desfyle = pack_dir + '/all_toppar/' + moltyp + fyle
+        shutil.copy2(srcfyle,desfyle)
 
     # Now all files are in pack_dir + '/all_toppar'
     # Find prm and itp files from this folder
@@ -530,8 +540,8 @@ def copy_pol_toppar_files(polgmxdir,pack_dir,prmfyle_arr,\
     os.chdir(pack_dir + '/all_toppar')
     itp = -1; prm = -1
     for fyle in mat_toppar:
-        fname = moltyp + fyl
-        if not os.name.exists(fname):
+        fname = moltyp + fyle
+        if not os.path.exists(fname):
             raise RuntimeError(fname+' not found in ',os.getcwd())
         with open(fname,'r') as fin: # check filetype is itp or prm
             for line in fin:
@@ -621,11 +631,13 @@ def combine_top_files(outdir,prm_files,itp_files,molinfo,nch,\
 
     # Write cellulose part
     i = 0
-    while not ';matrix' in molinfo[i] and i < len(molinfo):
+    while ';matrix' not in molinfo[i] and i < len(molinfo):
         f_all.write('%s' %(molinfo[i])); i+=1
             
     # Write matrix part
-    while not add_poly in molinfo[i] and i < len(molinfo):
+    while i < len(molinfo):
+        if addpoly in molinfo[i]:
+            break
         if ';matrix' in molinfo[i]:
             f_all.write('%s\n' %(molinfo[i])); i+=1
         else:
@@ -634,8 +646,8 @@ def combine_top_files(outdir,prm_files,itp_files,molinfo,nch,\
 
     # Write additional polymers
     j = 0
-    if add_poly.lower() != 'None'.lower():
-        if add_poly in molinfo[i]:
+    if addpoly.lower() != 'None'.lower():
+        if addpoly in molinfo[i]:
             f_all.write('%s\n' %(molinfo[i])); i+=1
         else:
             moltype = molinfo[i].lstrip().split()[0]
