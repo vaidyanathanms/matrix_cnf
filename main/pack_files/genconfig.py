@@ -165,7 +165,7 @@ if run_pack:
 
 # Begin combining top/prm/itp file arrays
 print('Generating GMX top files for celluloses..')
-prmfyle_arr = []; itpfyle_arr = []
+prmfyle_arr = []; itpfyle_arr = []; mol_infoptr = []
 
 # Step1: Generate and split top file for cell/acetylated cellulose
 make_top_file_for_acetcell(main_dir,pack_dir,cell_topdir,acet_fyle)
@@ -176,7 +176,7 @@ prmfyle_arr.append(prm_file); itpfyle_arr.append(itp_file)
 # Check for toppar dir inside gromacs directory output by CHARMM-GUI
 print('Copying toppar files from CHARMM-GUI for polymer matrices.')
 copy_pol_toppar_files(gmx_mat,pack_dir,prmfyle_arr,\
-                      itpfyle_arr,mol_infoarr,'matrix')
+                      itpfyle_arr,mol_infoarr,mol_infoptr,'matrix')
 
 # Step3: Copy itp/top/prm file for additional polymers
 # Check for toppar dir inside gromacs directory output by CHARMM-GUI
@@ -186,19 +186,16 @@ if add_poly.lower() != 'None'.lower():
         exgmxdir  = exchrmdir + '/gromacs'
         copy_pol_toppar_files(exgmxdir,pack_dir,prmfyle_arr,\
                               itpfyle_arr,mol_infoarr,\
-                              add_poly+str(pol+1))
+                              mol_infoptr,add_poly+str(pol+1))
 
 # Add ; and change molecule name in forcefield files (prm)
 print('Editing forcefield files of polymer matrices..')
 add_comment_to_ff_files(prmfyle_arr)
 
-# Change molecule names in itp files if necessary
-if add_poly != 'None':
-    while i < len(molinfo):
-        if addpoly in molinfo[i]:
-            f_all.write('%s\n' %(molinfo[i])); i+=1
-        else:
-            
+# Change molecule names in itp (topology) files
+print('Generating new molecule names in itp (topology) files..')
+change_molname_itp_file(mol_infoarr,mol_infoptr,itpfyle_arr)
+
 # Combine polymer matrix and acet cell files into one top file
 print('Combining prm/itp files of cellulose and polymers'\
       + ' into one single top file for GMX calculations..')
@@ -207,6 +204,7 @@ out_topo_file = combine_top_files(pack_dir,prmfyle_arr,\
                                   nchains,add_poly,ex_nch)
 print('Combined topology file: ', out_topo_file)
 #------------------------------------------------------------------
+
 # Generate files for MD simulations
 if set_mdp:
     check_dir(mdp_dir)

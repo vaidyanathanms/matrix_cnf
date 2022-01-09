@@ -59,9 +59,11 @@ def clear_all_files(subdir):
     inp = input("Clean and rewrite directory (y/n)? ")
     while not inp.lower() == 'y' or inp.lower() == 'n':
         print("Please input y or n: ")
-        inp = input("Clean and rewrite directory (y/n)? ")
+        inp = input("Clean directory and rewrite files (y/n)? ")
     if inp.lower() == 'y':
         shutil.rmtree(subdir)
+    else:
+        quit()
 #-------------------------------------------------------------------
 # Check for gaussian chains and write
 def check_gaussianity_and_write(gmxdir,inpfyle2,nmons,nchains,\
@@ -271,7 +273,7 @@ def pack_polymers(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,\
         raise RuntimeError(matdir + " not found")
 
     matlist = glob.glob(matdir + '/' + matname + '*.pdb')
-    print(matlist)
+
     if matlist == []:
         raise RuntimeError('No Gaussian inputs found. Consider changing gaus_tol')
     
@@ -446,7 +448,7 @@ def split_top_file_to_prmitp(top_file,destdir,maindir):
     prm_file = destdir + '/all_toppar/' + top_file + '.prm'
     itp_file = destdir + '/all_toppar/' + top_file + '.itp'
     # Write until [ moleculetype ] to *.prm file and
-    # Write from [moleculetype ] until [ System ] to *.itp
+    # Write from [ moleculetype ] until [ System ] to *.itp
     # Then skip from [ System ] to [ molecules ]
     # Finally add system info to arrays
     with open(top_file+'.top','r') as ftop, \
@@ -480,7 +482,7 @@ def write_header_topfile(f_all):
 #polygmxdir - original CHARMM-GUI directory
 #pack_dir   - combined output directory
 def copy_pol_toppar_files(polgmxdir,pack_dir,prmfyle_arr,\
-                          itpfyle_arr,mol_info,moltyp):
+                          itpfyle_arr,mol_info,mol_infoptr,moltyp):
 
     maindir = os.getcwd()
     # First copy files into pack_dir
@@ -551,19 +553,20 @@ def copy_pol_toppar_files(polgmxdir,pack_dir,prmfyle_arr,\
             while not '[ molecules ]' in ftop.readline():
                 pass
             line = ftop.readline()
-            mol_info.append(';'+moltyp)
+            mol_info.append(';'+moltyp)#to know new molecule is added
+            mol_infoptr.append(len(mol_info))#points to index of molname
             for line in ftop:
                 if not line.lstrip().startswith(';'):
                     # set default number of chains as 0. 
                     # set correct value in combine_top_files
-                    molname = moltyp + line.lstrip().split()[0]
+                    molname = moltyp + '_' + line.lstrip().split()[0]
                     mol_info.append(molname + '\t' + str(0))
         gencpy(polgmxdir,pack_dir,'topol.top')
     os.chdir(maindir)
 #------------------------------------------------------------------
 # Change forcefield files to add ;
 def add_comment_to_ff_files(prmfyles):
-    # Do not edit the first file
+    # Do not edit the first file which is CNF
     for i in range(1,len(prmfyles)): # don't edit first file
         with fileinput.FileInput(prmfyles[i],inplace=True,\
                                  backup='.bak') as fin:
@@ -576,8 +579,33 @@ def add_comment_to_ff_files(prmfyles):
                 else:
                     print(line,end='')
 #------------------------------------------------------------------
-# Change molecule name
-#def change_molecule_name(itpfyle):
+# Change molecule name in the itp (topology) file
+def change_molname_itp_file(molinfo,molptr,itpfyles):
+    # No need to edit the first file which is CNF 
+    for i in range(1,len(itpfyles)): # don't edit first file
+        with fileinput.FileInput(itpfyles[i],inplace=True,\
+                                 backup='.bak') as fin:
+            for line in fin:
+                if '[ moleculetype ]' in line:
+                    print(line,end='')
+                    line = fin.readline()
+                    # Read until the next uncommented line
+                    while line.lstrip().startswith(';'):
+                        print(line,end='')
+                        line = fin.readline()
+                    # Replace molecule name
+                    # Check whether next main line has 2 entries
+                    lsplit = line.split() #don't strip \n
+                    if len(lsplit) != 2:
+                        raise RuntimeError('[ moleculetype ] should contain'\
+                                           +' only 2 args in the itp file: '\
+                                           + itpfyles[i], lsplit)
+                    moltype = molinfo[molptr[i-1]].lstrip().split()[0]
+                    lsplit[0] = moltype
+                    print('\t'.join(lsplit))
+                else:
+                    print(line,end='')
+#------------------------------------------------------------------
 # Combine polymer matrix and acetylation files
 def combine_top_files(outdir,prm_files,itp_files,molinfo,nch,\
                       addpoly,exnch):
@@ -625,13 +653,13 @@ def combine_top_files(outdir,prm_files,itp_files,molinfo,nch,\
     # Write additional polymers
     if addpoly.lower() != 'None'.lower():
         j = 0
-        f_all.write('%s\n') # one line is necessary
+        f_all.write('\n') # one line is necessary
         while i < len(molinfo):
-            if addpoly in molinfo[i]:
+            if ';'+addpoly in molinfo[i]:
                 f_all.write('%s\n' %(molinfo[i])); i+=1
             else:
                 moltype = molinfo[i].lstrip().split()[0]
-                f_all.write('%s\t%d' %(moltype,exnch[j]));
+                f_all.write('%s\t%d\n' %(moltype,exnch[j]));
                 i+=1; j+=1
 
     f_all.close()
