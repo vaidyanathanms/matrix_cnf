@@ -264,12 +264,14 @@ def pack_cellulose_chains(fout,packdir,inpfyle,ncnf,xmin,ymin,zmin,xmax,ymax,zma
     fout.write('end structure\n')
     fout.write('\n')
 #------------------------------------------------------------------
-# Add main polymer matrix
-def pack_polymer_matrix(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,zmax,fout,mag,dmax):
+# Add main polymer matrix/additional polymer blend/co/homoplymers
+def pack_polymers(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,\
+                  zmax,fout,mag,dmax):
     if not os.path.isdir(matdir):
         raise RuntimeError(matdir + " not found")
 
     matlist = glob.glob(matdir + '/' + matname + '*.pdb')
+    print(matlist)
     if matlist == []:
         raise RuntimeError('No Gaussian inputs found. Consider changing gaus_tol')
     
@@ -297,8 +299,8 @@ def pack_polymer_matrix(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,zmax,fout,ma
         fout.write('\n')
 #------------------------------------------------------------------
 # Consistency checks for additional polymers
-def expoly_check(ex_ptype,ex_nch,ex_nmon,addpoly,exgmxdir):
-    if addpoly.lower() == 'blends':
+def expoly_check(ex_ptype,ex_nch,ex_nmon,addpoly,ex_gaus):
+    if addpoly.lower() == 'blend':
         if len(ex_ptype) != 2:
             raise RuntimeError('Blends should have exactly two poly types')
     elif addpoly.lower() == 'homo':
@@ -310,41 +312,10 @@ def expoly_check(ex_ptype,ex_nch,ex_nmon,addpoly,exgmxdir):
     else:
         raise RuntimeError('Unknown add_poly option: '+ addpoly)
 
-    if len(ex_ptype) != len(ex_nch) or len(ex_ptype) != len(ex_nmon):
+    if len(ex_ptype) != len(ex_nch) or len(ex_ptype) != len(ex_nmon)\
+       or len(ex_ptype) != len(ex_gaus):
         raise RuntimeError('Size mismatch between polymer types ' +
-                           'and number of chains/monomers')
-
-    check_dir(exgmxdir)
-#------------------------------------------------------------------
-# Pack additional polymer chains (blends/triblock)
-def pack_extra_poly(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,\
-                    zmax,fout,mag,dmax):
-
-    if not os.path.isdir(matdir):
-        raise RuntimeError(matdir + " not found")
-
-    lenlist = len(matlist)
-    nsets   = int(nch/lenlist) if int(nch/lenlist) > 1 else 1
-    nextra  = nch%lenlist
-    dr = (mag-1)*dmax
-
-    for chain in range(min(lenlist,nch)):
-        fout.write('structure  %s\n' %(matlist[chain]))
-        fout.write('  number   %d\n' %(nsets))  
-#        fout.write('  center \n') #Don't center matrix chains
-        fout.write(' inside box %g  %g  %g  %g  %g  %g\n'
-                   %(xmin-0.5*dr,ymin-0.5*dr,zmin-0.5*dr,xmax+0.5*dr,ymax+0.5*dr,zmax+0.5*dr))
-        fout.write('end structure\n')
-        fout.write('\n')
-
-    if nextra != 0:
-        fout.write('structure  %s\n' %(matlist[0]))
-        fout.write('  number   %d\n' %(nextra))  
-#        fout.write('  center \n') #Don't center matrix chains
-        fout.write(' inside box %g  %g  %g  %g  %g  %g\n'
-                   %(xmin-dr,ymin-dr,zmin-dr,xmax+dr,ymax+dr,zmax+dr))
-        fout.write('end structure\n')
-        fout.write('\n')
+                           'and number of chains/monomers/tol')
 #------------------------------------------------------------------
 # Run packmol
 def run_packmol(packfyle,pack_exe,destdir,packsh,currdir):
@@ -570,6 +541,8 @@ def copy_pol_toppar_files(polgmxdir,pack_dir,prmfyle_arr,\
                            + polgmxdir + '/toppar')
 
     # Open topol file to obtain molecule name and size
+    # IMPORTANT: However change the moleculename so that multiple
+    # molecules with same names are not there.
     # No need to copy this to pack_dir
     if not os.path.exists(polgmxdir + '/topol.top'):
         raise RuntimeError('topol.top missing in ' + polgmxdir)
@@ -581,7 +554,10 @@ def copy_pol_toppar_files(polgmxdir,pack_dir,prmfyle_arr,\
             mol_info.append(';'+moltyp)
             for line in ftop:
                 if not line.lstrip().startswith(';'):
-                    mol_info.append(line)
+                    # set default number of chains as 0. 
+                    # set correct value in combine_top_files
+                    molname = moltyp + line.lstrip().split()[0]
+                    mol_info.append(molname + '\t' + str(0))
         gencpy(polgmxdir,pack_dir,'topol.top')
     os.chdir(maindir)
 #------------------------------------------------------------------
@@ -600,6 +576,8 @@ def add_comment_to_ff_files(prmfyles):
                 else:
                     print(line,end='')
 #------------------------------------------------------------------
+# Change molecule name
+#def change_molecule_name(itpfyle):
 # Combine polymer matrix and acetylation files
 def combine_top_files(outdir,prm_files,itp_files,molinfo,nch,\
                       addpoly,exnch):
@@ -645,14 +623,16 @@ def combine_top_files(outdir,prm_files,itp_files,molinfo,nch,\
             f_all.write('%s\t%d' %(moltype,nch)); i+=1
 
     # Write additional polymers
-    j = 0
     if addpoly.lower() != 'None'.lower():
-        if addpoly in molinfo[i]:
-            f_all.write('%s\n' %(molinfo[i])); i+=1
-        else:
-            moltype = molinfo[i].lstrip().split()[0]
-            f_all.write('%s\t%d' %(moltype,exnch[j]));
-            i+=1; j+=1
+        j = 0
+        f_all.write('%s\n') # one line is necessary
+        while i < len(molinfo):
+            if addpoly in molinfo[i]:
+                f_all.write('%s\n' %(molinfo[i])); i+=1
+            else:
+                moltype = molinfo[i].lstrip().split()[0]
+                f_all.write('%s\t%d' %(moltype,exnch[j]));
+                i+=1; j+=1
 
     f_all.close()
     return all_top

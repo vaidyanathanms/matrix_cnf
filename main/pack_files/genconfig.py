@@ -35,16 +35,17 @@ acetpref = 'modified_m' # prefix for acetylated files
 acet_att = 100 # maximum attempts to create acetylated cellulose
 
 # Input data - Additives - blends/triblock copolymers
-add_poly  = 'None' # blend/homo/copoly
+add_poly  = 'blend' # blend/homo/copoly
 ex_ptype  = ['paa','pvp'] #p1,p2->blend;p1-p2-p3->copoly;p1->homo
-ex_nch    = [9, 9] # number of chains of each type
-ex_nmon   = [18, 11] # degree of polymerization of each type
-ex_matpdb = ['step3_input.pdb','step3_input.pdb'] #PDB of each type
+ex_nch    = [15, 15] # number of chains of each type
+ex_nmon   = [10, 7] # degree of polymerization of each type
+exmat_pdb = ['step3_input.pdb','step3_input.pdb'] #PDB of each type
+ex_gaus   = [0.05,0.2] # Gaussian tolerance for chains
 
 # Input data - Packmol
 inppack  = 'pack_cellulose.inp' # PACKMOL input file
 fin_box  = 1.1 # final box size relative to max dimension of cnf/matrix
-run_pack = 1 # 1-run packmol
+run_pack = 0 # 1-run packmol
 cleandir = 1 # clean directories
 packsh   = 'run_packmol_pyinp.sh'
 
@@ -134,24 +135,25 @@ packed_cnfpdb = packmol_headers(fpack,matrix,pack_dir,\
 pack_cellulose_chains(fpack,pack_dir,acet_fyle,ncnf,xmin,ymin,zmin,\
                       xmax,ymax,zmax,fin_box,dmax)
 # Pack polymer matrix
-pack_polymer_matrix(polygausdir,matrix,nchains,xmin,ymin,zmin,xmax,\
-                    ymax,zmax,fpack,fin_box,dmax)
+pack_polymers(polygausdir,matrix,nchains,xmin,ymin,zmin,xmax,\
+              ymax,zmax,fpack,fin_box,dmax)
 # Pack additional polymers
 if add_poly.lower() != 'None'.lower():
     print('Writing packmol scripts for adding additional polymers..')
-    for pol in len(ex_ptype):
+    expoly_check(ex_ptype,ex_nch,ex_nmon,add_poly,ex_gaus)
+    for pol in range(len(ex_ptype)):
         exchrmdir = poly_mat + '/charmm_' + ex_ptype[pol]
         exgmxdir  = exchrmdir + '/gromacs'
-        expoly_check(ex_ptype,ex_nch,ex_nmon,add_poly,exgmxdir)
+        check_dir(exgmxdir)
         exgausdir,exrgm=check_gaussianity_and_write(exgmxdir,\
                                                     exmat_pdb[pol]\
-                                                    ,ex_nmons[pol],\
-                                                    ex_nchains[pol]\
-                                                    ,ex_ptype[pol],\
-                                                    gaus_tol,\
-                                                    pack_dir)
-        pack_extra_poly(exgausdir,ex_ptype[val],ex_nch[val],xmin,\
-                        ymin,zmin,xmax,ymax,zmax,fpack,fin_box,dmax)
+                                                    ,ex_nmon[pol]\
+                                                    ,ex_nch[pol]\
+                                                    ,ex_ptype[pol]\
+                                                    ,ex_gaus[pol]\
+                                                    ,pack_dir)
+        pack_polymers(exgausdir,ex_ptype[pol],ex_nch[pol],xmin,\
+                      ymin,zmin,xmax,ymax,zmax,fpack,fin_box,dmax)
 fpack.close() # close PACKMOL input file
 #------------------------------------------------------------------
 
@@ -179,23 +181,31 @@ copy_pol_toppar_files(gmx_mat,pack_dir,prmfyle_arr,\
 # Step3: Copy itp/top/prm file for additional polymers
 # Check for toppar dir inside gromacs directory output by CHARMM-GUI
 if add_poly.lower() != 'None'.lower():
-    for pol in len(ex_ptype):
+    for pol in range(len(ex_ptype)):
         exchrmdir = poly_mat + '/charmm_' + ex_ptype[pol]
         exgmxdir  = exchrmdir + '/gromacs'
         copy_pol_toppar_files(exgmxdir,pack_dir,prmfyle_arr,\
                               itpfyle_arr,mol_infoarr,\
                               add_poly+str(pol+1))
 
-# Add ; to all the polymer matrix forcefield files (prm)
+# Add ; and change molecule name in forcefield files (prm)
 print('Editing forcefield files of polymer matrices..')
 add_comment_to_ff_files(prmfyle_arr)
 
+# Change molecule names in itp files if necessary
+if add_poly != 'None':
+    while i < len(molinfo):
+        if addpoly in molinfo[i]:
+            f_all.write('%s\n' %(molinfo[i])); i+=1
+        else:
+            
 # Combine polymer matrix and acet cell files into one top file
 print('Combining prm/itp files of cellulose and polymers'\
       + ' into one single top file for GMX calculations..')
 out_topo_file = combine_top_files(pack_dir,prmfyle_arr,\
                                   itpfyle_arr,mol_infoarr,\
                                   nchains,add_poly,ex_nch)
+print('Combined topology file: ', out_topo_file)
 #------------------------------------------------------------------
 # Generate files for MD simulations
 if set_mdp:
