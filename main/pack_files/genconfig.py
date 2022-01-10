@@ -15,11 +15,8 @@ import mdp
 from aux_pack import * # function definitions
 #------------BEGIN INPUTS------------------------------------------
 
-# Polymer matrix
-matrix   = 'pla' #pla/pp/petg/p3hb
-
 # Input data - Polymer matrix
-mat_pdb  = 'step3_input.pdb' # matrix input pdb file - ONLY PDB
+matrix   = 'pla' #pla/pp/petg/p3hb
 nmons    = 40 # number of matrix monomers in output
 nchains  = 81 # number of matrix chains in output
 gaus_tol = 0.05 # tolerance for checking gaussianity
@@ -39,7 +36,6 @@ add_poly  = 'blend' # blend/homo/copoly
 ex_ptype  = ['paa','pvp'] #p1,p2->blend;p1-p2-p3->copoly;p1->homo
 ex_nch    = [15, 15] # number of chains of each type
 ex_nmon   = [10, 7] # degree of polymerization of each type
-exmat_pdb = ['step3_input.pdb','step3_input.pdb'] #PDB of each type
 ex_gaus   = [0.05,0.2] # Gaussian tolerance for chains
 
 # Input data - Packmol
@@ -102,13 +98,14 @@ else:
 print('Begin creating packmol files...')
 print('Begin checking input files and create output directories...')
 # Check for polymer matrix files 
-check_inp_files(gmx_mat,mat_pdb) 
+mat_pdb = find_inp_files(gmx_mat,matrix,main_dir) 
 # Create output directories
 pack_dir = create_output_dirs(pack_sup,acet_val,acet_per,add_poly)
 print('Checking matrix input files for gaussian chains...')
 # Check for Gaussian input chains
 polygausdir,rgmax = check_gaussianity_and_write(gmx_mat,mat_pdb,nmons,\
-                                                nchains,matrix,gaus_tol,pack_dir)
+                                                nchains,matrix,gaus_tol\
+                                                ,pack_dir)
 #------------------------------------------------------------------
 
 # Acetylate chains if needed
@@ -145,6 +142,7 @@ if add_poly.lower() != 'None'.lower():
         exchrmdir = poly_mat + '/charmm_' + ex_ptype[pol]
         exgmxdir  = exchrmdir + '/gromacs'
         check_dir(exgmxdir)
+        exmat_pdb = find_inp_files(exgmxdir,ex_ptype[pol],main_dir)
         exgausdir,exrgm=check_gaussianity_and_write(exgmxdir,\
                                                     exmat_pdb[pol]\
                                                     ,ex_nmon[pol]\

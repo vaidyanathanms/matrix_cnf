@@ -27,11 +27,19 @@ def check_dir(dirname):
         print("FATAL ERROR: ", dirname, " not found\n")
         raise RuntimeError("Check directory path: " + dirname)
 #-------------------------------------------------------------------
-#Check pdb/psf/top files for the melt (or polymer)
-def check_inp_files(dum_inpdir, inp_name):
-    # check structure files 
-    if glob.glob(dum_inpdir+'/' + inp_name) == []:
-        raise RuntimeError(inp_name + " not found in " + dum_inpdir)
+#Find pdb file for the matrix/additive
+def find_inp_files(dum_inpdir, poltype, maindir):
+    os.chdir(dum_inpdir)
+    if glob.glob('*.pdb') == []:
+        raise RuntimeError("No pdb files formed found for "+poltype)
+    elif len(glob.glob('*.pdb')) == 1:
+        pdb_fname = glob.glob(init_dir + '/*.pdb')
+    else:
+        print("Multiple PDB files found. Using latest for "+poltype)
+        fnames = glob.glob(init_dir+'/*.pdb')
+        pdb_fname = max(fnames, key=os.path.getctime)
+    os.chdir(maindir)
+    return pdb_fname
 #-------------------------------------------------------------------
 # Create all output directories
 def create_output_dirs(superdir,acetval,acetper,addpoly):
