@@ -99,10 +99,12 @@ print('Begin creating packmol files...')
 print('Begin checking input files and create output directories...')
 # Check for polymer matrix files 
 mat_pdb = find_inp_files(gmx_mat,matrix,main_dir) 
+print('PDB file for matrix is: ' + mat_pdb)
 # Create output directories
+print('Creating output directories..')
 pack_dir = create_output_dirs(pack_sup,acet_val,acet_per,add_poly)
-print('Checking matrix input files for gaussian chains...')
 # Check for Gaussian input chains
+print('Checking matrix input files for gaussian chains...')
 polygausdir,rgmax = check_gaussianity_and_write(gmx_mat,mat_pdb,nmons,\
                                                 nchains,matrix,gaus_tol\
                                                 ,pack_dir)
@@ -143,8 +145,9 @@ if add_poly.lower() != 'None'.lower():
         exgmxdir  = exchrmdir + '/gromacs'
         check_dir(exgmxdir)
         exmat_pdb = find_inp_files(exgmxdir,ex_ptype[pol],main_dir)
+        print('PDB file for matrix is: ' + exmat_pdb)
         exgausdir,exrgm=check_gaussianity_and_write(exgmxdir,\
-                                                    exmat_pdb[pol]\
+                                                    exmat_pdb\
                                                     ,ex_nmon[pol]\
                                                     ,ex_nch[pol]\
                                                     ,ex_ptype[pol]\

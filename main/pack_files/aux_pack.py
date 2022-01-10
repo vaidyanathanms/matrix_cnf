@@ -33,13 +33,13 @@ def find_inp_files(dum_inpdir, poltype, maindir):
     if glob.glob('*.pdb') == []:
         raise RuntimeError("No pdb files formed found for "+poltype)
     elif len(glob.glob('*.pdb')) == 1:
-        pdb_fname = glob.glob(init_dir + '/*.pdb')
+        pdb_fname = glob.glob('*.pdb')
     else:
         print("Multiple PDB files found. Using latest for "+poltype)
-        fnames = glob.glob(init_dir+'/*.pdb')
+        fnames = glob.glob('*.pdb')
         pdb_fname = max(fnames, key=os.path.getctime)
     os.chdir(maindir)
-    return pdb_fname
+    return pdb_fname[0]
 #-------------------------------------------------------------------
 # Create all output directories
 def create_output_dirs(superdir,acetval,acetper,addpoly):
@@ -286,8 +286,10 @@ def pack_polymers(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,\
         raise RuntimeError('No Gaussian inputs found. Consider changing gaus_tol')
     
     lenlist = len(matlist)
-    nsets   = int(nch/lenlist) if int(nch/lenlist) > 1 else 1
-    nextra  = nch%lenlist
+    if nch/lenlist > 1:
+        nsets = int(nch/lenlist); nextra = nch%lenlist
+    else:
+        nsets = 1; nextra = 0
     dr = (mag-1)*dmax
 
     for chain in range(min(lenlist,nch)):
