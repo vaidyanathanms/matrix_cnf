@@ -22,7 +22,7 @@ nchains  = 81 # number of matrix chains in output
 gaus_tol = 0.05 # tolerance for checking gaussianity
 
 # Input data - Cellulose/Acetylated Cellulose
-acet_val = 1 # m1 - 1, m3 - 3, m7 - 7, m11 - 11
+acet_val = 7 # m1 - 1, m3 - 3, m7 - 7, m11 - 11
 acet_per = 0.5 # fraction of acetylated cellulose
 acet_new = 1 # 0 - use old, 1-delete and regenerate
 ncnf     = 1 # number of cellulose bundles (18 chains)
@@ -32,7 +32,7 @@ acetpref = 'modified_m' # prefix for acetylated files
 acet_att = 100 # maximum attempts to create acetylated cellulose
 
 # Input data - Additives - blends/triblock copolymers
-add_poly  = 'blend' # blend/homo/copoly
+add_poly  = 'None' # blend/homo/copoly/None
 ex_ptype  = ['paa','pvp'] #p1,p2->blend;p1-p2-p3->copoly;p1->homo
 ex_nch    = [15, 15] # number of chains of each type
 ex_nmon   = [10, 7] # degree of polymerization of each type
@@ -41,7 +41,7 @@ ex_gaus   = [0.05,0.2] # Gaussian tolerance for chains
 # Input data - Packmol
 inppack  = 'pack_cellulose.inp' # PACKMOL input file
 fin_box  = 1.1 # final box size relative to max dimension of cnf/matrix
-run_pack = 0 # 1-run packmol
+run_pack = 1 # 1-run packmol
 cleandir = 1 # clean directories
 packsh   = 'run_packmol_pyinp.sh'
 

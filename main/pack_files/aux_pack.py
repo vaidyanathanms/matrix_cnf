@@ -46,12 +46,12 @@ def create_output_dirs(superdir,acetval,acetper,addpoly):
     if not os.path.isdir(superdir):
         os.mkdir(superdir)
 
-    if acetper != 0 and addpoly == 'None':
+    if acetper != 0 and addpoly.lower() == 'None'.lower():
         outsub = 'acet_cnf_m'+str(acetval)+'_'+str(acetper)
-    elif acetper != 0 and addpoly != 'None':
+    elif acetper != 0 and addpoly.lower() != 'None'.lower():
         outsub = 'acet_cnf_m'+ str(acetval)+'_'+str(acetper)\
                  + '_with_' + addpoly
-    elif acetper == 0 and addpoly != 'None':
+    elif acetper == 0 and addpoly.lower() != 'None'.lower():
         outsub = 'with_' + addpoly
 
     subdir = superdir + '/' + outsub
