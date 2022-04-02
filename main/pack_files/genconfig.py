@@ -22,7 +22,7 @@ nchains  = 81 # number of matrix chains in output
 gaus_tol = 0.05 # tolerance for checking gaussianity
 
 # Input data - Cellulose/Acetylated Cellulose
-acet_val = 7 # m1 - 1, m3 - 3, m7 - 7, m11 - 11
+acet_val = 1 # m1 - 1, m3 - 3, m7 - 7, m11 - 11
 acet_per = 0.5 # fraction of acetylated cellulose
 acet_new = 1 # 0 - use old, 1-delete and regenerate
 ncnf     = 1 # number of cellulose bundles (18 chains)
@@ -40,7 +40,7 @@ ex_gaus   = [0.05,0.2] # Gaussian tolerance for chains
 
 # Input data - Packmol
 inppack  = 'pack_cellulose.inp' # PACKMOL input file
-fin_box  = 1.1 # final box size relative to max dimension of cnf/matrix
+mag_box  = 1.5 # final box size relative to max dimension of cnf/matrix
 run_pack = 1 # 1-run packmol
 cleandir = 1 # clean directories
 packsh   = 'run_packmol_pyinp.sh'
@@ -79,7 +79,7 @@ check_dir(chrm_dir)
 check_dir(gmx_mat)
 check_dir(scr_dir)
 
-if fin_box < 1:
+if mag_box < 1:
     raise RuntimeError("Unphysical final box magnification\n")
 #------------------------------------------------------------------
 
@@ -108,6 +108,8 @@ print('Checking matrix input files for gaussian chains...')
 polygausdir,rgmax = check_gaussianity_and_write(gmx_mat,mat_pdb,nmons,\
                                                 nchains,matrix,gaus_tol\
                                                 ,pack_dir)
+# Generate logfile and write basic data
+flogout = open(pack_dir + '/genstruct.log','w')
 #------------------------------------------------------------------
 
 # Acetylate chains if needed
@@ -122,6 +124,7 @@ if acet_per != 0:
 print('Determining optimal dimensions of the box...')
 xmin,ymin,zmin,xmax,ymax,zmax = find_cnf_dim(acet_dir,acet_fyle,pack_dir)
 dmax = max(xmax-xmin,ymax-ymin,zmax-zmin,rgmax)
+flogout.write('%g\t%g\t%g\t%g\t%g\n' %(xmax-xmin,ymax-ymin,zmax-zmin,rgmax,dmax))
 #------------------------------------------------------------------
 
 # Start writing PACKMOL files
@@ -132,10 +135,10 @@ packed_cnfpdb = packmol_headers(fpack,matrix,pack_dir,\
                                 acet_per,acet_val,add_poly)
 # Pack CNF chains
 pack_cellulose_chains(fpack,pack_dir,acet_fyle,ncnf,xmin,ymin,zmin,\
-                      xmax,ymax,zmax,fin_box,dmax)
+                      xmax,ymax,zmax,mag_box,dmax)
 # Pack polymer matrix
 pack_polymers(polygausdir,matrix,nchains,xmin,ymin,zmin,xmax,\
-              ymax,zmax,fpack,fin_box,dmax)
+              ymax,zmax,fpack,mag_box,dmax)
 # Pack additional polymers
 if add_poly.lower() != 'None'.lower():
     print('Writing packmol scripts for adding additional polymers..')
@@ -154,7 +157,7 @@ if add_poly.lower() != 'None'.lower():
                                                     ,ex_gaus[pol]\
                                                     ,pack_dir)
         pack_polymers(exgausdir,ex_ptype[pol],ex_nch[pol],xmin,\
-                      ymin,zmin,xmax,ymax,zmax,fpack,fin_box,dmax)
+                      ymin,zmin,xmax,ymax,zmax,fpack,mag_box,dmax)
 fpack.close() # close PACKMOL input file
 #------------------------------------------------------------------
 
@@ -232,6 +235,7 @@ if set_mdp:
 #------------------------------------------------------------------
 # Clean-up directories
 print("Cleaning up ...")
+flogout.close()
 clean_and_sort_files(pack_dir,acetpref)
 #------------------------------------------------------------------
 os.chdir(main_dir)
