@@ -269,8 +269,10 @@ def pack_cellulose_chains(fout,packdir,inpfyle,ncnf,xmin,ymin,zmin,xmax,ymax,zma
     fout.write('structure  %s\n' %(packdir+'/'+inpfyle+'.pdb'))
     fout.write('  number   %d\n' %(ncnf))  
     fout.write('  center \n')
-    fout.write(' inside box %g  %g  %g  %g  %g  %g\n'
-               %(xmin-0.25*dr,ymin-0.25*dr,zmin-dr,xmax+0.25*dr,ymax+0.25*dr,zmax+dr))
+#    fout.write(' inside box %g  %g  %g  %g  %g  %g\n'
+#               %(xmin-dr,ymin-dr,zmin-dr,xmax+dr,ymax+dr,zmax+dr))
+    fout.write(' fixed %g  %g  %g  %g  %g  %g\n'
+               %(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)) #center to zero
     fout.write('end structure\n')
     fout.write('\n')
 #------------------------------------------------------------------
@@ -291,13 +293,15 @@ def pack_polymers(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,\
     else:
         nsets = 1; nextra = 0
     dr = (mag-1)*dmax
-
+    
+    lxh = (xmax-xmin)/2; lyh = (ymax-ymin)/2; lzh = (zmax-zmin)/2
     for chain in range(min(lenlist,nch)):
         fout.write('structure  %s\n' %(matlist[chain]))
         fout.write('  number   %d\n' %(nsets))  
 #        fout.write('  center \n') #Don't center matrix chains
-        fout.write(' inside box %g  %g  %g  %g  %g  %g\n'
-                   %(xmin-0.5*dr,ymin-0.5*dr,zmin-0.5*dr,xmax+0.5*dr,ymax+0.5*dr,zmax+0.5*dr))
+        fout.write(' inside box %g  %g  %g  %g  %g  %g\n'\
+                   %(-lxh-dr,-lyh-dr,-lzh-dr,lxh+dr,lyh+dr,lzh+dr))
+#                   %(xmin-dr,ymin-dr,zmin-dr,xmax+dr,ymax+dr,zmax+dr))
         fout.write('end structure\n')
         fout.write('\n')
 
@@ -305,8 +309,8 @@ def pack_polymers(matdir,matname,nch,xmin,ymin,zmin,xmax,ymax,\
         fout.write('structure  %s\n' %(matlist[0]))
         fout.write('  number   %d\n' %(nextra))  
 #        fout.write('  center \n') #Don't center matrix chains
-        fout.write(' inside box %g  %g  %g  %g  %g  %g\n'
-                   %(xmin-dr,ymin-dr,zmin-dr,xmax+dr,ymax+dr,zmax+dr))
+        fout.write(' inside box %g  %g  %g  %g  %g  %g\n'\
+                   %(-lxh-dr,-lyh-dr,-lzh-dr,lxh+dr,lyh+dr,lzh+dr))
         fout.write('end structure\n')
         fout.write('\n')
 #------------------------------------------------------------------
