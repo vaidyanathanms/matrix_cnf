@@ -23,7 +23,7 @@ gaus_tol = 0.05 # tolerance for checking gaussianity
 
 # Input data - Cellulose/Acetylated Cellulose
 acet_val = 1 # m1 - 1, m3 - 3, m7 - 7, m11 - 11
-acet_per = 0.5 # fraction of acetylated cellulose
+acet_per = 0.3 # fraction of acetylated cellulose
 acet_new = 1 # 0 - use old, 1-delete and regenerate
 ncnf     = 1 # number of cellulose bundles (18 chains)
 cell_dp  = 20 # degree of polymerization of cellulose chains
@@ -68,8 +68,6 @@ scr_dir     = dir_names.scr_dir
 
 # Check for directory paths and input consistency
 chrm_dir = poly_mat + '/charmm_' + matrix #CHARMM inp dir for poly matrices
-pack_sup = poly_mat + '/cnf_packed_' + matrix + '_N_' + str(nmons)\
-           + '_M_' + str(nchains)  # final packed output super dir
 gmx_mat  = chrm_dir + '/gromacs'
 
 check_dir(natv_cnfdir)
@@ -84,7 +82,9 @@ if mag_box < 1:
 #------------------------------------------------------------------
 
 # Make output directories/files
-scr_dir   = scr_dir + '/cellulose_nanofibers'
+scr_dir   = scr_dir + '/cnf'
+pack_sup  = scr_dir + '/cnf_packed_' + matrix + '_N_' + str(nmons)\
+           + '_M_' + str(nchains)  # final packed output super dir
 if acet_per != 0:
     acet_fyle = acetpref + str(acet_val)
     mod_cell  = 1
