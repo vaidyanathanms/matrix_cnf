@@ -53,6 +53,9 @@ def create_output_dirs(superdir,acetval,acetper,addpoly):
                  + '_with_' + addpoly
     elif acetper == 0 and addpoly.lower() != 'None'.lower():
         outsub = 'with_' + addpoly
+    elif acetper == 0 and addpoly.lower() == 'None'.lower():
+        outsub = 'barecnf'
+    
 
     subdir = superdir + '/' + outsub
     if os.path.isdir(subdir):
@@ -160,23 +163,24 @@ def write_gaussian_chains(rg2ch,rg4ch,atarr,dirname,fname,polyname,\
 #------------------------------------------------------------------
 # Make packmol headers
 def packmol_headers(fout,matname,outdir,acetper,acetval,addpoly):
-    outname = 'packed_'+matname+'.pdb'
+    
+    outfyle = 'packed_'+matname+'.pdb'
     fout.write('# Pack cellulose and polymer matrix\n')
     fout.write('# Inputs\n\n')
     fout.write('tolerance  %g\n' %(2.0))
-    if acetper != 0 and addpoly == 'None':
+    if acetper != 0 and addpoly.lower() == 'none':
         outfyle = 'packed_'+matname+'_cnf_m'+str(acetval)+'.pdb'
-    elif acetper != 0 and addpoly != 'None':
+    elif acetper != 0 and addpoly.lower() != 'none':
         outfyle = 'packed_'+matname+'_'+addpoly+'_cnf_m'+\
                   str(acetval)+'.pdb'
-    elif acetper == 0 and addpoly != 'None':
+    elif acetper == 0 and addpoly.lower() != 'none':
         outfyle = 'packed_'+matname+'_'+addpoly+'.pdb'
         
     fout.write('filetype  pdb\n')
     fout.write('output  %s\n' %(outdir + '/' + outfyle))
     fout.write('seed  %d\n' %(-1))
     fout.write('\n#Begin structure generation \n\n')
-    return outname
+    return outfyle
 #------------------------------------------------------------------
 # Find cellulose/modified cellulose dimensions
 def read_pdb_file(inpfyle):
@@ -264,14 +268,15 @@ def find_r_com_chains(resarr,massarr,rxarr,ryarr,rzarr):
     return rxcmarr, rycmarr, rzcmarr
 #------------------------------------------------------------------
 # Add cellulose chains
-def pack_cellulose_chains(fout,packdir,inpfyle,ncnf,xmin,ymin,zmin,xmax,ymax,zmax,mag,dmax):
+def pack_cellulose_chains(fout,packdir,inpfyle,ncnf,xmin,ymin,\
+                          zmin,xmax,ymax,zmax,mag,dmax):
     dr = (mag-1)*dmax
     fout.write('structure  %s\n' %(packdir+'/'+inpfyle+'.pdb'))
     fout.write('  number   %d\n' %(ncnf))  
     fout.write('  center \n')
 #    fout.write(' inside box %g  %g  %g  %g  %g  %g\n'
 #               %(xmin-dr,ymin-dr,zmin-dr,xmax+dr,ymax+dr,zmax+dr))
-    fout.write(' fixed %g  %g  %g  %g  %g  %g\n'
+    fout.write(' fixed %g  %g  %g  %g  %g  %g\n'\
                %(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)) #center to zero
     fout.write('end structure\n')
     fout.write('\n')
@@ -392,7 +397,7 @@ def make_acet_cell(acet_dir,acet_val,cell_dp,acet_per,acet_tol,\
             for fyle in glob.glob(acet_fyle):
                 os.remove(fyle)
 
-        acet_pat  = ret_acet_pat(acet_val)
+        acet_pat  = ret_acet_pat(acet_val,acet_per)
         tcl_fname = 'genmodify_cnf_pyinp.tcl'
         rev_fname = tcl_fname.replace('_pyinp','')
         fr  = open(acet_dir + '/' + tcl_fname,'r')
@@ -419,8 +424,10 @@ def make_acet_cell(acet_dir,acet_val,cell_dp,acet_per,acet_tol,\
         raise RuntimeError('No acetylated chains produced\n')
 #------------------------------------------------------------------
 # Return name of acetylation patch
-def ret_acet_pat(acet_val):
-    if acet_val == 1:
+def ret_acet_pat(acet_val,acet_per):
+    if acet_per == 0:
+        return 'None'
+    elif acet_val == 1: 
         return '6TAC'
     elif acet_val == 3:
         return '6AC3'
@@ -622,7 +629,7 @@ def change_molname_itp_file(molinfo,molptr,itpfyles):
 #------------------------------------------------------------------
 # Combine polymer matrix and acetylation files
 def combine_top_files(outdir,prm_files,itp_files,molinfo,nch,\
-                      addpoly,exnch):
+                      addpoly,exnch,mattype):
     all_top  = outdir + '/alltop.top'
     f_all = open(all_top,'w')
     write_header_topfile(f_all)
@@ -649,23 +656,31 @@ def combine_top_files(outdir,prm_files,itp_files,molinfo,nch,\
     f_all.write('[ molecules ]\n')
     f_all.write('; %s\t%s\n' %('Compound', '#mols'))
 
-    # Write cellulose part
-    i = 0
-    while ';matrix' not in molinfo[i] and i < len(molinfo):
-        f_all.write('%s' %(molinfo[i])); i+=1
+    if mattype.lower() == 'none':
+        # Write cellulose part
+        i = 0
+        while i < len(molinfo):
+            if addpoly in molinfo[i]:
+                break
+            f_all.write('%s' %(molinfo[i])); i+=1       
+    else:
+        # Write cellulose part
+        i = 0
+        while ';matrix' not in molinfo[i] and i < len(molinfo):
+            f_all.write('%s' %(molinfo[i])); i+=1
             
-    # Write matrix part
-    while i < len(molinfo):
-        if addpoly in molinfo[i]:
-            break
-        if ';matrix' in molinfo[i]:
-            f_all.write('%s\n' %(molinfo[i])); i+=1
-        else:
-            moltype = molinfo[i].lstrip().split()[0]
-            f_all.write('%s\t%d' %(moltype,nch)); i+=1
+        # Write matrix part
+        while i < len(molinfo):
+            if addpoly in molinfo[i]:
+                break
+            if ';matrix' in molinfo[i]:
+                f_all.write('%s\n' %(molinfo[i])); i+=1
+            else:
+                moltype = molinfo[i].lstrip().split()[0]
+                f_all.write('%s\t%d' %(moltype,nch)); i+=1
 
     # Write additional polymers
-    if addpoly.lower() != 'None'.lower():
+    if addpoly.lower() != 'none':
         j = 0
         f_all.write('\n') # one line is necessary
         while i < len(molinfo):
