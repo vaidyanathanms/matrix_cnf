@@ -66,11 +66,12 @@ def create_output_dirs(superdir,acetval,acetper,addpoly):
 #-------------------------------------------------------------------
 # Clear all files from the directory
 def clear_all_files(subdir):
-    print("Output directory already exists.")
+    print("Output directory: " + subdir + " exists.")
     inp = input("Clean and rewrite directory (y/n)? ")
-    while not inp.lower() == 'y' or inp.lower() == 'n':
+    while not inp.casefold() == 'y' and not inp.casefold() == 'n':
         print("Please input y or n: ")
         inp = input("Clean directory and rewrite files (y/n)? ")
+
     if inp.lower() == 'y':
         shutil.rmtree(subdir)
     else:
@@ -328,7 +329,7 @@ def expoly_check(ex_ptype,ex_nch,ex_nmon,addpoly,ex_gaus):
         if len(ex_ptype) != 1:
             raise RuntimeError('Homopolymers can have only one poly type')
     elif addpoly.lower() == 'copoly':
-        if len(ex_ptype) != 0:
+        if len(ex_ptype) != 1:
             raise RuntimeError('Copoly should have at least one poly type')
     else:
         raise RuntimeError('Unknown add_poly option: '+ addpoly)
