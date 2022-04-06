@@ -168,7 +168,8 @@ def create_tcgrps(inp_type,npoly_res,solv_name,wat_name):
 def check_cpy_mdp_files(srcdir,destdir,mdp_fyles,inp_type,Tetau_nvt\
                         ,Tetau_highnvt,Tetau_berend,Tetau_parrah,\
                         Prtau_berend,Prtau_parrah,ref_temp,hi_ref_t,\
-                        ref_pres,tc_grpdata,tc_grptype,headdir,coeff_fyle):
+                        ref_pres,tc_grpdata,tc_grptype,headdir,coeff_fyle,\
+                        matrixtype):
 
     if coeff_fyle != 'None': #gmx inp file from sys.argv
         print("copying", coeff_fyle)
@@ -182,6 +183,7 @@ def check_cpy_mdp_files(srcdir,destdir,mdp_fyles,inp_type,Tetau_nvt\
     str_temp        = genstr(inp_type,ref_temp)
     str_hi_temp     = genstr(inp_type,hi_ref_t)
 
+    enerstr = generate_energy_grps(matrixtype)
     for mdp_fname in mdp_fyles:
         if not os.path.exists(srcdir + '/' + mdp_fname):
             raise RuntimeError(mdp_fname," not found in ",srcdir)
@@ -199,7 +201,8 @@ def check_cpy_mdp_files(srcdir,destdir,mdp_fyles,inp_type,Tetau_nvt\
               replace("py_Prestau_ParRah",str(Prtau_parrah)).\
               replace("py_ref_t",str_temp).\
               replace("py_Highref_t",str_hi_temp).\
-              replace("py_ref_p",str(ref_pres))
+              replace("py_ref_p",str(ref_pres)).\
+              replace("py_energrps",enerstr)
         fw.write(fid)
         fw.close()
         fr.close()
@@ -215,6 +218,21 @@ def genstr(inp_type,inp_vals):
         out_str = str(inp_vals) + '  ' + str(inp_vals) + '  ' + \
                   str(inp_vals)
     return out_str
+#------------------------------------------------------------------
+
+# Generate energy strings
+def generate_energy_grps(mattype):
+    if mattype.lower() == 'pla':
+        enerstr = 'resname_BGLC resname_LACTS_or_resname_LACTR_'
+    elif mattype.lower() == 'pp':
+        enerstr = 'resname_BGLC resname_PROR_or_resname_PROS_'
+    elif mattype.lower() == 'petg':
+        enerstr = 'resname_BGLC resname_PETL_'
+    elif mattype.lower() == 'p3hb':
+        enerstr = 'resname_BGLC resname_HDBTR_or_resname_HDBTS_'
+    else:
+        enerstr = 'System'
+    return enerstr
 #------------------------------------------------------------------
 
 # Copy shell script files
@@ -261,6 +279,9 @@ def edit_sh_files(jtype,inp_type,polycfg,topfyle,sh_fyle,tempval,\
     box_conffyle = "initconf.gro"
     topfyle = ret_file_str(topfyle)
 
+    # add tc_grp
+    tcgrp = 'tcgrp_' + inp_type + '.txt'
+
     # edit sh_fyle
     py_fname = sh_fyle
     rev_fname = py_fname.replace('_pyinp','')
@@ -271,7 +292,8 @@ def edit_sh_files(jtype,inp_type,polycfg,topfyle,sh_fyle,tempval,\
           replace("py_boxmeltconf",box_conffyle).\
           replace("py_topol",topfyle).\
           replace("py_finconf",box_conffyle).\
-          replace("py_dval",str(dval))
+          replace("py_dval",str(dval)).\
+          replace("py_tcgrp",tcgrp)
     fw.write(fid)
     fr.close(); fw.close()
 #------------------------------------------------------------------
