@@ -1,0 +1,9 @@
+#include "/home/v0e/ff_all/martini_v300/martini_v3.0.0.itp"
+#include "pp.itp"
+[ system ]
+; name
+PP_melt_139
+
+[ molecules ]
+; name  number
+PP 139

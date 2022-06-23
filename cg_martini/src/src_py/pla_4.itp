@@ -1,0 +1,32 @@
+; itp file generated from scratch
+; Number of monomers per chain: 4
+; Number of atoms per chain: 7
+; Number of bonds per chain: 6
+; Number of angles per chain: 5
+; Number of dihedrals per chain: 0
+; Number of constraints per chain: 0
+
+[ moleculetype ]
+PETG  1
+
+[ atoms ]
+; atomID moltype atomtyp atomname atomID charge mass
+    1 PETG     1 TM1 1 0 72
+    2 PETG     2 TM1 2 0 72
+    3 PETG     3 TM1 3 0 72
+    4 PETG     4 TM1 4 0 72
+    5 PETG     5 TM1 5 0 72
+    6 PETG     6 TM1 6 0 72
+    7 PETG     7 TM1 7 0 36
+
+[ bonds ]
+; i   j    funct   length   force.c.
+    1     2 1 0.389 5000
+    2     3 1 0.389 5000
+    3     4 1 0.389 5000
+    4     5 1 0.389 5000
+    5     6 1 0.389 5000
+    6     7 1 0.389 5000
+
+[ angles ]
+; i   j   k   funct   ref.angle  force_k
