@@ -112,3 +112,5 @@ def create_bond_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
             bond_list[bnd_cntr].append(glycan_list[i+1][k])
             bnd_cntr += 1
             fbnd.write('%d\t%d\n' %(glycan_list[i][j],glycan_list[i+1][k]))
+    return bond_list
+#----------------------------------------------------------------

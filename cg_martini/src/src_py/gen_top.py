@@ -31,7 +31,7 @@ residarr,resnamearr,aidarr,anamearr,rxarr,ryarr,rzarr,massarr = read_gro_file(fn
 glycan_list = create_martini_beads(cell_dp,ncnf,ch_per_cnf,residarr,\
                                    aidarr,anamearr)
 # CREATE BOND LIST
-create_bond_list(cell_dp,ncnf,ch_per_cnf,glycan_list)
+bond_list = create_bond_list(cell_dp,ncnf,ch_per_cnf,glycan_list)
 
 # CREATE ANGLE LIST
 # CREATE DIHEDRAL LIST
