@@ -1,13 +1,5 @@
 # To generate topology for cellulose/matrices
 
-import os
-import sys
-import numpy
-import re
-import shutil
-import glob
-import math
-import subprocess
 from auxgen_top import *
 
 #----Read input file - filename, ncnf_fibers, acetfrac--------------
@@ -36,9 +28,10 @@ fout = gen_logfile(fname,ncnf,acetfrac,cell_dp,ch_per_cnf)
 residarr,resnamearr,aidarr,anamearr,rxarr,ryarr,rzarr,massarr = read_gro_file(fname)
                                                                 
 #-----Generate bead list--------------------------------------------
-
-
+glycan_list = create_martini_beads(cell_dp,ncnf,ch_per_cnf,residarr,\
+                                   aidarr,anamearr)
 # CREATE BOND LIST
+create_bond_list(cell_dp,ncnf,ch_per_cnf,glycan_list)
 
 # CREATE ANGLE LIST
 # CREATE DIHEDRAL LIST
