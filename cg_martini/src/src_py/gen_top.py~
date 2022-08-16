@@ -1,0 +1,40 @@
+# To generate topology for cellulose/matrices
+
+import os
+import sys
+import numpy
+import re
+import shutil
+import glob
+import math
+import subprocess
+from auxgen_top import *
+
+#----Read input file - filename, ncnf_fibers, acetfrac--------------
+if len(sys.argv) != 4:
+    print('Unknown number of arguments: ', len(sys.argv),\
+          str(sys.argv))
+    exit()
+
+print('Input file name: ',sys.argv[1],sys.argv[2],sys.argv[3])
+
+#-----Process input data - Cellulose/Acetylated Cellulose-----------
+fname    = str(sys.argv[1]) # Coarse-grained file
+ncnf     = int(sys.argv[2]) # number of cellulose bundles (18 chains)
+acetfrac = float(sys.argv[3]) # acetylated fraction
+
+#-----Generate log file---------------------------------------------
+fout = gen_logfile(fname,ncnf,acetfrac)
+cell_dp  = 20 # degree of polymerization of cellulose chains
+
+# CREATE MARTINI BEADS LIST
+
+# CREATE BOND LIST
+
+# CREATE ANGLE LIST
+# CREATE DIHEDRAL LIST
+# CREATE ATOMTYPE LIST
+# CREATE NONBONDED PARAMETER LIST
+# CREATE BONDED PARAMETER LIST
+# COMBINE AND WRITE
+

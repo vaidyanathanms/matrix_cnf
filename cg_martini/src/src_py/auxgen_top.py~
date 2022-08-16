@@ -1,0 +1,65 @@
+# Auxiliary file for gen_top.py
+
+import os
+import sys
+import numpy
+import re
+import shutil
+import glob
+import math
+import subprocess
+#----------------------------------------------------------------
+# Generate log file
+def gen_logfile(fname,ncnf,acetfrac):
+    fout = open('log.dat','w')
+    fout.write('Input file name: ', fname)
+    fout.write('Number of CNF chains: ', ncnf)
+    fout.write('Acetylated fraction: ', acetfrac)
+    return fout
+#----------------------------------------------------------------
+# Creating MARTINI beads list
+def create_martini_beads():
+
+
+#----------------------------------------------------------------
+# Read PDB file
+def read_gro_file(inpfyle):
+    fmt_at = b'4sx6sx4s1s4s1s4s1s3x8s8s8s6s6s6x4s2s'
+    fmt_atq= b'4sx6sx4s1s4s1s4s1s3x8s8s8s6s6s6x4s2s2s'
+    fmt_ht = b'6s5sx4s1s4s1s4s1s3x8s8s8s6s6s6x4s2s'
+    fmt_htq= b'6s5sx4s1s4s1s4s1s3x8s8s8s6s6s6x4s2s2s'
+    aidarr = []; anamearr = []; residarr = []
+    rxarr = []; ryarr = []; rzarr = []
+    segnamearr = [];massarr = []
+    with open(inpfyle,'r') as fin:
+        fin.readline()
+        nbeads = int(fin.readline.strip())
+        for line in fin:
+            if line.startswith(';'): # skip lines starting with #
+                continue
+            if not line: # skip empty lines
+                continue
+            else:
+                raise RuntimeError("Unknown line format", line)
+
+            aidarr.append(int(aid.decode('utf-8')))
+            anamearr.append(aname.decode('utf-8'))
+            residarr.append(int(resid.decode('utf-8')))
+            rxarr.append(float(rx.decode('utf-8')))
+            ryarr.append(float(ry.decode('utf-8')))
+            rzarr.append(float(rz.decode('utf-8')))
+            segnamearr.append(segname.decode('utf-8'))
+
+            if elem.decode('utf-8').strip() == 'H':
+                mval = 1.008
+            elif elem.decode('utf-8').strip() == 'C':
+                mval = 12.0108
+            elif elem.decode('utf-8').strip() == 'O':
+                mval = 15.9994
+            elif elem.decode('utf-8').strip() == 'S':
+                mval = 32.065
+            elif elem.decode('utf-8').strip() == 'N':
+                mval = 14.0067
+            massarr.append(mval)
+
+    return aidarr,residarr,rxarr,ryarr,rzarr,segnamearr,massarr
