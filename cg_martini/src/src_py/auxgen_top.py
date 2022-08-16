@@ -88,8 +88,6 @@ def create_martini_beads(cell_dp,ncnf,ch_per_cnf,residarr,\
 def create_bond_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
     # Create empty list
     bond_list = [[] for i in range((3*cell_dp-1)*ncnf*ch_per_cnf)]
-    print(len(glycan_list))
-    print(len(glycan_list[0]))
     bnd_cntr = 0
     fbnd = open('bond.txt','w')
     # Run through glycan list and connect "inner" beads (O2-C4;C4-C6)
