@@ -5,7 +5,7 @@
 
 # Uses acetyle patch from /toppar_all36_carb_imlab.str and BGLC from
 # top_all36_carb.rtf 
-# Acetyl patches: TAC6 (m1), 6AC3 (m3), 6AC7 (m7), 6A11 (m11)
+# Acetyl patches: 6TAC (m1), 6AC3 (m3), 6AC7 (m7), 6A11 (m11)
 # This method was easier than creating one acetylated carbon using
 # ligand builder and matching the carbons.
 
@@ -30,7 +30,7 @@ set max_att py_maxatt ; # maximum attempt for acetylation
 
 # Define variables
 set outname py_outname
-set dirname ../py_cnfmain
+#set dirname ../py_cnfmain
 
 # Load topology
 topology /home/v0e/ff_all/charmff/toppar_c36_jul20/top_all36_carb.rtf
