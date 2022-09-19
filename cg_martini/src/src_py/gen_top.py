@@ -1,6 +1,10 @@
 # To generate topology for cellulose/matrices
 # Combined both cellulose and matrix in one code.
 # Version 2.0: Sept-19-2022
+# I/p cmd (polymer matrix): python gen_top.py matrix_name nmons
+# matrix_name - pla, p3hb, petg 
+# I/p cmd (cellulose): python gen_top.py fname ncnf acetfrac cell_dp ch_per_cnf
+# ch_per_cnf is optional (default is 18)
 # Authors: Shalini Jayaraman Rukmani & Vaidyanathan Sethuraman
 import os
 import sys
@@ -11,11 +15,10 @@ import glob
 import math
 import subprocess
 from auxgen_top import *
-from auxgen_params import *
 
 #----Read input file - matrix/filename,ncnf_fibers,acetfrac-----------
 ch_per_cnf   = 18 # default
-if len(sys.argv) == 4: #polymer matrix
+if len(sys.argv) == 3: #polymer matrix
     print('Generating CG polymer for ', sys.argv[1])
     if sys.argv[1] == 'petg':
         design_petg(int(sys.argv[2]),sys.argv[1].upper())
