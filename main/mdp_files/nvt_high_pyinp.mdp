@@ -1,4 +1,4 @@
-title                   = Ligninmelt_NVT_Equilibration ; Title 
+title                   = CNF-matrix/solvent NVT cycle (high temp equilibration) ; Title 
 ; Run parameters
 integrator              = md        ; leap-frog integrator
 nsteps                  = 5000000   ; 1 * 5000000 fs = 5 ns

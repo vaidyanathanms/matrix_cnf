@@ -1,4 +1,4 @@
-title                   = Ligninmelt_NVT_Equilibration ; Title 
+title                   = CNF-matrix/solvent NVT cycle (target temp - equilibration) ; Title 
 ; Run parameters
 integrator              = md        ; leap-frog integrator
 nsteps                  = 1000000   ; 1 * 1000000 fs = 1 ns
@@ -7,6 +7,8 @@ dt                      = 0.001     ; 1 fs
 nstxout                 = 5000       ; save coordinates every 10.0 ps
 nstenergy               = 5000       ; save energies every 10.0 ps
 nstlog                  = 5000       ; update log file every 10.0 ps
+; Energy analysis
+energygrps              = py_energrps  ; groups for solvation energy
 ; Bond parameters
 continuation            = yes       ; first dynamics run
 constraint_algorithm    = lincs     ; holonomic constraints 
