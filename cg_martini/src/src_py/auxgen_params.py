@@ -266,7 +266,7 @@ def design_p3hb(nmons,moltype):
     # Ref: Martini V2.0 Lipids and Rossi et al., Macromolecules, 2011,
     # 44, 15, 6198-6208
     # Structure
-    # TP2-C2-TN4a-C2-TN4a-...-C2-TN4a-P1
+    # TP2-C2-TN4a-C2-TN4a-...-C2-TN4a-SC1
     # NOTE: The mapping reduces the definition of monomer by one. So
     # if there are n-monomers, there will be 2+2*(n-1) beads, where
     # each mapped monomer is defined by two beads - C2-TN4a
@@ -293,7 +293,7 @@ def design_p3hb(nmons,moltype):
             at_list[at_index][2] = 'OM1'
             at_list[at_index][3] = 36.0
         elif at_index == natoms-1:
-            at_list[at_index][1] = 'SC1' #isopropanol end
+            at_list[at_index][1] = 'SC1' #alkane end
             at_list[at_index][2] = 'AM2'
             at_list[at_index][3] = 54.0
         else:
