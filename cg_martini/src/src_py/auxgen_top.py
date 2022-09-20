@@ -400,15 +400,15 @@ def design_petg(nmons,moltype):
             for j in range(5):
                 if j == 0: 
                     at_list[atcnt+j][1] = 'TP2' #Terminal acid
-                    at_list[atcnt+j][2] = 'OM2'
+                    at_list[atcnt+j][2] = 'TP2'
                     at_list[atcnt+j][3] = 36.0
                 elif j == 4:
                     at_list[atcnt+j][1] = 'N4a' #Ester
-                    at_list[atcnt+j][2] = 'EM1'
+                    at_list[atcnt+j][2] = 'N4a'
                     at_list[atcnt+j][3] = 72.0
                 else:
                     at_list[atcnt+j][1] = 'TC5' # Ring
-                    at_list[atcnt+j][2] = 'RM1'
+                    at_list[atcnt+j][2] = 'TC5'
                     at_list[atcnt+j][3] = 36.0
 
 
@@ -418,17 +418,17 @@ def design_petg(nmons,moltype):
             for j in range(5):
                 if j == 0 or j == 4:
                     at_list[atcnt+j][1] = 'N4a'
-                    at_list[atcnt+j][2] = 'EM1'
+                    at_list[atcnt+j][2] = 'N4a'
                     at_list[atcnt+j][3] = 72.0
                 else:
                     at_list[atcnt+j][1] = 'TC5'
-                    at_list[atcnt+j][2] = 'RM1'
+                    at_list[atcnt+j][2] = 'TC5'
                     at_list[atcnt+j][3] = 36.0
                     
             atcnt = atcnt + 5
 
     at_list[atcnt][1] = 'TP1' 
-    at_list[atcnt][2] = 'OM1' #Terminal alcohol
+    at_list[atcnt][2] = 'TP1' #Terminal alcohol
     at_list[atcnt][3] = 36.0
     atcnt += 1 # last atom
     
@@ -548,15 +548,15 @@ def design_pla(nmons,moltype):
     for at_index in range(natoms):
         if at_index == 0:
             at_list[at_index][1] = 'TP2'  # COOH Terminal end
-            at_list[at_index][2] = 'OM2'
+            at_list[at_index][2] = 'TP2'
             at_list[at_index][3] = 36.0
         elif at_index == natoms-1:
             at_list[at_index][1] = 'TC1' # CH2-CH3 Terminal end
-            at_list[at_index][2] = 'AM2'
+            at_list[at_index][2] = 'TC1'
             at_list[at_index][3] = 36.0
         else:
             at_list[at_index][1] = 'N4a' # Modified N4a 
-            at_list[at_index][2] = 'EM1'
+            at_list[at_index][2] = 'N4a'
             at_list[at_index][3] = 72.0
 
     # Bond list
@@ -640,20 +640,20 @@ def design_p3hb(nmons,moltype):
     for at_index in range(natoms):
         if at_index == 0:
             at_list[at_index][1] = 'TP2' #Acid end
-            at_list[at_index][2] = 'OM1'
+            at_list[at_index][2] = 'TP2'
             at_list[at_index][3] = 36.0
         elif at_index == natoms-1:
             at_list[at_index][1] = 'SC1' #alkane end
-            at_list[at_index][2] = 'AM2'
+            at_list[at_index][2] = 'SC1'
             at_list[at_index][3] = 54.0
         else:
             if at_index%2 == 0: # Second atom in backbone sequence
                 at_list[at_index][1] = 'TN4a' # O-C=O
-                at_list[at_index][2] = 'EM1' #Ester
+                at_list[at_index][2] = 'TN4a' #Ester
                 at_list[at_index][3] = 36.0
             else: # First atom in backbone sequence
                 at_list[at_index][1] = 'SC2' # CH2-CH(CH3)-
-                at_list[at_index][2] = 'AM1' # Alkyl
+                at_list[at_index][2] = 'SC2' # Alkyl
                 at_list[at_index][3] = 72.0
                 
     # Bond list
