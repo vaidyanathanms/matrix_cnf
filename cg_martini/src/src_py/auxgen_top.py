@@ -352,7 +352,7 @@ def write_top(residarr,resnamearr,aidarr,anamearr,massarr,bond_list,angle_list,d
      rem_str = "; qtot 0"
      ftop.write(";\tFile CELLULOSE_acetylated.top was generated from gen_top.py\n")
      ftop.write(";\tInclude forcefield parameters\n")
-     ftop.write('#include "./all_toppar/forcefield.itp"\n\n') 
+#     ftop.write('#include "./all_toppar/forcefield.itp"\n\n') 
      ftop.write("[moleculetype]\n")
      ftop.write("; Name             nrexcl\n")
      ftop.write("CELLULOSE-acetylated       1\n\n") # only 1-2 bonded neighbors are excluded from LJ calculations in MARTINI
