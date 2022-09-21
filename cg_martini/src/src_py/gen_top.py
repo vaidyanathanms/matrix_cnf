@@ -63,5 +63,5 @@ angle_list = create_angle_list(cell_dp,ncnf,ch_per_cnf,glycan_list)
 # Create dihedral list
 dihed_list = create_dihedral_list(cell_dp,ncnf,ch_per_cnf,glycan_list)
 # COMBINE AND WRITE
-ftop = write_top(residarr,resnamearr,aidarr,anamearr,massarr,bond_list,angle_list,dihed_list)
+ftop = write_celltop(residarr,resnamearr,aidarr,anamearr,massarr,bond_list,angle_list,dihed_list)
 # NOTE: The parameters for cellulose are added in cell_martini3.itp

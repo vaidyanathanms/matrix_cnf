@@ -2,7 +2,7 @@
 # Main file: gen_top.py
 # Reference: Martini3-Polyply
 # https://github.com/ricalessandri/Martini3-small-molecules/blob/main/models/martini_v3.0.0_small_molecules_v1.itp
-
+# NOTE: Angle constants for PLA/P3HB end groups are assigned same value as those in the middle. Requires more work
 import os
 import sys
 import numpy
@@ -345,15 +345,15 @@ def create_dihedral_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
              dihed_list.append([])
      del(dihed_list[-1])
      return dihed_list
-
-def write_top(residarr,resnamearr,aidarr,anamearr,massarr,bond_list,angle_list,dihed_list):
+#----------------------------------------------------------------------------------------
+def write_celltop(residarr,resnamearr,aidarr,anamearr,massarr,bond_list,angle_list,dihed_list):
      ftop = open('CELLULOSE_acetylated.top','w') 
      charge = 0.0
      rem_str = "; qtot 0"
      ftop.write(";\tFile CELLULOSE_acetylated.top was generated from gen_top.py\n")
      ftop.write(";\tInclude forcefield parameters\n")
 #     ftop.write('#include "./all_toppar/forcefield.itp"\n\n') 
-     ftop.write("[moleculetype]\n")
+     ftop.write("[ moleculetype ]\n")
      ftop.write("; Name             nrexcl\n")
      ftop.write("CELLULOSE-acetylated       1\n\n") # only 1-2 bonded neighbors are excluded from LJ calculations in MARTINI
      ftop.write("[ atoms ]\n")
@@ -476,13 +476,13 @@ def design_petg(nmons,moltype):
             co_list[ccnt][0] = f_ringid+j
             co_list[ccnt][1] = f_ringid+j+1 
             co_list[ccnt][2] = 1 #function
-            co_list[ccnt][2] = 0.264 #constraint length
+            co_list[ccnt][3] = 0.264 #constraint length
             ccnt += 1
         # Extra bond between "first" and "last" ring atom
         co_list[ccnt][0] = f_ringid
         co_list[ccnt][1] = f_ringid+2 
         co_list[ccnt][2] = 1 #function
-        co_list[ccnt][2] = 0.264 #constraint length
+        co_list[ccnt][3] = 0.264 #constraint length
         ccnt += 1
 
     # Dihedral/exclusion list
@@ -583,10 +583,10 @@ def design_pla(nmons,moltype):
         an_list[an_index][3] = 2 # Angle type - change if needed
         if an_index == 0: #Terminal TC1-N4a-N4a
             an_list[an_index][4] = 120 #eqbm angle
-            an_list[an_index][5] = 0 #k_theta
+            an_list[an_index][5] = 118 #k_theta
         elif an_index == nangls-1: #Terminal N4a-N4a-TP2
             an_list[an_index][4] = 120 #eqbm angle
-            an_list[an_index][5] = 0 #k_theta
+            an_list[an_index][5] = 118 #k_theta
         else: #N4a-N4a-N4a (Li et al., Acta mechanica solida sinica 30 (2017) 630–637)
             an_list[an_index][4] = 120 #eqbm angle
             an_list[an_index][5] = 118 #k_theta
@@ -680,10 +680,10 @@ def design_p3hb(nmons,moltype):
         an_list[an_index][3] = 1 # Angle type - change if needed
         if an_index == 0: #Terminal TP2-C2-TN4a
             an_list[an_index][4] = 120 #eqbm angle
-            an_list[an_index][5] = 0 #k_theta
+            an_list[an_index][5] = 25 #k_theta
         elif an_index == nangls-1: #Terminal C2-TN4a-P1
             an_list[an_index][4] = 120 #eqbm angle
-            an_list[an_index][5] = 0 #k_theta
+            an_list[an_index][5] = 25 #k_theta
         elif an_index%2 == 0: #TN4a-C2-TN4a Rossi, Macromolecules 2011
             an_list[an_index][4] = 130 #eqbm angle
             an_list[an_index][5] = 45 #k_theta   
@@ -747,9 +747,9 @@ def write_topology(fin,moltype,nmons,natoms,nbonds,nconsts,nangls,ndihds,nexcls,
         fin.write('[ atoms ]\n')
         fin.write('; atomID moltype atomtyp atomname atomID charge mass\n')
         for i in range(natoms):
-            fin.write('%5d %s %5d %s %g %g %g\n' \
-                      %(at_list[i][0],moltype,at_list[i][0],\
-                        at_list[i][2],at_list[i][0],0.0,at_list[i][3]))
+            fin.write('%6d %5s %6d %5s %5s %g %g %g\n' \
+                      %(at_list[i][0],at_list[i][1],at_list[i][0],\
+                        moltype,at_list[i][2],at_list[i][0],0.0,at_list[i][3]))
     else:
         raise RuntimeError('Unphysical system - zero atoms found')
     
