@@ -63,5 +63,8 @@ angle_list = create_angle_list(cell_dp,ncnf,ch_per_cnf,glycan_list)
 # Create dihedral list
 dihed_list = create_dihedral_list(cell_dp,ncnf,ch_per_cnf,glycan_list)
 # COMBINE AND WRITE
-ftop = write_celltop(residarr,resnamearr,aidarr,anamearr,massarr,bond_list,angle_list,dihed_list)
+posre_fname = str(fname.split("/")[-1]).split(".gro")[0] 
+ftop = write_celltop(posre_fname,residarr,resnamearr,aidarr,anamearr,massarr,bond_list,angle_list,dihed_list)
 # NOTE: The parameters for cellulose are added in cell_martini3.itp
+#------Generate PSF file--------------------------------------
+residarr,resnamearr,aidarr,anamearr,rxarr,ryarr,rzarr,massarr = read_gro_file(fname) # read acetylated CNF-polymer gro file
