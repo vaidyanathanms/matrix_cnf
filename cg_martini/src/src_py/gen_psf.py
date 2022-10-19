@@ -12,7 +12,10 @@ import shutil
 import glob
 import math
 import subprocess
-from auxgen_top import *
+from auxgen_polytop import *
+from auxgen_psf import *
+from auxgen_celltop_v2 import *
+from auxgen_celltop_v3 import *
 
 #----Read input file - matrix/filename,ncnf_fibers,acetfrac-----------
 ch_per_cnf   = 18 # default
