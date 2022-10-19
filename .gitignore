@@ -33,4 +33,4 @@ cnf_atomistic/polymer_matrices/pack_files/outdir/
 cnf_atomistic/polymer_matrices/cnf_*
 cnf_atomistic/main/pack_files/*~
 cnf_atomistic/elementary_fibrils/*.pdb
-cnf_atomistic/elementary_fibrilsb
+cnf_atomistic/elementary_fibrils
