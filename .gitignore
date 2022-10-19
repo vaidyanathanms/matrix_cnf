@@ -19,10 +19,10 @@ bin-release/
 
 old/
 acetylation/
-polymer_matrices/petg
-polymer_matrices/p3hb
-polymer_matrices/pp
-polymer_matrices/pla
+cnf_atomistic/polymer_matrices/petg
+cnf_atomistic/polymer_matrices/p3hb
+cnf_atomistic/polymer_matrices/pp
+cnf_atomistic/polymer_matrices/pla
 cellulose
 tcl_files
 toppar
@@ -32,3 +32,4 @@ cnf_atomistic/polymer_matrices/charmm_petg
 cnf_atomistic/polymer_matrices/pack_files/outdir/
 cnf_atomistic/polymer_matrices/cnf_*
 cnf_atomistic/main/pack_files/*~
+cnf_atomistic/elementary_fibrils/*.pdb
