@@ -13,90 +13,13 @@ import glob
 import math
 import subprocess
 #----------------------------------------------------------------------------------
-# Make output directory
-def make_out_dir(currdir,moltype):
-    pathstrs = currdir.split("/")
-    parpath  = "/".join( str(x) for x in pathstrs[:len(pathstrs)-2])
-    outpath  = parpath+'/'+moltype
-    if not os.path.isdir(outpath):
-        os.mkdir(outpath)
-    return outpath
-#----------------------------------------------------------------------------------
-# Generate log file for cellulose/acetylated cellulose systems
-def gen_logfile(fname,ncnf,acetfrac,cell_dp,ch_per_cnf):
-    fout = open('log.dat','w')
-    fout.write('Input file name: %s\n' %(fname))
-    fout.write('Number of CNF chains: %d\n' %(ncnf))
-    fout.write('Acetylated fraction: %g\n' %(acetfrac))
-    fout.write('Cellulose degree of polymerization: %d\n' %(cell_dp))
-    fout.write('Number of CNF chains per fiber: %d\n' %(ch_per_cnf))
-    return fout
-#-----------------------------------------------------------------------------------
-# Read formatted GRO file
-# Ref: https://github.com/hernanchavezthielemann/GRP4LAM/blob/27ene19/lib/handling/gromacs.py
-def read_gro_file(inpfyle):
-    fmt_at = b'5s5s5s5s8s8s8s'
-    aidarr = []; anamearr = [];residarr = []; resnamearr = []
-    rxarr = []; ryarr = []; rzarr = []; massarr = []
-    with open(inpfyle,'r') as fin:
-        fin.readline()
-        nbeads = int(fin.readline().strip())
-        for line in fin:
-            if line.startswith(';'): # skip lines starting with #
-                continue
-            if not line: # skip empty lines
-                continue
-            elif len(line.strip().split()) == 3 or len(line.strip().split()) == 9:
-                lbox = line.strip().split()
-            else:
-                residarr.append(int(line[:5].strip()))
-                resnamearr.append(line[5:10].strip())
-                anamearr.append(line[10:15].strip())
-                aidarr.append(int(line[15:20].strip()))
-                rxarr.append(float(line[20:28].strip()))
-                ryarr.append(float(line[28:36].strip()))
-                rzarr.append(float(line[36:44].strip()))
-
-            if 'SN4a' in line[10:15].strip():
-                mval = 54
-            elif 'TP2' in line[10:15].strip():
-                mval = 36
-            elif 'TC1' in line[10:15].strip():
-                mval = 36
-            else: # Default Martini
-                mval = 72
-            massarr.append(mval)
-    if len(residarr) == 0:
-        raise RuntimeError('No atoms read - file corrupted?')
-    return residarr,resnamearr,aidarr,anamearr,rxarr,ryarr,rzarr,massarr
-#----------------------------------------------------------------------------------
-# Creating MARTINI beads list
-def create_martini_beads(cell_dp,ncnf,ch_per_cnf,residarr,\
-                         aidarr,anamearr):
-    # Create empty array
-    glycan_list = [[] for i in range(cell_dp*ncnf*ch_per_cnf)]
-    # Sort beads
-    headid_ptr = -1; resid_gro = 0; glycan_cnt = -1
-    while resid_gro < len(residarr):
-        if residarr[resid_gro] == headid_ptr: #check if resID is same
-            while residarr[resid_gro] == headid_ptr:
-                glycan_list[glycan_cnt].append(aidarr[resid_gro])
-                glycan_list[glycan_cnt].append(anamearr[resid_gro])
-                resid_gro += 1 #move to next "atom" in gro file
-                if resid_gro == len(residarr): #break while loop
-                    break
-        else: #update new glycan
-            glycan_cnt += 1 #move to new "glycan"
-            headid_ptr = residarr[resid_gro] #update pointer to new glycan
-    return glycan_list
-#----------------------------------------------------------------------------------
 # Bonded parameters between P6, PX and P5 are from Lopez et al. 2015 Cellulose paper based on martini v2.0
 # P6 below (based on martini v3.0) is same as P4 in martini v2.0
 # P5 below (based on martini v3.0) is same as P1 in martini v2.0 
 # Bonded parameters between P5 and N4a are taken from lipids file
 #----------------------------------------------------------------------------------
 # Create bond list between the following glycan type names
-def create_bond_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
+def create_bond_list(cell_dp,ncnf_per_bundle,ch_per_cnf,glycan_list):
     # Create empty list
     bond_list = [[]]
     bnd_cntr = 0
@@ -143,7 +66,7 @@ def create_bond_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
                    bond_list.append([])
 
     # Connection between glycans (PX-PX)
-    for ch in range(ncnf*ch_per_cnf):
+    for ch in range(ncnf_per_bundle*ch_per_cnf):
         for glyres in range(cell_dp-1):
             i = cell_dp*ch + glyres
             j = glycan_list[i].index('PX') - 1; # -1 to point to ID of PX
@@ -161,7 +84,7 @@ def create_bond_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
 #----------------------------------------------------------------------------------
 # Create angle list between the following glycan type names
 # P6-PX-P5; P6-PX-PX; P5-PX-PX; PX-PX-PX; PX-P5-SN4a, P5-SN4a-TC1  
-def create_angle_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
+def create_angle_list(cell_dp,ncnf_per_bundle,ch_per_cnf,glycan_list):
      # Create empty list
      angle_list = [[]] 
      angle_cntr = 0
@@ -213,7 +136,7 @@ def create_angle_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
                         angle_list.append([])
 
     # Run through glycan list and make angle connections - P6-PX-PX; P5-PX-PX for residues in the direction or order B1-B2-B5, B3-B2-B5            
-     for ch in range(ncnf*ch_per_cnf):
+     for ch in range(ncnf_per_bundle*ch_per_cnf):
          for glyres in range(cell_dp-1):
              i = cell_dp*ch + glyres
              j = glycan_list[i].index('P6') - 1; # -1 to point to ID of P6
@@ -228,7 +151,7 @@ def create_angle_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
              angle_cntr += 1
              fang.write('%d\t%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k],glycan_list[i+1][l]))
              angle_list.append([])
-     for ch in range(ncnf*ch_per_cnf):
+     for ch in range(ncnf_per_bundle*ch_per_cnf):
          for glyres in range(cell_dp-1):
              i = cell_dp*ch + glyres
              j = glycan_list[i].index('P5') - 1; # -1 to point to ID of P5
@@ -244,7 +167,7 @@ def create_angle_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
              fang.write('%d\t%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k],glycan_list[i+1][l]))
              angle_list.append([])
      # Run through glycan list and make angle connections - P6-PX-PX; P5-PX-PX for residues in the direction B4-B5-B2, B6-B5-B2
-     for ch in range(ncnf*ch_per_cnf):
+     for ch in range(ncnf_per_bundle*ch_per_cnf):
          for glyres in range(cell_dp-1):
              i = cell_dp*ch + glyres
              j = glycan_list[i].index('P6') - 1; # -1 to point to ID of P6
@@ -261,7 +184,7 @@ def create_angle_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
                 angle_cntr += 1
                 fang.write('%d\t%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k],glycan_list[i-1][l]))
                 angle_list.append([])
-     for ch in range(ncnf*ch_per_cnf):
+     for ch in range(ncnf_per_bundle*ch_per_cnf):
          for glyres in range(cell_dp-1):
              i = cell_dp*ch + glyres
              j = glycan_list[i].index('P5') - 1; # -1 to point to ID of P5
@@ -277,7 +200,7 @@ def create_angle_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
                 angle_cntr += 1
                 fang.write('%d\t%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k],glycan_list[i-1][l]))
                 angle_list.append([])
-     for ch in range(ncnf*ch_per_cnf):
+     for ch in range(ncnf_per_bundle*ch_per_cnf):
          for glyres in range(cell_dp-1):
              i = cell_dp*ch + glyres
              j = glycan_list[i].index('PX') - 1;
@@ -298,13 +221,13 @@ def create_angle_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
 #----------------------------------------------------------------------------------
 # Create dihedral list between the following glycan type names
 # P6-PX-PX-P6; P5-PX-PX-P5
-def create_dihedral_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
+def create_dihedral_list(cell_dp,ncnf_per_bundle,ch_per_cnf,glycan_list):
      # Create empty list
      dihed_list = [[]] 
      dihed_cntr = 0
      fdihed = open('dihedral.txt','w')
      # Run through glycan list and make angle connections - P6-PX-P5
-     for ch in range(ncnf*ch_per_cnf):
+     for ch in range(ncnf_per_bundle*ch_per_cnf):
          for glyres in range(cell_dp-1):
              i = cell_dp*ch + glyres
              j = glycan_list[i].index('P6') - 1;
@@ -322,7 +245,7 @@ def create_dihedral_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
              dihed_cntr += 1
              fdihed.write('%d\t%d\t%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k],glycan_list[i+1][l],glycan_list[i+1][m]))
              dihed_list.append([])
-     for ch in range(ncnf*ch_per_cnf):
+     for ch in range(ncnf_per_bundle*ch_per_cnf):
          for glyres in range(cell_dp-1):
              i = cell_dp*ch + glyres
              j = glycan_list[i].index('P5') - 1;
