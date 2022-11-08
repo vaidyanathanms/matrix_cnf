@@ -1,9 +1,10 @@
 # To generate itp files for certain polymers and acetylated cellulose
 # Using Martini V3.0 for cellulose structure
 # Main file: gen_top.py
-# Reference: Martini3-Polyply
+# Reference_1: Lutsyk et al., JCTC, 18, 5089-5017, 2022
+# Table 4 of Reference 1 has the interaction parameters for beta(1-4)
 # https://github.com/ricalessandri/Martini3-small-molecules/blob/main/models/martini_v3.0.0_small_molecules_v1.itp
-# NOTE: Angle constants for PLA/P3HB end groups are assigned same value as those in the middle. Requires more work
+# Reference_2: https://pubs.acs.org/doi/10.1021/acs.jctc.2c00553.
 import os
 import sys
 import numpy
@@ -13,364 +14,283 @@ import glob
 import math
 import subprocess
 #----------------------------------------------------------------------------------
-# Make output directory
-def make_out_dir(currdir,moltype):
-    pathstrs = currdir.split("/")
-    parpath  = "/".join( str(x) for x in pathstrs[:len(pathstrs)-2])
-    outpath  = parpath+'/'+moltype
-    if not os.path.isdir(outpath):
-        os.mkdir(outpath)
-    return outpath
+# Copied from carbo2martini.py (Uses a class to generate systems)
+# gro file is generated from atomistic coordinates. So no need to worry about that
+"""
+A general definition of the single residue, common for all polysaccharides
+
+    1
+   /
+  4 - 2
+  \   /
+    3  
+
+    
+"""
+class Polysaccharide:
+    """
+    The class that stores the parameters of a molecule composed of multiple residues.
+    The class also has write_gro and write_top methods to create gro and top files
+    """
+
+    def __init__(self,name, unit_at):
+
+        self.name      = name
+        self.atoms     = []
+        self.bonds     = []
+        self.angles    = []
+        self.dihedrals = []
+        self.impropers = []
+        self.qtot      = 0
+        self.unit_at   = unit_at
+
+    def gets_atoms(self, index, row, prev_endID):
+        self.qtot += row[4]
+        self.atoms.append([row[0]+index*self.unit_at+prev_endID, row[1], index+1, row[2], row[3], row[0]+index*self.unit_at, row[4], row[5], self.qtot])
+
+    def gets_bonds(self, index, row, prev_endID, flag1, flag2):
+        self.bonds.append([row[0]+index*self.unit_at+prev_endID+flag1,row[1]+index*self.unit_at+prev_endID+flag2,row[2],row[3]])
+
+    def gets_angles(self, index, row):
+        self.angles.append([row[0]+index*self.unit_at, row[1]+index*self.unit_at, row[2]+index*self.unit_at, row[3], row[4], row[5]])
+
+    def gets_dihedrals(self, index, row):
+        self.dihedrals.append([row[0]+index*self.unit_at, row[1]+index*self.unit_at, row[2]+index*self.unit_at, row[3]+index*self.unit_at, row[4], row[5], row[6], row[7]])
+    
+    def gets_impropers(self, index, row):
+        self.impropers.append([row[0]+index*self.unit_at, row[1]+index*self.unit_at, row[2]+index*self.unit_at, row[3]+index*self.unit_at, row[4], row[5], row[6]])
+
+    def writeTop(self,fname,namemol): # define topology files
+
+        topText = []
+        molName = namemol #self.name
+
+        headTop = """
+; Generated using carbo2martini.py and gen_top.py
+#include "martini_v3.0.0.itp"
+#include "martini_v3.0.0_solvents_v1.itp"
+        """
+
+        headMoleculetype = """
+[ moleculetype ]
+;name            nrexcl
+%-16s 1
+"""
+
+        headAtomTypes = """
+[ atoms ]
+;   nr  type  resi  res  atom  cgnr     charge      mass       ; qtot   bond_type
+"""
+
+        headBonds = """
+[ bonds ]
+;   ai     aj funct   r             k
+"""
+
+        headAngles = """
+[ angles ]
+;   ai     aj     ak    funct   theta         cth
+"""
+        headProDih = """
+[ dihedrals ] 
+;    i      j      k      l   func    C0         C1         C2         C3         C4         C5
+"""
+
+        headImp = """
+; impropers  
+        """
+
+        topText.append(headTop)
+        topText.append(headMoleculetype % molName)
+        topText.append(headAtomTypes)
+        for row in self.atoms:
+            line = "%6d %4s %5d %5s %5s %4d %12.6f %12.5f ; qtot %1.3f\n"\
+                   % (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8])
+            topText.append(line)
+
+        topText.append(headBonds)
+        for row in self.bonds:
+            line = "%6i %6i %3i %13.4e %13.4e\n" \
+                   % (row[0], row[1], 1, row[2], row[3])
+            topText.append(line)
+
+        topText.append(headAngles)
+        for row in self.angles:
+            line = "%6i %6i %6i %6i %13.4e %13.4e\n" \
+                   % (row[0], row[1], row[2], row[3], row[4], row[5])
+            topText.append(line)
+
+        topText.append(headProDih)
+        for row in self.dihedrals:
+            line = "%6i %6i %6i %6i %6i %8.2f %9.5f %3i\n" \
+                   % (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
+            topText.append(line)
+
+        topText.append(headImp)
+        for row in self.impropers:
+            line = "%6i %6i %6i %6i %6i %8.2f %9.5f\n"\
+                   % (row[0], row[1], row[2], row[3], row[4], row[5], row[6])
+            topText.append(line)
+
+        footerTop = """
+[ system ]
+; Name
+Combined
+        
+[ molecules ]
+; Compound        #mols
+%-16s             1
+"""
+
+        topText.append(footerTop % molName)
+
+        fileName = fname + ".top"
+        topFile = open(fileName, "w")
+        topFile.writelines(topText)
+        topFile.close()
 #----------------------------------------------------------------------------------
-# Generate log file for cellulose/acetylated cellulose systems
-def gen_logfile(fname,ncnf,acetfrac,cell_dp,ch_per_cnf):
-    fout = open('log.dat','w')
-    fout.write('Input file name: %s\n' %(fname))
-    fout.write('Number of CNF chains: %d\n' %(ncnf))
-    fout.write('Acetylated fraction: %g\n' %(acetfrac))
-    fout.write('Cellulose degree of polymerization: %d\n' %(cell_dp))
-    fout.write('Number of CNF chains per fiber: %d\n' %(ch_per_cnf))
-    return fout
-#-----------------------------------------------------------------------------------
-# Read formatted GRO file
-# Ref: https://github.com/hernanchavezthielemann/GRP4LAM/blob/27ene19/lib/handling/gromacs.py
-def read_gro_file(inpfyle):
-    fmt_at = b'5s5s5s5s8s8s8s'
-    aidarr = []; anamearr = [];residarr = []; resnamearr = []
-    rxarr = []; ryarr = []; rzarr = []; massarr = []
-    with open(inpfyle,'r') as fin:
-        fin.readline()
-        nbeads = int(fin.readline().strip())
-        for line in fin:
-            if line.startswith(';'): # skip lines starting with #
-                continue
-            if not line: # skip empty lines
-                continue
-            elif len(line.strip().split()) == 3 or len(line.strip().split()) == 9:
-                lbox = line.strip().split()
+# Define cellulose beta 1-4 version. Taken from carbo2martini3.py
+def GLCB14(units_num,ncnf_per_bundle,ch_per_cnf,glycan_list,outfname,molname):
+
+    name = "GLCB14"
+    at = 4 # this defines the number of beads per monomer
+    
+
+    atom = []
+    atom.append([1, "TP3", "CELL", "T1", 0, 36])
+    atom.append([2, "TN4", "CELL", "T2", 0, 36])
+    atom.append([3, "P3", "CELL", "R3", 0, 72])
+    atom.append([4, "SN4", "CELL", "S4", 0, 54])
+    atom.append([5, "N4a", "CELL", "A1", 0, 54]) # Acetylation - Check params
+
+    bondIn = []
+    bondIn.append([1, 4, 0.250, 14100])
+    bondIn.append([2, 3, 0.2680, 37500])
+    bondIn.append([2, 4, 0.2570, 53200])
+    bondIn.append([3, 4, 0.2730, 27000])
+    bondIn.append([1, 5, 0.2730, 27000]) #check parameters
+
+    bondConnect = []
+    bondConnect.append([2, 8, 0.267, 7500])
+    bondConnect.append([2, 6, 0.520, 16300])
+    bondConnect.append([4, 8, 0.542, 3770])
+
+    angleIn = []
+    angleIn.append([1, 4, 2, 2, 91, 220])
+    angleIn.append([1, 4, 3, 10, 143, 159])
+    angleIn.append([5, 1, 4, 10, 143, 159]) #check parameters
+
+    angleConnect = []
+    angleConnect.append([3, 2, 8, 2, 115, 245]) 
+    angleConnect.append([1, 2, 8, 2, 127, 350]) 
+    angleConnect.append([2, 8, 5, 2, 123, 16]) 
+    angleConnect.append([2, 8, 7, 2, 93, 52]) 
+
+    dihIn = []
+    
+
+    dihConnect = []
+    dihConnect.append([3, 2, 8, 7, 1, -135 ,-35, 1])
+
+    improperIn = []
+    improperIn.append([4, 3, 2, 1, 2, 9, 200])
+
+    improperConnect = []
+    improperConnect.append([2, 3, 8, 4, 2, 9, 229])
+    improperConnect.append([8, 2, 7, 6, 2, 11, 212])   
+
+    mol = Polysaccharide(name, at)
+
+    acet_flag   = []; acet_cnt = 0
+    prev_end_id = 0 #keeps track of number of beads in a given chain 
+    for j in range(ncnf_per_bundle*ch_per_cnf):
+        bead_cnt = 0
+        for i in range(units_num): #units_num is same as nresidues or nmons
+            glycan_index = i + (j-1)*units_num
+            bead_cnt += int(0.5*len(glycan_list[glycan_index])) #0.5 for 2 ids per bead
+            # 4 beads per residue or unit or mon and 2 ids per bead
+            if len(glycan_list[glycan_index]) == 8:
+                acet_flag.append(0)
+                for k in range(len(atom)-1):
+                    mol.gets_atoms(i,atom[k],prev_end_id)                    
+                if i == units_num-1: #Changes to end monomers 
+                    mol.atoms[-3][1] = "SN4"
+                    mol.atoms[-3][4] = "S2"
+                    mol.atoms[-3][7] = 54
+            # 5 beads per residue or unit or mon and 2 ids per bead
+            elif len(glycan_list[glycan_index]) == 10:
+                acet_cnt += 1
+                acet_flag.append(acet_cnt)
+                for k in range(0,len(atom),2):
+                    mol.gets_atoms(i,atom[k],prev_end_id)
+                if i == units_num-1: #Changes to end monomers 
+                    mol.atoms[-4][1] = "SN4"
+                    mol.atoms[-4][4] = "S2"
+                    mol.atoms[-4][7] = 54
             else:
-                residarr.append(int(line[:5].strip()))
-                resnamearr.append(line[5:10].strip())
-                anamearr.append(line[10:15].strip())
-                aidarr.append(int(line[15:20].strip()))
-                rxarr.append(float(line[20:28].strip()))
-                ryarr.append(float(line[28:36].strip()))
-                rzarr.append(float(line[36:44].strip()))
+                print(glycan_list[glycan_index])
+                raise RuntimeError("More than 5 atoms in glycan for "\
+                                   + str(glycan_index))
+        prev_end_id += bead_cnt
+        
+        if bondIn:
+            prev_end_id = 0
+            for j in range(ncnf_per_bundle*ch_per_cnf):
+                bead_cnt = 0
+                for i in range(units_num):
+                    glycan_index = i + (j-1)*units_num
+                    bead_cnt += int(0.5*len(glycan_list[glycan_index])) 
+                    if len(glycan_list[glycan_index]) == 8:
+                        for k in range(len(bondIn)-1):
+                            mol.gets_bonds(i,bondIn[k],prev_end_id)
+                    elif len(glycan_list[glycan_index]) == 10:
+                        for k in range(len(bondIn)):
+                            mol.gets_bonds(i,bondIn[k],prev_end_id)
+                prev_end_id += bead_cnt
 
-            if 'SN4a' in line[10:15].strip():
-                mval = 54
-            elif 'TP2' in line[10:15].strip():
-                mval = 36
-            elif 'TC1' in line[10:15].strip():
-                mval = 36
-            else: # Default Martini
-                mval = 72
-            massarr.append(mval)
-    if len(residarr) == 0:
-        raise RuntimeError('No atoms read - file corrupted?')
-    return residarr,resnamearr,aidarr,anamearr,rxarr,ryarr,rzarr,massarr
-#----------------------------------------------------------------------------------
-# Creating MARTINI beads list
-def create_martini_beads(cell_dp,ncnf,ch_per_cnf,residarr,\
-                         aidarr,anamearr):
-    # Create empty array
-    glycan_list = [[] for i in range(cell_dp*ncnf*ch_per_cnf)]
-    # Sort beads
-    headid_ptr = -1; resid_gro = 0; glycan_cnt = -1
-    while resid_gro < len(residarr):
-        if residarr[resid_gro] == headid_ptr: #check if resID is same
-            while residarr[resid_gro] == headid_ptr:
-                glycan_list[glycan_cnt].append(aidarr[resid_gro])
-                glycan_list[glycan_cnt].append(anamearr[resid_gro])
-                resid_gro += 1 #move to next "atom" in gro file
-                if resid_gro == len(residarr): #break while loop
-                    break
-        else: #update new glycan
-            glycan_cnt += 1 #move to new "glycan"
-            headid_ptr = residarr[resid_gro] #update pointer to new glycan
-    return glycan_list
-#----------------------------------------------------------------------------------
-# Bonded parameters between P6, PX and P5 are from Lopez et al. 2015 Cellulose paper based on martini v2.0
-# P6 below (based on martini v3.0) is same as P4 in martini v2.0
-# P5 below (based on martini v3.0) is same as P1 in martini v2.0 
-# Bonded parameters between P5 and N4a are taken from lipids file
-#----------------------------------------------------------------------------------
-# Create bond list between the following glycan type names
-def create_bond_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
-    # Create empty list
-    bond_list = [[]]
-    bnd_cntr = 0
-    fbnd = open('bond.txt','w')
-    # Run through glycan list and connect "inner" beads (P6-PX;PX-P5)
-    for i in range(len(glycan_list)):
-        for j in range(0,len(glycan_list[i]),2):
-            for k in range(j+2,len(glycan_list[i]),2):
-                if (glycan_list[i][j+1] == 'P6' and glycan_list[i][k+1] == 'PX'):  
-                   bond_list[bnd_cntr].append(glycan_list[i][j])
-                   bond_list[bnd_cntr].append(glycan_list[i][k])
-                   bond_list[bnd_cntr].append(1)
-                   bond_list[bnd_cntr].append(0.23)
-                   bond_list[bnd_cntr].append(30000)
-                   bnd_cntr += 1
-                   fbnd.write('%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k]))
-                   bond_list.append([])
-                elif (glycan_list[i][j+1] == 'PX' and glycan_list[i][k+1] == 'P5'):  
-                   bond_list[bnd_cntr].append(glycan_list[i][j])
-                   bond_list[bnd_cntr].append(glycan_list[i][k])
-                   bond_list[bnd_cntr].append(1)
-                   bond_list[bnd_cntr].append(0.22)
-                   bond_list[bnd_cntr].append(30000)
-                   bnd_cntr += 1
-                   fbnd.write('%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k]))
-                   bond_list.append([])
-                elif (glycan_list[i][j+1] == 'P5' and glycan_list[i][k+1] == 'SN4a'): # This is based on P1-Na bond parameters in martini_v2.0_lipids_all_201506.itp file
-                   bond_list[bnd_cntr].append(glycan_list[i][j])
-                   bond_list[bnd_cntr].append(glycan_list[i][k])
-                   bond_list[bnd_cntr].append(1)
-                   bond_list[bnd_cntr].append(0.40)
-                   bond_list[bnd_cntr].append(30000)
-                   bnd_cntr += 1
-                   fbnd.write('%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k]))
-                   bond_list.append([])
-                elif (glycan_list[i][j+1] == 'SN4a' and glycan_list[i][k+1] == 'TC1'):
-                   bond_list[bnd_cntr].append(glycan_list[i][j])
-                   bond_list[bnd_cntr].append(glycan_list[i][k])
-                   bond_list[bnd_cntr].append(1)
-                   bond_list[bnd_cntr].append(0.37)
-                   bond_list[bnd_cntr].append(1250)
-                   bnd_cntr += 1
-                   fbnd.write('%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k]))
-                   bond_list.append([])
+        if bondConnect:
+            prev_end_id = 0
+            for j in range(ncnf_per_bundle*ch_per_cnf):
+                bead_cnt = 0
+                for row in bondConnect:
+                    for i in range(units_num - 1):
+			if i == 1:
+                        	mol.gets_bonds(i, row, prev_end_id, 0,acet_flag[i])
+                        else:
+				mol.gets_bonds(i, row, prev_end_id, acet_flag[i-1],acet_flag[i])
+                prev_end_id += bead_cnt
 
-    # Connection between glycans (PX-PX)
-    for ch in range(ncnf*ch_per_cnf):
-        for glyres in range(cell_dp-1):
-            i = cell_dp*ch + glyres
-            j = glycan_list[i].index('PX') - 1; # -1 to point to ID of PX
-            k = glycan_list[i+1].index('PX') - 1
-            bond_list[bnd_cntr].append(glycan_list[i][j])
-            bond_list[bnd_cntr].append(glycan_list[i+1][k])
-            bond_list[bnd_cntr].append(1)
-            bond_list[bnd_cntr].append(0.55)
-            bond_list[bnd_cntr].append(30000)
-            bnd_cntr += 1
-            fbnd.write('%d\t%d\n' %(glycan_list[i][j],glycan_list[i+1][k]))
-            bond_list.append([])
-    del(bond_list[-1])
-    return bond_list
-#----------------------------------------------------------------------------------
-# Create angle list between the following glycan type names
-# P6-PX-P5; P6-PX-PX; P5-PX-PX; PX-PX-PX; PX-P5-SN4a, P5-SN4a-TC1  
-def create_angle_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
-     # Create empty list
-     angle_list = [[]] 
-     angle_cntr = 0
-     fang = open('angle.txt','w')
-     # Run through glycan list and make angle connections - P6-PX-P5
-     for i in range(len(glycan_list)):
-         for j in range(0,len(glycan_list[i]),2):
-             for k in range(j+2,len(glycan_list[i]),2):
-                 for l in range(k+2,len(glycan_list[i]),2):
-                     if (glycan_list[i][j+1] == 'P6' and glycan_list[i][k+1] == 'PX' and glycan_list[i][l+1] == 'P5'):
-                        angle_list[angle_cntr].append(glycan_list[i][j])
-                        angle_list[angle_cntr].append(glycan_list[i][k])
-                        angle_list[angle_cntr].append(glycan_list[i][l])
-                        angle_list[angle_cntr].append(2)
-                        angle_list[angle_cntr].append(166.0)
-                        angle_list[angle_cntr].append(50.0)
-                        angle_cntr += 1
-                        fang.write('%d\t%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k],glycan_list[i][l]))
-                        angle_list.append([])
-     # Run through glycan list and make angle connections - PX-P5-SN4a
-     for i in range(len(glycan_list)):
-         for j in range(0,len(glycan_list[i]),2):
-             for k in range(j+2,len(glycan_list[i]),2):
-                 for l in range(k+2,len(glycan_list[i]),2):
-                     if (glycan_list[i][j+1] == 'PX' and glycan_list[i][k+1] == 'P5' and glycan_list[i][l+1] == 'SN4a'):
-                        angle_list[angle_cntr].append(glycan_list[i][j])
-                        angle_list[angle_cntr].append(glycan_list[i][k])
-                        angle_list[angle_cntr].append(glycan_list[i][l])
-                        angle_list[angle_cntr].append(2)
-                        angle_list[angle_cntr].append(100.0) # taken from DPMG lipid for P1-P1-Na martini_v2.0_lipids_all_201506.itp file 
-                        angle_list[angle_cntr].append(35.0) # taken from DPMG lipid for P1-P1-Na martini_v2.0_lipids_all_201506.itp file
-                        angle_cntr += 1
-                        fang.write('%d\t%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k],glycan_list[i][l]))
-                        angle_list.append([])
-     # Run through glycan list and make angle connections - P5-SN4a-TC1
-     for i in range(len(glycan_list)):
-         for j in range(0,len(glycan_list[i]),2):
-             for k in range(j+2,len(glycan_list[i]),2):
-                 for l in range(k+2,len(glycan_list[i]),2):
-                     if (glycan_list[i][j+1] == 'P5' and glycan_list[i][k+1] == 'SN4a' and glycan_list[i][l+1] == 'TC1'):
-                        angle_list[angle_cntr].append(glycan_list[i][j])
-                        angle_list[angle_cntr].append(glycan_list[i][k])
-                        angle_list[angle_cntr].append(glycan_list[i][l])
-                        angle_list[angle_cntr].append(2)
-                        angle_list[angle_cntr].append(180.0) # taken from LPC (IPC) lipid for P1-Na-C1 martini_v2.0_lipids_all_201506.itp file
-                        angle_list[angle_cntr].append(25.0) # taken from LPC (IPC) lipid for P1-Na-C1 martini_v2.0_lipids_all_201506.itp file
-                        angle_cntr += 1
-                        fang.write('%d\t%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k],glycan_list[i][l]))
-                        angle_list.append([])
+        if angleIn:
+            for row in angleIn:
+                for i in range(units_num):
+                    mol.gets_angles(i, row)
 
-    # Run through glycan list and make angle connections - P6-PX-PX; P5-PX-PX for residues in the direction or order B1-B2-B5, B3-B2-B5            
-     for ch in range(ncnf*ch_per_cnf):
-         for glyres in range(cell_dp-1):
-             i = cell_dp*ch + glyres
-             j = glycan_list[i].index('P6') - 1; # -1 to point to ID of P6
-             k = glycan_list[i].index('PX') - 1
-             l = glycan_list[i+1].index('PX') - 1
-             angle_list[angle_cntr].append(glycan_list[i][j])
-             angle_list[angle_cntr].append(glycan_list[i][k])
-             angle_list[angle_cntr].append(glycan_list[i+1][l])
-             angle_list[angle_cntr].append(2)
-             angle_list[angle_cntr].append(85.0)
-             angle_list[angle_cntr].append(50.0)
-             angle_cntr += 1
-             fang.write('%d\t%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k],glycan_list[i+1][l]))
-             angle_list.append([])
-     for ch in range(ncnf*ch_per_cnf):
-         for glyres in range(cell_dp-1):
-             i = cell_dp*ch + glyres
-             j = glycan_list[i].index('P5') - 1; # -1 to point to ID of P5
-             k = glycan_list[i].index('PX') - 1
-             l = glycan_list[i+1].index('PX') - 1
-             angle_list[angle_cntr].append(glycan_list[i][j])
-             angle_list[angle_cntr].append(glycan_list[i][k])
-             angle_list[angle_cntr].append(glycan_list[i+1][l])
-             angle_list[angle_cntr].append(2)
-             angle_list[angle_cntr].append(85.0)
-             angle_list[angle_cntr].append(50.0)
-             angle_cntr += 1
-             fang.write('%d\t%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k],glycan_list[i+1][l]))
-             angle_list.append([])
-     # Run through glycan list and make angle connections - P6-PX-PX; P5-PX-PX for residues in the direction B4-B5-B2, B6-B5-B2
-     for ch in range(ncnf*ch_per_cnf):
-         for glyres in range(cell_dp-1):
-             i = cell_dp*ch + glyres
-             j = glycan_list[i].index('P6') - 1; # -1 to point to ID of P6
-             k = glycan_list[i].index('PX') - 1
-             if i >= 0:
-                l = glycan_list[i-1].index('PX') - 1
-                angle_list[angle_cntr].append(glycan_list[i][j])
-                angle_list[angle_cntr].append(glycan_list[i][k])
-                angle_list[angle_cntr].append(glycan_list[i-1][l])
-                angle_list[angle_cntr].append(2)
-                angle_list[angle_cntr].append(80.0)
-                angle_list[angle_cntr].append(50.0)
+        if angleConnect:
+            for row in angleConnect:
+                for i in range(units_num-1):
+                    mol.gets_angles(i, row)
 
-                angle_cntr += 1
-                fang.write('%d\t%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k],glycan_list[i-1][l]))
-                angle_list.append([])
-     for ch in range(ncnf*ch_per_cnf):
-         for glyres in range(cell_dp-1):
-             i = cell_dp*ch + glyres
-             j = glycan_list[i].index('P5') - 1; # -1 to point to ID of P5
-             k = glycan_list[i].index('PX') - 1
-             if i >= 0:
-                l = glycan_list[i-1].index('PX') - 1
-                angle_list[angle_cntr].append(glycan_list[i][j])
-                angle_list[angle_cntr].append(glycan_list[i][k])
-                angle_list[angle_cntr].append(glycan_list[i-1][l])
-                angle_list[angle_cntr].append(2)
-                angle_list[angle_cntr].append(113.0)
-                angle_list[angle_cntr].append(80.0)
-                angle_cntr += 1
-                fang.write('%d\t%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k],glycan_list[i-1][l]))
-                angle_list.append([])
-     for ch in range(ncnf*ch_per_cnf):
-         for glyres in range(cell_dp-1):
-             i = cell_dp*ch + glyres
-             j = glycan_list[i].index('PX') - 1;
-             k = glycan_list[i-1].index('PX') - 1
-             if glyres > 0:
-                l = glycan_list[i+1].index('PX') - 1
-                angle_list[angle_cntr].append(glycan_list[i-1][k])
-                angle_list[angle_cntr].append(glycan_list[i][j])
-                angle_list[angle_cntr].append(glycan_list[i+1][l])
-                angle_list[angle_cntr].append(2)
-                angle_list[angle_cntr].append(165.0)
-                angle_list[angle_cntr].append(50.0)
-                angle_cntr += 1
-                fang.write('%d\t%d\t%d\n' %(glycan_list[i-1][k],glycan_list[i][j],glycan_list[i+1][l]))
-                angle_list.append([])
-     del(angle_list[-1])
-     return angle_list
-#----------------------------------------------------------------------------------
-# Create dihedral list between the following glycan type names
-# P6-PX-PX-P6; P5-PX-PX-P5
-def create_dihedral_list(cell_dp,ncnf,ch_per_cnf,glycan_list):
-     # Create empty list
-     dihed_list = [[]] 
-     dihed_cntr = 0
-     fdihed = open('dihedral.txt','w')
-     # Run through glycan list and make angle connections - P6-PX-P5
-     for ch in range(ncnf*ch_per_cnf):
-         for glyres in range(cell_dp-1):
-             i = cell_dp*ch + glyres
-             j = glycan_list[i].index('P6') - 1;
-             k = glycan_list[i].index('PX') - 1
-             l = glycan_list[i+1].index('PX') - 1
-             m = glycan_list[i+1].index('P6') - 1
-             dihed_list[dihed_cntr].append(glycan_list[i][j])
-             dihed_list[dihed_cntr].append(glycan_list[i][k])
-             dihed_list[dihed_cntr].append(glycan_list[i+1][l])
-             dihed_list[dihed_cntr].append(glycan_list[i+1][m])
-             dihed_list[dihed_cntr].append(1)
-             dihed_list[dihed_cntr].append(0.00)                
-             dihed_list[dihed_cntr].append(10.00)
-             dihed_list[dihed_cntr].append(1)
-             dihed_cntr += 1
-             fdihed.write('%d\t%d\t%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k],glycan_list[i+1][l],glycan_list[i+1][m]))
-             dihed_list.append([])
-     for ch in range(ncnf*ch_per_cnf):
-         for glyres in range(cell_dp-1):
-             i = cell_dp*ch + glyres
-             j = glycan_list[i].index('P5') - 1;
-             k = glycan_list[i].index('PX') - 1
-             l = glycan_list[i+1].index('PX') - 1
-             m = glycan_list[i+1].index('P5') - 1
-             dihed_list[dihed_cntr].append(glycan_list[i][j])
-             dihed_list[dihed_cntr].append(glycan_list[i][k])
-             dihed_list[dihed_cntr].append(glycan_list[i+1][l])
-             dihed_list[dihed_cntr].append(glycan_list[i+1][m])
-             dihed_list[dihed_cntr].append(1)
-             dihed_list[dihed_cntr].append(0.00) 
-             dihed_list[dihed_cntr].append(10.00)
-             dihed_list[dihed_cntr].append(1)
-             dihed_cntr += 1
-             fdihed.write('%d\t%d\t%d\t%d\n' %(glycan_list[i][j],glycan_list[i][k],glycan_list[i+1][l],glycan_list[i+1][m]))
-             dihed_list.append([])
-     del(dihed_list[-1])
-     return dihed_list
-#----------------------------------------------------------------------------------------
-def write_celltop(posre_fname,residarr,resnamearr,aidarr,anamearr,massarr,bond_list,angle_list,dihed_list):
-     ftop = open('CELLULOSE_acetylated.top','w') 
-     charge = 0.0
-     rem_str = "; qtot 0"
-     ftop.write(";\tFile CELLULOSE_acetylated.top was generated from gen_top.py\n")
-     ftop.write(";\tInclude forcefield parameters\n")
-#     ftop.write('#include "./all_toppar/forcefield.itp"\n\n') 
-     ftop.write("[ moleculetype ]\n")
-     ftop.write("; Name             nrexcl\n")
-     ftop.write("CELLULOSE-acetylated       1\n\n") # only 1-2 bonded neighbors are excluded from LJ calculations in MARTINI
-     ftop.write("[ atoms ]\n")
-     ftop.write(";   nr       type  resnr residue  atom   cgnr     charge       mass  typeB    chargeB      massB\n")
-     for i in range(0, len(aidarr)):
-         ftop.write("%d\t%s\t%d\t%s\t%s\t%d\t%f\t%s\n" %(i+1,anamearr[i],residarr[i],resnamearr[i],anamearr[i],residarr[i],charge,rem_str))           
-     ftop.write("\n[ bonds ]\n") 
-     for i in range(0, len(bond_list)): 
-         ftop.write("%d\t%d\t%d\t%f\t%f\n" %(bond_list[i][0],bond_list[i][1],bond_list[i][2],bond_list[i][3],bond_list[i][4]))
-     ftop.write("\n[ angles ]\n")
-     for i in range(0, len(angle_list)):
-         ftop.write("%d\t%d\t%d\t%d\t%f\t%f\n" %(angle_list[i][0],angle_list[i][1],angle_list[i][2],angle_list[i][3],angle_list[i][4],angle_list[i][5]))
-     ftop.write("\n[ dihedrals ]\n")
-     for i in range(0, len(dihed_list)):
-         ftop.write("%d\t%d\t%d\t%d\t%d\t%f\t%f\t%d\n\n" %(dihed_list[i][0],dihed_list[i][1],dihed_list[i][2],dihed_list[i][3],dihed_list[i][4],dihed_list[i][5],dihed_list[i][6],dihed_list[i][7]))
-     ftop.write("; Include Position restraint file\n")
-     ftop.write("#ifdef POSRES\n")
-     ftop.write("#include \"posre-%s.itp\"\n" %(posre_fname))
-     ftop.write("#endif\n")
-     return ftop   
+        if dihIn:
+            for row in dihIn:
+                for i in range(units_num):
+                    mol.gets_dihedrals(i, row)
+
+        if dihConnect:
+            for row in dihConnect:
+                for i in range(units_num-1):
+                    mol.gets_dihedrals(i, row)
+
+        if improperIn:
+            for row in improperIn:
+                mol.gets_impropers(0, row)
+
+        if improperConnect:
+            for row in improperConnect:
+                for i in range(units_num-1):
+                    mol.gets_impropers(i, row)
+
+    
+    mol.writeTop(outfname,molname)
 #----------------------------------------------------------------------------------
 # if __name__
 if __name__ == '__main__':
