@@ -251,8 +251,8 @@ def design_pla(nmons,moltype):
     fpla = open(outdir+'/'+moltype.lower()+'_'+str(nmons)+'.itp','w')
     write_header(fpla,nmons,natoms,nbonds,nangls,0,0,moltype) #headers
     fpla.write('; Ref1: Martini V2.0 Lipids\n')
-    fpla.write('; Ref2: for angles/bonds-Li et al., Acta mechanica solida '+\
-               'sinica 30 (2017) 630Ã¢€“637\n')
+    #fpla.write('; Ref2: for angles/bonds-Li et al., Acta mechanica solida '+\
+    #           'sinica 30 (2017) 630Ã¢€“637\n')
     
     # Write topology
     write_topology(fpla,moltype,nmons,natoms,nbonds,0,nangls,0,0,\
