@@ -20,6 +20,7 @@ import auxgen_martinibeads
 import auxgen_celltop_v2
 import auxgen_celltop_v3
 #----Read input file - matrix/filename,ncnf_per_bundle,acetfrac-----------
+beads_per_mon = 4
 if len(sys.argv) == 3: #polymer matrix - design and exit
     print('Generating CG polymer for ', sys.argv[1])
     if sys.argv[1] == 'petg':
@@ -60,12 +61,16 @@ fout = auxgen_martinibeads.gen_logfile(fname,ncnf_per_bundle,acetfrac,\
                                        cell_dp,ch_per_cnf)
 residarr,resnamearr,aidarr,anamearr,rxarr,\
     ryarr,rzarr,massarr = auxgen_martinibeads.read_gro_file(fname)
-                                                                
+
+if acetfrac == 0: # Sanity check is not possible for acetylated systems
+    if len(rxarr) != ncnf_per_bundle*ch_per_cnf*cell_dp*beads_per_mon:
+        raise RuntimeError('Unequal number of atoms betweem inputs and gro file: '\
+                           + str(ncnf_per_bundle*ch_per_cnf*cell_dp*beads_per_mon)\
+                           + '\t' + str(len(rxarr)))
 #-----Generate bead list--------------------------------------------
 glycan_list = auxgen_martinibeads.create_martini_beads(cell_dp,ncnf_per_bundle,\
                                                        ch_per_cnf,residarr,\
                                                        aidarr,anamearr)
-
 #-----Generate topology----------------------------------------------
 if martini_ver == 2:
     # Create bond list
