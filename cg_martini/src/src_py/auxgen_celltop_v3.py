@@ -166,7 +166,7 @@ Combined
         topFile.close()
 #----------------------------------------------------------------------------------
 # Define cellulose beta 1-4 version. Taken from carbo2martini3.py
-def GLCB14(units_num,ncnf_per_bundle,ch_per_cnf,glycan_list,outfname,molname):
+def GLCB14(units_num,ncnf_bundles,ch_per_cnf,glycan_list,outfname,molname):
 
     name = "GLCB14"
     at = 4 # this defines the number of beads per monomer
@@ -218,22 +218,27 @@ def GLCB14(units_num,ncnf_per_bundle,ch_per_cnf,glycan_list,outfname,molname):
     mol = Polysaccharide(name, at)
 
     acet_flag   = []; acet_cnt = 0
-    prev_end_id = 0 #keeps track of number of beads in a given chain 
-    for j in range(ncnf_per_bundle*ch_per_cnf):
+    prev_chend_id = 0 #keeps track of number of beads in a given chain 
+    for j in range(ncnf_bundles*ch_per_cnf):
         bead_cnt = 0
         for i in range(units_num): #units_num is same as nresidues or nmons
             glycan_index = i + (j-1)*units_num
             bead_cnt += int(0.5*len(glycan_list[glycan_index])) #0.5 for 2 ids per bead
             if i == 0 and j == 0: #flag for first monomer is zero
                 if len(glycan_list[glycan_index]) == 8:
-                    acet_flag.append(0)
-                    for k in range(len(atom)-1):
-                        mol.gets_atoms(i,atom[k],prev_end_id,0)  
+                    acet_flag.append(acet_cnt)
+                    for k in range(0,4):
+                        mol.gets_atoms(i,atom[k],prev_chend_id,0)  
                 elif len(glycan_list[glycan_index]) == 10:
                     acet_cnt += 1
                     acet_flag.append(acet_cnt)
-                    for k in range(0,len(atom)):
-                        mol.gets_atoms(i,atom[k],prev_end_id,0)
+                    for k in range(0,5):
+                        mol.gets_atoms(i,atom[k],prev_chend_id,0)
+                elif len(glycan_list[glycan_index]) == 12:
+                    acet_cnt += 2
+                    acet_flag.append(acet_cnt)
+                    for k in range(0,6):
+                        mol.gets_atoms(i,atom[k],prev_chend_id,0)
                 else:
                     print(glycan_list[glycan_index])
                     raise RuntimeError("More than 5 atoms in glycan for "\
@@ -241,9 +246,9 @@ def GLCB14(units_num,ncnf_per_bundle,ch_per_cnf,glycan_list,outfname,molname):
             else: # flag for other monomers will depend on acet_cnt in previous monomer
                 # 4 beads per residue or unit or mon and 2 ids per bead
                 if len(glycan_list[glycan_index]) == 8:
-                    acet_flag.append(0)
-                    for k in range(len(atom)-1):
-                        mol.gets_atoms(i,atom[k],prev_end_id,acet_flag[i-1])
+                    acet_flag.append(acet_cnt)
+                    for k in range(0,4):
+                        mol.gets_atoms(i,atom[k],prev_chend_id,acet_flag[i-1])
                     if i == units_num-1: #Changes to end monomers 
                         mol.atoms[-3][1] = "SN4"
                         mol.atoms[-3][4] = "S2"
@@ -252,8 +257,17 @@ def GLCB14(units_num,ncnf_per_bundle,ch_per_cnf,glycan_list,outfname,molname):
                 elif len(glycan_list[glycan_index]) == 10:
                     acet_cnt += 1
                     acet_flag.append(acet_cnt)
-                    for k in range(0,len(atom)):
-                        mol.gets_atoms(i,atom[k],prev_end_id,acet_flag[i-1])
+                    for k in range(0,5):
+                        mol.gets_atoms(i,atom[k],prev_chend_id,acet_flag[i-1])
+                    if i == units_num-1: #Changes to end monomers 
+                        mol.atoms[-4][1] = "SN4"
+                        mol.atoms[-4][4] = "S2"
+                        mol.atoms[-4][7] = 54
+                elif len(glycan_list[glycan_index]) == 12:
+                    acet_cnt += 2
+                    acet_flag.append(acet_cnt)
+                    for k in range(0,6):
+                        mol.gets_atoms(i,atom[k],prev_chend_id,acet_flag[i-1])
                     if i == units_num-1: #Changes to end monomers 
                         mol.atoms[-4][1] = "SN4"
                         mol.atoms[-4][4] = "S2"
@@ -262,102 +276,111 @@ def GLCB14(units_num,ncnf_per_bundle,ch_per_cnf,glycan_list,outfname,molname):
                     print(glycan_list[glycan_index])
                     raise RuntimeError("More than 5 atoms in glycan for "\
                                        + str(glycan_index))
-        prev_end_id += bead_cnt
-        
+        prev_chend_id += bead_cnt
+
         if bondIn:
-            prev_end_id = 0
-            for j in range(ncnf_per_bundle*ch_per_cnf):
+            prev_chend_id = 0
+            for j in range(ncnf_bundles*ch_per_cnf):
                 bead_cnt = 0
                 for i in range(units_num):
                     glycan_index = i + (j-1)*units_num
                     bead_cnt += int(0.5*len(glycan_list[glycan_index])) 
                     if i == 0 and j == 0:
                         if len(glycan_list[glycan_index]) == 8:
-                            for k in range(len(bondIn)-1):
-                                mol.gets_bonds(i,bondIn[k],prev_end_id,0,acet_flag[i])
+                            for k in range(0,4):
+                                mol.gets_bonds(i,bondIn[k],prev_chend_id,0,0)
                         elif len(glycan_list[glycan_index]) == 10:
-                            for k in range(len(bondIn)):
-                                mol.gets_bonds(i,bondIn[k],prev_end_id,0,acet_flag[i])
+                            for k in range(0,5):
+                                mol.gets_bonds(i,bondIn[k],prev_chend_id,0,0)
+                        elif len(glycan_list[glycan_index]) == 12:
+                            for k in range(0,6):
+                                mol.gets_bonds(i,bondIn[k],prev_chend_id,0,0)
                     else:
                         if len(glycan_list[glycan_index]) == 8:
-                            for k in range(len(bondIn)-1):
-                                mol.gets_bonds(i,bondIn[k],prev_end_id,acet_flag[i-1],acet_flag[i])
+                            for k in range(0,4):
+                                mol.gets_bonds(i,bondIn[k],prev_chend_id,acet_flag[i-1],acet_flag[i-1])
                         elif len(glycan_list[glycan_index]) == 10:
-                            for k in range(len(bondIn)):
-                                mol.gets_bonds(i,bondIn[k],prev_end_id,acet_flag[i-1],acet_flag[i])
-                prev_end_id += bead_cnt
+                            for k in range(0,5):
+                                mol.gets_bonds(i,bondIn[k],prev_chend_id,acet_flag[i-1],acet_flag[i-1]) 
+                        elif len(glycan_list[glycan_index]) == 12:
+                            for k in range(0,6):
+                                mol.gets_bonds(i,bondIn[k],prev_chend_id,acet_flag[i-1],acet_flag[i-1]) 
+                prev_chend_id += bead_cnt
 
         if bondConnect:
-            prev_end_id = 0
-            for j in range(ncnf_per_bundle*ch_per_cnf):
+            prev_chend_id = 0
+            for j in range(ncnf_bundles*ch_per_cnf):
                 bead_cnt = 0
                 for row in bondConnect:
                     for i in range(units_num - 1):
                         if i == 0 and j == 0:
-                            mol.gets_bonds(i, row, prev_end_id, 0, acet_flag[i])
+                            mol.gets_bonds(i, row, prev_chend_id, 0, acet_flag[i])
                         else:
-                            mol.gets_bonds(i, row, prev_end_id, acet_flag[i-1],acet_flag[i])
-                prev_end_id += bead_cnt
+                            mol.gets_bonds(i, row, prev_chend_id, acet_flag[i-1],acet_flag[i])
+                prev_chend_id += bead_cnt
 
         if angleIn:
-            prev_end_id = 0
-            for j in range(ncnf_per_bundle*ch_per_cnf):
+            prev_chend_id = 0
+            for j in range(ncnf_bundles*ch_per_cnf):
                 bead_cnt = 0
                 for i in range(units_num):
                     glycan_index = i + (j-1)*units_num
                     bead_cnt += int(0.5*len(glycan_list[glycan_index])) 
                     if len(glycan_list[glycan_index]) == 8:
-                        for k in range(len(angleIn)-1):
-                            mol.gets_angles(i, angleIn[k], prev_end_id,0,0,0)
+                        for k in range(0,2):
+                            mol.gets_angles(i, angleIn[k], prev_chend_id,0,0,0)
                     elif len(glycan_list[glycan_index]) == 10:
-                        for k in range(len(angleIn)):
-                            mol.gets_angles(i, angleIn[k], prev_end_id,0,0,0)
-                prev_end_id += bead_cnt
+                        for k in range(0,3):
+                            mol.gets_angles(i, angleIn[k], prev_chend_id,0,0,0)
+                    elif len(glycan_list[glycan_index]) == 12:
+                        for k in range(0,4):
+                            mol.gets_angles(i, angleIn[k], prev_chend_id,0,0,0)
+                prev_chend_id += bead_cnt
 
         if angleConnect:
             for row in angleConnect:
                 for i in range(units_num-1):
-                    mol.gets_angles(i, row, prev_end_id, 0, 0, 0) # CHECK
+                    mol.gets_angles(i, row, prev_chend_id, 0, 0, 0) # CHECK
 
         if dihIn:
-            prev_end_id = 0
-            for j in range(ncnf_per_bundle*ch_per_cnf):
+            prev_chend_id = 0
+            for j in range(ncnf_bundles*ch_per_cnf):
                 bead_cnt = 0
                 for i in range(units_num):
                     glycan_index = i + (j-1)*units_num
                     bead_cnt += int(0.5*len(glycan_list[glycan_index])) 
                     if len(glycan_list[glycan_index]) == 8:
                         for k in range(len(dihIn)-1):
-                            mol.gets_dihedrals(i, dihIn[k], prev_end_id,0,0,0,0)
+                            mol.gets_dihedrals(i, dihIn[k], prev_chend_id,0,0,0,0)
                     elif len(glycan_list[glycan_index]) == 10:
                         for k in range(len(dihIn)):
-                            mol.gets_dihedrals(i, dihIn[k], prev_end_id,0,0,0,0)
-                prev_end_id += bead_cnt
+                            mol.gets_dihedrals(i, dihIn[k], prev_chend_id,0,0,0,0)
+                prev_chend_id += bead_cnt
 
         if dihConnect:
             for row in dihConnect:
                 for i in range(units_num-1):
-                    mol.gets_dihedrals(i, row, prev_end_id, 0, 0, 0, 0) #CHECK
+                    mol.gets_dihedrals(i, row, prev_chend_id, 0, 0, 0, 0) #CHECK
 
         if improperIn:
-            prev_end_id = 0
-            for j in range(ncnf_per_bundle*ch_per_cnf):
+            prev_chend_id = 0
+            for j in range(ncnf_bundles*ch_per_cnf):
                 bead_cnt = 0
                 for i in range(units_num):
                     glycan_index = i + (j-1)*units_num
                     bead_cnt += int(0.5*len(glycan_list[glycan_index])) 
                     if len(glycan_list[glycan_index]) == 8:
                         for k in range(len(improperIn)-1):
-                            mol.gets_impropers(i, improperIn[k], prev_end_id,0,0,0,0)
+                            mol.gets_impropers(i, improperIn[k], prev_chend_id,0,0,0,0)
                     elif len(glycan_list[glycan_index]) == 10:
                         for k in range(len(improperIn)):
-                            mol.gets_impropers(i, improperIn[k], prev_end_id,0,0,0,0)
-                prev_end_id += bead_cnt
+                            mol.gets_impropers(i, improperIn[k], prev_chend_id,0,0,0,0)
+                prev_chend_id += bead_cnt
 
         if improperConnect:
             for row in improperConnect:
                 for i in range(units_num-1):
-                    mol.gets_impropers(i, row, prev_end_id, 0, 0, 0, 0) #CHECK
+                    mol.gets_impropers(i, row, prev_chend_id, 0, 0, 0, 0) #CHECK
 
     
     mol.writeTop(outfname,molname)
