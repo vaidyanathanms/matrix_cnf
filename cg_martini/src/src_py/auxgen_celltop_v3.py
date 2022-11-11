@@ -178,6 +178,7 @@ def GLCB14(units_num,ncnf_bundles,ch_per_cnf,glycan_list,outfname,molname):
     atom.append([3, "P3", "CELL", "R3", 0, 72])
     atom.append([4, "SN4", "CELL", "S4", 0, 54])
     atom.append([5, "SN4a", "CELL", "A1", 0, 54]) # Acetylation - Check params
+    atom.append([6, "SN4a", "CELL", "A2", 0, 54]) # Acetylation - Check params
 
     bondIn = []
     bondIn.append([1, 4, 0.250, 14100])
@@ -185,6 +186,7 @@ def GLCB14(units_num,ncnf_bundles,ch_per_cnf,glycan_list,outfname,molname):
     bondIn.append([2, 4, 0.2570, 53200])
     bondIn.append([3, 4, 0.2730, 27000])
     bondIn.append([1, 5, 0.2730, 27000]) #check parameters
+    bondIn.append([5, 6, 0.2730, 27000]) #check parameters
 
     bondConnect = []
     bondConnect.append([2, 8, 0.267, 7500])
@@ -285,6 +287,7 @@ def GLCB14(units_num,ncnf_bundles,ch_per_cnf,glycan_list,outfname,molname):
                 for i in range(units_num):
                     glycan_index = i + (j-1)*units_num
                     bead_cnt += int(0.5*len(glycan_list[glycan_index])) 
+                    mon_index = j*units_num + i
                     if i == 0 and j == 0:
                         if len(glycan_list[glycan_index]) == 8:
                             for k in range(0,4):
@@ -298,13 +301,13 @@ def GLCB14(units_num,ncnf_bundles,ch_per_cnf,glycan_list,outfname,molname):
                     else:
                         if len(glycan_list[glycan_index]) == 8:
                             for k in range(0,4):
-                                mol.gets_bonds(i,bondIn[k],prev_chend_id,acet_flag[i-1],acet_flag[i-1])
+                                mol.gets_bonds(i,bondIn[k],prev_chend_id,acet_flag[mon_index-1],acet_flag[mon_index-1])
                         elif len(glycan_list[glycan_index]) == 10:
                             for k in range(0,5):
-                                mol.gets_bonds(i,bondIn[k],prev_chend_id,acet_flag[i-1],acet_flag[i-1]) 
+                                mol.gets_bonds(i,bondIn[k],prev_chend_id,acet_flag[mon_index-1],acet_flag[mon_index-1]) 
                         elif len(glycan_list[glycan_index]) == 12:
                             for k in range(0,6):
-                                mol.gets_bonds(i,bondIn[k],prev_chend_id,acet_flag[i-1],acet_flag[i-1]) 
+                                mol.gets_bonds(i,bondIn[k],prev_chend_id,acet_flag[mon_index-1],acet_flag[mon_index-1]) 
                 prev_chend_id += bead_cnt
 
         if bondConnect:
@@ -313,10 +316,11 @@ def GLCB14(units_num,ncnf_bundles,ch_per_cnf,glycan_list,outfname,molname):
                 bead_cnt = 0
                 for row in bondConnect:
                     for i in range(units_num - 1):
+                        mon_index = i + j*units_num
                         if i == 0 and j == 0:
-                            mol.gets_bonds(i, row, prev_chend_id, 0, acet_flag[i])
+                            mol.gets_bonds(i, row, prev_chend_id, 0, acet_flag[mon_index])
                         else:
-                            mol.gets_bonds(i, row, prev_chend_id, acet_flag[i-1],acet_flag[i])
+                            mol.gets_bonds(i, row, prev_chend_id, acet_flag[mon_index-1],acet_flag[mon_index])
                 prev_chend_id += bead_cnt
 
         if angleIn:
