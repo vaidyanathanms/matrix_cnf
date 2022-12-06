@@ -177,8 +177,8 @@ def GLCB14(units_num,ncnf_bundles,ch_per_cnf,glycan_list,outfname,molname):
     atom.append([2, "TN4", "CELL", "T2", 0, 36])
     atom.append([3, "P3", "CELL", "R3", 0, 72])
     atom.append([4, "SN4", "CELL", "S4", 0, 54])
-    atom.append([5, "SN4a", "CELL", "A1", 0, 54]) # Acetylation - Check params
-    atom.append([6, "SN4a", "CELL", "A2", 0, 54]) # Acetylation - Check params
+    atom.append([5, "SN4a", "CELL", "A1", 0, 54]) 
+    atom.append([6, "TC1", "CELL", "A2", 0, 54]) 
 
     bondIn = []
     bondIn.append([1, 4, 0.250, 14100])
@@ -196,7 +196,8 @@ def GLCB14(units_num,ncnf_bundles,ch_per_cnf,glycan_list,outfname,molname):
     angleIn = []
     angleIn.append([1, 4, 2, 2, 91, 220])
     angleIn.append([1, 4, 3, 10, 143, 159])
-    angleIn.append([5, 1, 4, 10, 143, 159]) #check parameters
+    angleIn.append([5, 1, 4, 2, 100, 35]) # taken from DPMG lipid for P1-P1-Na martini_v2.0_lipids_all_201506.itp file 
+    angleIn.append([6, 5, 1, 2, 180, 25]) # taken from LPC (IPC) lipid for P1-Na-C1 martini_v2.0_lipids_all_201506.itp file
 
     angleConnect = []
     angleConnect.append([3, 2, 8, 2, 115, 245]) 
@@ -219,14 +220,14 @@ def GLCB14(units_num,ncnf_bundles,ch_per_cnf,glycan_list,outfname,molname):
 
     mol = Polysaccharide(name, at)
 
-    acet_flag   = []; acet_cnt = 0
     prev_chend_id = 0 #keeps track of number of beads in a given chain 
     for j in range(ncnf_bundles*ch_per_cnf):
         bead_cnt = 0
+        acet_flag   = []; acet_cnt = 0
         for i in range(units_num): #units_num is same as nresidues or nmons
-            glycan_index = i + (j-1)*units_num
+            glycan_index = i + (j*units_num)
             bead_cnt += int(0.5*len(glycan_list[glycan_index])) #0.5 for 2 ids per bead
-            if i == 0 and j == 0: #flag for first monomer is zero
+            if i == 0: #flag for first monomer is zero
                 if len(glycan_list[glycan_index]) == 8:
                     acet_flag.append(acet_cnt)
                     for k in range(0,4):
@@ -279,114 +280,349 @@ def GLCB14(units_num,ncnf_bundles,ch_per_cnf,glycan_list,outfname,molname):
                     raise RuntimeError("More than 5 atoms in glycan for "\
                                        + str(glycan_index))
         prev_chend_id += bead_cnt
-
-        if bondIn:
+    if bondIn:
             prev_chend_id = 0
-            for j in range(ncnf_bundles*ch_per_cnf):
+            for j in range(0, ncnf_bundles*ch_per_cnf):
                 bead_cnt = 0
+                acet_flag   = []; acet_cnt = 0
                 for i in range(units_num):
-                    glycan_index = i + (j-1)*units_num
-                    bead_cnt += int(0.5*len(glycan_list[glycan_index])) 
-                    mon_index = j*units_num + i
-                    if i == 0 and j == 0:
+                    glycan_index = i + (j*units_num)
+                    bead_cnt += int(0.5*len(glycan_list[glycan_index]))
+                    if i == 0:
                         if len(glycan_list[glycan_index]) == 8:
+                            acet_flag.append(acet_cnt)
                             for k in range(0,4):
                                 mol.gets_bonds(i,bondIn[k],prev_chend_id,0,0)
                         elif len(glycan_list[glycan_index]) == 10:
+                            acet_cnt += 1
+                            acet_flag.append(acet_cnt)
                             for k in range(0,5):
                                 mol.gets_bonds(i,bondIn[k],prev_chend_id,0,0)
                         elif len(glycan_list[glycan_index]) == 12:
+                            acet_cnt += 2
+                            acet_flag.append(acet_cnt)
                             for k in range(0,6):
                                 mol.gets_bonds(i,bondIn[k],prev_chend_id,0,0)
                     else:
                         if len(glycan_list[glycan_index]) == 8:
+                            acet_flag.append(acet_cnt)
                             for k in range(0,4):
-                                mol.gets_bonds(i,bondIn[k],prev_chend_id,acet_flag[mon_index-1],acet_flag[mon_index-1])
+                                mol.gets_bonds(i,bondIn[k],prev_chend_id,acet_flag[i-1],acet_flag[i-1])
                         elif len(glycan_list[glycan_index]) == 10:
+                            acet_cnt += 1
+                            acet_flag.append(acet_cnt)
                             for k in range(0,5):
-                                mol.gets_bonds(i,bondIn[k],prev_chend_id,acet_flag[mon_index-1],acet_flag[mon_index-1]) 
+                                mol.gets_bonds(i,bondIn[k],prev_chend_id,acet_flag[i-1],acet_flag[i-1])
                         elif len(glycan_list[glycan_index]) == 12:
+                            acet_cnt += 2
+                            acet_flag.append(acet_cnt)
                             for k in range(0,6):
-                                mol.gets_bonds(i,bondIn[k],prev_chend_id,acet_flag[mon_index-1],acet_flag[mon_index-1]) 
-                prev_chend_id += bead_cnt
-
-        if bondConnect:
-            prev_chend_id = 0
-            for j in range(ncnf_bundles*ch_per_cnf):
-                bead_cnt = 0
-                for row in bondConnect:
-                    for i in range(units_num - 1):
-                        mon_index = i + j*units_num
-                        if i == 0 and j == 0:
-                            mol.gets_bonds(i, row, prev_chend_id, 0, acet_flag[mon_index])
-                        else:
-                            mol.gets_bonds(i, row, prev_chend_id, acet_flag[mon_index-1],acet_flag[mon_index])
-                prev_chend_id += bead_cnt
+                                mol.gets_bonds(i,bondIn[k],prev_chend_id,acet_flag[i-1],acet_flag[i-1])
+                prev_chend_id += bead_cnt   
+    if bondConnect:
+        prev_chend_id = 0
+        for j in range(ncnf_bundles*ch_per_cnf):
+            bead_cnt = 0
+            acet_flag   = []; acet_cnt = 0
+            for i in range(units_num):
+                glycan_index = i + (j*units_num)
+                bead_cnt += int(0.5*len(glycan_list[glycan_index]))
+                if i == 0:
+                    if i != units_num - 1:
+                        if len(glycan_list[glycan_index]) == 8:
+                            acet_flag.append(acet_cnt)                        
+                            for row in bondConnect:
+                                mol.gets_bonds(i, row, prev_chend_id, 0, acet_flag[i])
+                        elif len(glycan_list[glycan_index]) == 10:
+                            acet_cnt += 1
+                            acet_flag.append(acet_cnt)
+                            for row in bondConnect:
+                                mol.gets_bonds(i, row, prev_chend_id, 0, acet_flag[i])
+                        elif len(glycan_list[glycan_index]) == 12:
+                            acet_cnt += 2
+                            acet_flag.append(acet_cnt)
+                            for row in bondConnect:
+                                mol.gets_bonds(i, row, prev_chend_id, 0, acet_flag[i])
+                else:
+                    if i != units_num - 1:
+                        if len(glycan_list[glycan_index]) == 8:
+                            acet_flag.append(acet_cnt)
+                            for row in bondConnect:
+                                mol.gets_bonds(i, row, prev_chend_id, acet_flag[i-1],acet_flag[i])
+                        elif len(glycan_list[glycan_index]) == 10:
+                            acet_cnt += 1
+                            acet_flag.append(acet_cnt)
+                            for row in bondConnect:
+                                mol.gets_bonds(i, row, prev_chend_id, acet_flag[i-1], acet_flag[i])
+                        elif len(glycan_list[glycan_index]) == 12:
+                            acet_cnt += 2
+                            acet_flag.append(acet_cnt)
+                            for row in bondConnect:
+                                mol.gets_bonds(i, row, prev_chend_id, acet_flag[i-1], acet_flag[i])
+            prev_chend_id += bead_cnt
 
         if angleIn:
             prev_chend_id = 0
             for j in range(ncnf_bundles*ch_per_cnf):
                 bead_cnt = 0
+                acet_flag   = []; acet_cnt = 0
                 for i in range(units_num):
-                    glycan_index = i + (j-1)*units_num
+                    glycan_index = i + (j*units_num)
                     bead_cnt += int(0.5*len(glycan_list[glycan_index])) 
-                    if len(glycan_list[glycan_index]) == 8:
-                        for k in range(0,2):
-                            mol.gets_angles(i, angleIn[k], prev_chend_id,0,0,0)
-                    elif len(glycan_list[glycan_index]) == 10:
-                        for k in range(0,3):
-                            mol.gets_angles(i, angleIn[k], prev_chend_id,0,0,0)
-                    elif len(glycan_list[glycan_index]) == 12:
-                        for k in range(0,4):
-                            mol.gets_angles(i, angleIn[k], prev_chend_id,0,0,0)
+                    if i == 0:
+                        if len(glycan_list[glycan_index]) == 8:
+                             acet_flag.append(acet_cnt)
+                             for k in range(0,2):
+                                 mol.gets_angles(i, angleIn[k], prev_chend_id,0,0,0)
+                        elif len(glycan_list[glycan_index]) == 10:
+                             acet_cnt += 1
+                             acet_flag.append(acet_cnt)
+                             for k in range(0,3):
+                                 mol.gets_angles(i, angleIn[k], prev_chend_id,0,0,0)
+                        elif len(glycan_list[glycan_index]) == 12:
+                             acet_cnt += 2
+                             acet_flag.append(acet_cnt)
+                             for k in range(0,4):
+                                 mol.gets_angles(i, angleIn[k], prev_chend_id,0,0,0)
+                    else:     
+                       if len(glycan_list[glycan_index]) == 8:
+                           acet_flag.append(acet_cnt)
+                           for k in range(0,2):
+                               mol.gets_angles(i, angleIn[k], prev_chend_id,acet_flag[i-1],acet_flag[i-1],acet_flag[i-1])
+                       elif len(glycan_list[glycan_index]) == 10:
+                           acet_cnt += 1
+                           acet_flag.append(acet_cnt)
+                           for k in range(0,3):
+                               mol.gets_angles(i, angleIn[k], prev_chend_id,acet_flag[i-1],acet_flag[i-1],acet_flag[i-1])
+                       elif len(glycan_list[glycan_index]) == 12:
+                           acet_cnt += 2
+                           acet_flag.append(acet_cnt)
+                           for k in range(0,4):
+                               mol.gets_angles(i, angleIn[k], prev_chend_id,acet_flag[i-1],acet_flag[i-1],acet_flag[i-1])
                 prev_chend_id += bead_cnt
 
         if angleConnect:
-            for row in angleConnect:
-                for i in range(units_num-1):
-                    mol.gets_angles(i, row, prev_chend_id, 0, 0, 0) # CHECK
-
+            prev_chend_id = 0
+            for j in range(ncnf_bundles*ch_per_cnf):
+                bead_cnt = 0
+                acet_flag   = []; acet_cnt = 0
+                for i in range(units_num):
+                    glycan_index = i + j*units_num
+                    bead_cnt += int(0.5*len(glycan_list[glycan_index]))
+                    if i == 0:
+                        if i != units_num - 1:
+                            if len(glycan_list[glycan_index]) == 8:
+                                acet_flag.append(acet_cnt)
+                                for row in angleConnect:
+                                    if row[2] > row[1]: 
+                                        mol.gets_angles(i, row, prev_chend_id,0,0,acet_flag[i])
+                                    else:
+                                        mol.gets_angles(i, row, prev_chend_id,0,acet_flag[i],acet_flag[i])
+                            elif len(glycan_list[glycan_index]) == 10:
+                                acet_cnt += 1
+                                acet_flag.append(acet_cnt) 
+                                for row in angleConnect:
+                                    if row[2] > row[1]: 
+                                        mol.gets_angles(i, row, prev_chend_id,0,0,acet_flag[i])
+                                    else:
+                                        mol.gets_angles(i, row, prev_chend_id,0,acet_flag[i],acet_flag[i])
+                            elif len(glycan_list[glycan_index]) == 12:
+                                acet_cnt += 2
+                                acet_flag.append(acet_cnt)
+                                for row in angleConnect:
+                                    if row[2] > row[1]:
+                                        mol.gets_angles(i, row, prev_chend_id,0,0,acet_flag[i])
+                                    else:
+                                        mol.gets_angles(i, row, prev_chend_id,0,acet_flag[i],acet_flag[i])
+                    else:
+                        if i != units_num - 1:
+                            if len(glycan_list[glycan_index]) == 8:
+                                acet_flag.append(acet_cnt)
+                                for row in angleConnect:
+                                    if row[2] > row[1]: 
+                                        mol.gets_angles(i, row, prev_chend_id,acet_flag[i-1],acet_flag[i-1],acet_flag[i])
+                                    else:
+                                        mol.gets_angles(i, row, prev_chend_id,acet_flag[i-1],acet_flag[i],acet_flag[i])
+                            elif len(glycan_list[glycan_index]) == 10:
+                                acet_cnt += 1
+                                acet_flag.append(acet_cnt)
+                                for row in angleConnect:
+                                    if row[2] > row[1]:
+                                        mol.gets_angles(i, row, prev_chend_id,acet_flag[i-1],acet_flag[i-1],acet_flag[i])
+                                    else:
+                                        mol.gets_angles(i, row, prev_chend_id,acet_flag[i-1],acet_flag[i],acet_flag[i])
+                            elif len(glycan_list[glycan_index]) == 12:
+                                acet_cnt += 2
+                                acet_flag.append(acet_cnt)
+                                for row in angleConnect:
+                                    if row[2] > row[1]:
+                                        mol.gets_angles(i, row, prev_chend_id,acet_flag[i-1],acet_flag[i-1],acet_flag[i])
+                                    else:
+                                        mol.gets_angles(i, row, prev_chend_id,acet_flag[i-1],acet_flag[i],acet_flag[i])
+                prev_chend_id += bead_cnt
         if dihIn:
             prev_chend_id = 0
             for j in range(ncnf_bundles*ch_per_cnf):
                 bead_cnt = 0
+                acet_flag   = []; acet_cnt = 0
                 for i in range(units_num):
-                    glycan_index = i + (j-1)*units_num
-                    bead_cnt += int(0.5*len(glycan_list[glycan_index])) 
-                    if len(glycan_list[glycan_index]) == 8:
-                        for k in range(len(dihIn)-1):
-                            mol.gets_dihedrals(i, dihIn[k], prev_chend_id,0,0,0,0)
-                    elif len(glycan_list[glycan_index]) == 10:
-                        for k in range(len(dihIn)):
-                            mol.gets_dihedrals(i, dihIn[k], prev_chend_id,0,0,0,0)
+                    glycan_index = i + (j*units_num)
+                    bead_cnt += int(0.5*len(glycan_list[glycan_index]))
+                    if i == 0:  
+                        if len(glycan_list[glycan_index]) == 8:
+                            acet_flag.append(acet_cnt)
+                            for k in range(len(dihIn)):
+                                mol.gets_dihedrals(i, dihIn[k], prev_chend_id,0,0,0,0)
+                        elif len(glycan_list[glycan_index]) == 10:
+                            acet_cnt += 1
+                            acet_flag.append(acet_cnt)
+                            for k in range(len(dihIn)):
+                                mol.gets_dihedrals(i, dihIn[k], prev_chend_id,0,0,0,0)
+                        elif len(glycan_list[glycan_index]) == 12:
+                            acet_cnt += 2
+                            acet_flag.append(acet_cnt)
+                            for k in range(len(dihIn)):
+                                mol.gets_dihedrals(i, dihIn[k], prev_chend_id,0,0,0,0)
+                    else:
+                        if len(glycan_list[glycan_index]) == 8:
+                            acet_flag.append(acet_cnt)
+                            for k in range(len(dihIn)):
+                                mol.gets_dihedrals(i, dihIn[k], prev_chend_id,acet_flag[i-1],acet_flag[i-1],acet_flag[i-1],acet_flag[i-1])
+                        elif len(glycan_list[glycan_index]) == 10:
+                            acet_cnt += 1
+                            acet_flag.append(acet_cnt)
+                            for k in range(len(dihIn)):
+                                mol.gets_dihedrals(i, dihIn[k], prev_chend_id,acet_flag[i-1],acet_flag[i-1],acet_flag[i-1],acet_flag[i-1])
+                        elif len(glycan_list[glycan_index]) == 12:
+                            acet_cnt += 2
+                            acet_flag.append(acet_cnt)
+                            for k in range(len(dihIn)):
+                                mol.gets_dihedrals(i, dihIn[k], prev_chend_id,acet_flag[i-1],acet_flag[i-1],acet_flag[i-1],acet_flag[i-1])
                 prev_chend_id += bead_cnt
-
         if dihConnect:
-            for row in dihConnect:
-                for i in range(units_num-1):
-                    mol.gets_dihedrals(i, row, prev_chend_id, 0, 0, 0, 0) #CHECK
+            prev_chend_id = 0
+            for j in range(ncnf_bundles*ch_per_cnf):
+                bead_cnt = 0
+                acet_flag   = []; acet_cnt = 0
+                for i in range(units_num):
+                   glycan_index = i + j*units_num
+                   bead_cnt += int(0.5*len(glycan_list[glycan_index]))
+                   if i == 0:   
+                      if i != units_num - 1:
+                         if len(glycan_list[glycan_index]) == 8:
+                             acet_flag.append(acet_cnt)
+                             for row in dihConnect:
+                                 mol.gets_dihedrals(i, row, prev_chend_id, 0, 0, acet_flag[i], acet_flag[i]) 
+                         elif len(glycan_list[glycan_index]) == 10:
+                             acet_cnt += 1
+                             acet_flag.append(acet_cnt)
+                             for row in dihConnect:
+                                 mol.gets_dihedrals(i, row, prev_chend_id, 0, 0, acet_flag[i], acet_flag[i])
+                         elif len(glycan_list[glycan_index]) == 12:
+                             acet_cnt += 2
+                             acet_flag.append(acet_cnt)
+                             for row in dihConnect:
+                                 mol.gets_dihedrals(i, row, prev_chend_id, 0, 0, acet_flag[i], acet_flag[i])
+
+                   else:
+                      if i != units_num - 1:
+                         if len(glycan_list[glycan_index]) == 8:
+                             acet_flag.append(acet_cnt)
+                             for row in dihConnect:
+                                 mol.gets_dihedrals(i, row, prev_chend_id, acet_flag[i-1], acet_flag[i-1], acet_flag[i], acet_flag[i])
+                         elif len(glycan_list[glycan_index]) == 10:
+                             acet_cnt += 1
+                             acet_flag.append(acet_cnt)
+                             for row in dihConnect:
+                                 mol.gets_dihedrals(i, row, prev_chend_id, acet_flag[i-1], acet_flag[i-1], acet_flag[i], acet_flag[i])
+                         elif len(glycan_list[glycan_index]) == 12:
+                             acet_cnt += 2
+                             acet_flag.append(acet_cnt)
+                             for row in dihConnect:
+                                 mol.gets_dihedrals(i, row, prev_chend_id, acet_flag[i-1], acet_flag[i-1], acet_flag[i], acet_flag[i])
+
+                prev_chend_id += bead_cnt 
 
         if improperIn:
             prev_chend_id = 0
             for j in range(ncnf_bundles*ch_per_cnf):
                 bead_cnt = 0
-                for i in range(units_num):
-                    glycan_index = i + (j-1)*units_num
+                acet_flag   = []; acet_cnt = 0
+                for i in range(0, units_num): # impropers within beads are present only for 1st monomer as given in carbo2martini3.py
+                    glycan_index = i + (j*units_num)
                     bead_cnt += int(0.5*len(glycan_list[glycan_index])) 
-                    if len(glycan_list[glycan_index]) == 8:
-                        for k in range(len(improperIn)-1):
-                            mol.gets_impropers(i, improperIn[k], prev_chend_id,0,0,0,0)
-                    elif len(glycan_list[glycan_index]) == 10:
-                        for k in range(len(improperIn)):
-                            mol.gets_impropers(i, improperIn[k], prev_chend_id,0,0,0,0)
+                    if i == 0:
+                        if len(glycan_list[glycan_index]) == 8:
+                            acet_flag.append(acet_cnt)
+                            for row in improperIn:    
+                                mol.gets_impropers(i, row, prev_chend_id,acet_flag[i-1],acet_flag[i-1],acet_flag[i-1],acet_flag[i-1])
+                        elif len(glycan_list[glycan_index]) == 10:
+                            acet_cnt += 1
+                            acet_flag.append(acet_cnt)
+                            for row in improperIn:    
+                                mol.gets_impropers(i, row, prev_chend_id,acet_flag[i-1],acet_flag[i-1],acet_flag[i-1],acet_flag[i-1])
+                        elif len(glycan_list[glycan_index]) == 12:
+                            acet_cnt += 2
+                            acet_flag.append(acet_cnt)
+                            for row in improperIn:
+                                mol.gets_impropers(i, row, prev_chend_id,acet_flag[i-1],acet_flag[i-1],acet_flag[i-1],acet_flag[i-1])
                 prev_chend_id += bead_cnt
 
         if improperConnect:
-            for row in improperConnect:
-                for i in range(units_num-1):
-                    mol.gets_impropers(i, row, prev_chend_id, 0, 0, 0, 0) #CHECK
+            prev_chend_id = 0
+            for j in range(ncnf_bundles*ch_per_cnf):
+                bead_cnt = 0
+                acet_flag   = []; acet_cnt = 0
+                for i in range(units_num):
+                    glycan_index = i + j*units_num
+                    bead_cnt += int(0.5*len(glycan_list[glycan_index])) 
+                    for row in improperConnect:
+                        if i == 0:
+                            if i != units_num - 1:
+                                if len(glycan_list[glycan_index]) == 8:
+                                    acet_flag.append(acet_cnt)
+                                    if row[0] < row[2]:
+                                        mol.gets_impropers(i, row, prev_chend_id,0,0,acet_flag[i],0)
+                                    else:
+                                        mol.gets_impropers(i, row, prev_chend_id,acet_flag[i],0,acet_flag[i],acet_flag[i]) 
+                                elif len(glycan_list[glycan_index]) == 8:
+                                    acet_cnt += 1
+                                    acet_flag.append(acet_cnt)
+                                    if row[0] < row[2]:
+                                        mol.gets_impropers(i, row, prev_chend_id,0,0,acet_flag[i],0)
+                                    else:
+                                        mol.gets_impropers(i, row, prev_chend_id,acet_flag[i],0,acet_flag[i],acet_flag[i])
+                                elif len(glycan_list[glycan_index]) == 8:
+                                    acet_cnt += 2
+                                    acet_flag.append(acet_cnt)
+                                    if row[0] < row[2]:
+                                        mol.gets_impropers(i, row, prev_chend_id,0,0,acet_flag[i],0)
+                                    else:
+                                        mol.gets_impropers(i, row, prev_chend_id,acet_flag[i],0,acet_flag[i],acet_flag[i])
 
-    
+                        else:
+                            if i != units_num - 1:
+                                if len(glycan_list[glycan_index]) == 8:
+                                    acet_flag.append(acet_cnt)
+                                    if row[0] < row[2]:
+                                        mol.gets_impropers(i, row, prev_chend_id,acet_flag[i-1],acet_flag[i-1],acet_flag[i],acet_flag[i-1])
+                                    else:
+                                        mol.gets_impropers(i, row, prev_chend_id,acet_flag[i],acet_flag[i-1],acet_flag[i],acet_flag[i])
+                                elif len(glycan_list[glycan_index]) == 8:
+                                    acet_cnt += 1
+                                    acet_flag.append(acet_cnt)
+                                    if row[0] < row[2]:
+                                        mol.gets_impropers(i, row, prev_chend_id,acet_flag[i-1],acet_flag[i-1],acet_flag[i],acet_flag[i-1])
+                                    else:
+                                        mol.gets_impropers(i, row, prev_chend_id,acet_flag[i],acet_flag[i-1],acet_flag[i],acet_flag[i])
+                                elif len(glycan_list[glycan_index]) == 8:
+                                    acet_cnt += 2
+                                    acet_flag.append(acet_cnt)
+                                    if row[0] < row[2]:
+                                        mol.gets_impropers(i, row, prev_chend_id,acet_flag[i-1],acet_flag[i-1],acet_flag[i],acet_flag[i-1])
+                                    else:
+                                        mol.gets_impropers(i, row, prev_chend_id,acet_flag[i],acet_flag[i-1],acet_flag[i],acet_flag[i])
+                prev_chend_id += bead_cnt
     mol.writeTop(outfname,molname)
 #----------------------------------------------------------------------------------
 # if __name__
