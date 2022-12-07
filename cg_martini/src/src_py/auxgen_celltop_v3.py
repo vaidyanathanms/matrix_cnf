@@ -19,7 +19,7 @@ import subprocess
 """
 A general definition of the single residue, common for all polysaccharides
 
-    1
+    1 -- 5 -- 6 
    /
   4 - 2
   \   /
@@ -83,8 +83,6 @@ class Polysaccharide:
 
         headTop = """
 ; Generated using carbo2martini.py and gen_top.py
-#include "martini_v3.0.0.itp"
-#include "martini_v3.0.0_solvents_v1.itp"
         """
 
         headMoleculetype = """
@@ -151,14 +149,14 @@ class Polysaccharide:
         footerTop = """
 [ system ]
 ; Name
-Combined
-        
+UNNAMED
+
 [ molecules ]
 ; Compound        #mols
 %-16s             1
 """
 
-        topText.append(footerTop % molName)
+        #topText.append(footerTop % molName)
 
         fileName = fname + ".top"
         topFile = open(fileName, "w")
@@ -272,9 +270,9 @@ def GLCB14(units_num,ncnf_bundles,ch_per_cnf,glycan_list,outfname,molname):
                     for k in range(0,6):
                         mol.gets_atoms(i,atom[k],prev_chend_id,acet_flag[i-1])
                     if i == units_num-1: #Changes to end monomers 
-                        mol.atoms[-4][1] = "SN4"
-                        mol.atoms[-4][4] = "S2"
-                        mol.atoms[-4][7] = 54
+                        mol.atoms[-5][1] = "SN4"
+                        mol.atoms[-5][4] = "S2"
+                        mol.atoms[-5][7] = 54
                 else:
                     print(glycan_list[glycan_index])
                     raise RuntimeError("More than 5 atoms in glycan for "\
