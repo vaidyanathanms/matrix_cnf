@@ -183,8 +183,8 @@ def GLCB14(units_num,ncnf_bundles,ch_per_cnf,glycan_list,outfname,molname):
     bondIn.append([2, 3, 0.2680, 37500])
     bondIn.append([2, 4, 0.2570, 53200])
     bondIn.append([3, 4, 0.2730, 27000])
-    bondIn.append([1, 5, 0.2730, 27000]) #check parameters
-    bondIn.append([5, 6, 0.2730, 27000]) #check parameters
+    bondIn.append([1, 5, 0.4000, 30000]) # based on Martini 2.0 P1-Na
+    bondIn.append([5, 6, 0.3100, 7000])  # based on Martini 3.0 SN4a-TC3 of ETA from martini_v3.0.0_solvents_v1.itp 
 
     bondConnect = []
     bondConnect.append([2, 8, 0.267, 7500])
