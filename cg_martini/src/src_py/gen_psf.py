@@ -12,7 +12,10 @@ import shutil
 import glob
 import math
 import subprocess
-from auxgen_top import *
+from auxgen_polytop import *
+from auxgen_psf import *
+#from auxgen_celltop_v2 import *
+#from auxgen_celltop_v3 import *
 
 #----Read input file - matrix/filename,ncnf_fibers,acetfrac-----------
 ch_per_cnf   = 18 # default
@@ -42,7 +45,7 @@ if len(sys.argv) > 5 :
    print('Input file name for cellulose CG: ',sys.argv[4])
    #-----Process input data - Cellulose/Acetylated Cellulose-----------
    fname    = str(sys.argv[4]) # Coarse-grained file
-   ncnf     = int(sys.argv[5]) # num of cellulose bundles
+   ncnf     = int(sys.argv[5]) # num of cellulose chain in a bundle
    acetfrac = float(sys.argv[6]) # acetylated fraction
    cell_dp  = int(sys.argv[7]) # degree of polymerization of cellulose
 
@@ -61,9 +64,8 @@ if len(sys.argv) > 5 :
            raise RuntimeError(f + ' not found in path!')
    
        #-----Generate log file---------------------------------------------
-       fout = gen_logfile(f,ncnf,acetfrac,cell_dp,ch_per_cnf)
+       #fout = gen_logfile(f,ncnf,acetfrac,cell_dp,ch_per_cnf)
        residarr,resnamearr,aidarr,anamearr,rxarr,ryarr,rzarr,massarr = read_gro_file(f) # read only cellulose gro file
-       
        #-----Generate bead list--------------------------------------------
        glycan_list = create_martini_beads(cell_dp,ncnf,ch_per_cnf,residarr,\
                                           aidarr,anamearr)
@@ -81,7 +83,7 @@ if len(sys.argv) > 5 :
    for i in range(0, len(atom_list)):
        natoms += len(atom_list[i]) 
    polymer_start_index = natoms 
-   new_bond_list = renumber_poly_beads(fbnd, nmons, nchains, polymer_start_index, bo_list, new_bond_list)
+   new_bond_list = renumber_poly_beads(fbnd, len(at_list), nchains, polymer_start_index, bo_list, new_bond_list)
 else:
    new_bond_list = []
    polymer_start_index = 0
